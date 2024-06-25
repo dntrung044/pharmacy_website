@@ -15,11 +15,15 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $product = Product::with('category')->find($id);
+        $product = Product::with('category', 'reviews', 'images', 'sizes')->find($id);
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
         }
-        return response()->json($product);
+        // $review_user = $product->reviews->user;
+        return response()->json([
+            'product' => $product,
+            // 'review_user' => $review_user
+        ]);
     }
 
     public function store(Request $request)
