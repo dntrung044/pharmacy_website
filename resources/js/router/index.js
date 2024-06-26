@@ -21,7 +21,11 @@ const routes = [
         component: ProductDetail,
         props: true
     },
-
+    {
+        name: 'Cart',
+        path: '/cart',
+        component: ProductList,
+    },
 ];
 
 const router = createRouter({

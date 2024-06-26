@@ -58,14 +58,6 @@
     <!-- SPECIFIC SCRIPTS -->
     <script src="{{ asset('js/specific_shop.js') }}"></script>
     <script src="{{ asset('js/sticky_sidebar.min.js') }}"></script>
-    <script>
-        // Sticky sidebar
-        $('#sidebar_fixed').theiaStickySidebar({
-            minWidth: 991,
-            updateSidebarHeight: true,
-            additionalMarginTop: 90
-        });
-    </script>
     @vite('resources/js/app.js')
     < /body>
         < /html>

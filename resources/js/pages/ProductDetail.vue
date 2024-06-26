@@ -23,14 +23,19 @@
 
             <div class="container margin_60_40">
                 <div class="row">
-                    <div class="col-lg-6 magnific-gallery">
-                        <p v-for="image in product.images" :key="image.id">
+                    <div class="col-lg-6">
+                        <p
+                            v-for="image in product.images"
+                            :key="image.id"
+                            @change="previewFiles($event)"
+                        >
                             <a
                                 :href="image.url"
                                 :title="image.name"
                                 data-effect="mfp-zoom-in"
                             >
                                 <img
+                                    style="width: 600px; height: 600px"
                                     :src="image.url"
                                     :alt="image.name"
                                     class="img-fluid"
@@ -38,7 +43,13 @@
                             </a>
                         </p>
                     </div>
-                    <div class="col-lg-6" id="sidebar_fixed">
+
+                    <Vue3StickySidebar
+                        class="sidebar col-lg-6"
+                        containerSelector=".container"
+                        innerWrapperSelector=".sidebar__inner"
+                    >
+                        <!-- <div class="" id="sidebar_fixed" ref="sidebar"> -->
                         <div class="prod_info">
                             <span
                                 class="rating"
@@ -77,18 +88,24 @@
                                         class="col-xl-4 col-lg-5 col-md-6 col-6"
                                     >
                                         <div class="custom-select-form">
-                                            <select
-                                                class="wide"
+                                            <el-select
                                                 v-model="selectedSize"
+                                                placeholder="Select size"
+                                                @change="updatePrice"
                                             >
-                                                <option
+                                                <el-option
                                                     v-for="size in product.sizes"
-                                                    :key="size"
+                                                    :key="size.id"
+                                                    :label="
+                                                        size.name +
+                                                        ' + (' +
+                                                        size.increases +
+                                                        'đ)'
+                                                    "
                                                     :value="size"
                                                 >
-                                                    {{ size.name }}
-                                                </option>
-                                            </select>
+                                                </el-option>
+                                            </el-select>
                                         </div>
                                     </div>
                                 </div>
@@ -97,18 +114,11 @@
                                         class="col-xl-5 col-lg-5 col-md-6 col-6"
                                         ><strong>SỐ LƯỢNG</strong></label
                                     >
+
                                     <div
                                         class="col-xl-4 col-lg-5 col-md-6 col-6"
                                     >
-                                        <div class="numbers-row">
-                                            <input
-                                                type="number"
-                                                v-model.number="quantity"
-                                                class="qty2"
-                                                name="quantity"
-                                                min="1"
-                                            />
-                                        </div>
+                                        <Incrementer />
                                     </div>
                                 </div>
                             </div>
@@ -116,11 +126,7 @@
                                 <div class="col-lg-5 col-md-6">
                                     <div class="price_main">
                                         <span class="new_price"
-                                            >{{
-                                                product.price_sale
-                                                    | product.price
-                                            }}
-                                            đ</span
+                                            >{{ calculatedPrice }}đ</span
                                         >
                                         <span
                                             v-if="product.price"
@@ -144,13 +150,13 @@
                                             @click="addToCart"
                                             class="btn_1"
                                         >
-                                            Add to Cart
+                                            Thêm vào giỏ hàng
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </Vue3StickySidebar>
                 </div>
             </div>
 
@@ -328,18 +334,26 @@
 <script>
 import Layout from "../layouts/Index.vue";
 import axios from "axios";
+import Vue3StickySidebar from "vue3-sticky-sidebar";
+import Incrementer from "../components/Incrementer.vue";
+import { ElSelect, ElOption, ElMessage } from "element-plus";
 
 export default {
     name: "ProductDetail",
     components: {
         Layout,
+        Vue3StickySidebar,
+        Incrementer,
+        ElSelect,
+        ElOption,
     },
     props: ["id"],
     data() {
         return {
             product: {},
             selectedSize: null,
-            quantity: 1,
+            calculatedPrice: 0,
+            cart: [],
         };
     },
     computed: {
@@ -351,6 +365,13 @@ export default {
                     100
             );
         },
+        sizeOptions() {
+            // Prepare options for NiceSelect
+            return this.product.sizes.map((size) => ({
+                text: size.name,
+                value: size,
+            }));
+        },
     },
     mounted() {
         this.fetchProduct();
@@ -361,10 +382,9 @@ export default {
                 .get(`/api/products/${this.id}`)
                 .then((response) => {
                     this.product = response.data.product;
-                    this.selectedSize = this.product.sizes
-                        ? this.product.sizes[0]
-                        : null;
-                    console.log("data", this.product);
+                    this.selectedSize = this.product.sizes[0];
+                    this.updatePrice();
+                    console.log("dt", response.data.product);
                 })
                 .catch((error) => {
                     console.error(
@@ -373,13 +393,33 @@ export default {
                     );
                 });
         },
+        updatePrice() {
+            this.calculatedPrice =
+                (this.product.price_sale || this.product.price) +
+                parseFloat(this.selectedSize.increases);
+        },
+
         addToCart() {
-            // Implement add to cart functionality here
+            let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+            let existingItem = cart.find(
+                (item) => item.productId === this.product.id
+            );
+
+            if (existingItem) {
+                existingItem.quantity += this.quantity;
+            } else {
+                cart.push({
+                    productId: this.product.id,
+                    name: this.product.name,
+                    price: this.calculatedPrice,
+                    quantity: this.quantity,
+                });
+            }
+
+            sessionStorage.setItem("cart", JSON.stringify(cart));
+
+            ElMessage.success("Sản phẩm đã được thêm vào giỏ hàng!");
         },
     },
 };
 </script>
-
-<style scoped>
-/* Add any relevant styles here */
-</style>
