@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoriesController;
+use App\Http\Controllers\CartController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -26,4 +27,7 @@ Route::prefix('product_categories')->group(function () {
     Route::post('/', [ProductCategoriesController::class, 'store']);
     Route::put('/{id}', [ProductCategoriesController::class, 'update']);
     Route::delete('/{id}', [ProductCategoriesController::class, 'destroy']);
+});
+Route::prefix('carts')->group(function () {
+    Route::get('/products_in_cart', [CartController::class, 'getProductDetails']);
 });

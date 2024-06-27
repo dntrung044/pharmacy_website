@@ -49,7 +49,6 @@
                         containerSelector=".container"
                         innerWrapperSelector=".sidebar__inner"
                     >
-                        <!-- <div class="" id="sidebar_fixed" ref="sidebar"> -->
                         <div class="prod_info">
                             <span
                                 class="rating"
@@ -70,15 +69,21 @@
                                             ),
                                     }"
                                 ></i>
-                                <em>
-                                    {{ product.reviews?.length || 0 }}
-                                    Đánh giá</em
+                                <em
+                                    >{{ product.reviews?.length || 0 }} Đánh
+                                    giá</em
                                 >
                             </span>
                             <h1>{{ product.name }}</h1>
                             <p>{{ product.content }}</p>
                             <div class="prod_options">
-                                <div class="row" v-if="product.sizes">
+                                <div
+                                    class="row"
+                                    v-if="
+                                        product.sizes &&
+                                        product.sizes.length > 0
+                                    "
+                                >
                                     <label
                                         class="col-xl-5 col-lg-5 col-md-6 col-6"
                                         ><strong>Chọn size </strong>(bắt
@@ -90,7 +95,6 @@
                                         <div class="custom-select-form">
                                             <el-select
                                                 v-model="selectedSize"
-                                                placeholder="Select size"
                                                 @change="updatePrice"
                                             >
                                                 <el-option
@@ -103,8 +107,7 @@
                                                         'đ)'
                                                     "
                                                     :value="size"
-                                                >
-                                                </el-option>
+                                                ></el-option>
                                             </el-select>
                                         </div>
                                     </div>
@@ -114,11 +117,10 @@
                                         class="col-xl-5 col-lg-5 col-md-6 col-6"
                                         ><strong>SỐ LƯỢNG</strong></label
                                     >
-
                                     <div
                                         class="col-xl-4 col-lg-5 col-md-6 col-6"
                                     >
-                                        <Incrementer />
+                                        <Incrementer v-model="quantity" />
                                     </div>
                                 </div>
                             </div>
@@ -227,17 +229,8 @@
                                                     class="table table-sm table-striped"
                                                 >
                                                     <tbody>
-                                                        <!-- <tr
-                                                            v-for="(
-                                                                value, key
-                                                            ) in product.specifications"
-                                                            :key="key"
-                                                        >
-                                                            <td>
-                                                                <strong>{{
-                                                                    key
-                                                                }}</strong>
-                                                            </td>
+                                                        <!-- <tr v-for="(value, key) in product.specifications" :key="key">
+                                                            <td><strong>{{ key }}</strong></td>
                                                             <td>{{ value }}</td>
                                                         </tr> -->
                                                     </tbody>
@@ -337,6 +330,7 @@ import axios from "axios";
 import Vue3StickySidebar from "vue3-sticky-sidebar";
 import Incrementer from "../components/Incrementer.vue";
 import { ElSelect, ElOption, ElMessage } from "element-plus";
+import { useCartStore } from "../stores/cart";
 
 export default {
     name: "ProductDetail",
@@ -351,9 +345,11 @@ export default {
     data() {
         return {
             product: {},
-            selectedSize: null,
+            selectedSize: {
+                increases: 0,
+            },
             calculatedPrice: 0,
-            cart: [],
+            quantity: 2,
         };
     },
     computed: {
@@ -364,13 +360,6 @@ export default {
                     this.product.price) *
                     100
             );
-        },
-        sizeOptions() {
-            // Prepare options for NiceSelect
-            return this.product.sizes.map((size) => ({
-                text: size.name,
-                value: size,
-            }));
         },
     },
     mounted() {
@@ -384,7 +373,6 @@ export default {
                     this.product = response.data.product;
                     this.selectedSize = this.product.sizes[0];
                     this.updatePrice();
-                    console.log("dt", response.data.product);
                 })
                 .catch((error) => {
                     console.error(
@@ -394,31 +382,22 @@ export default {
                 });
         },
         updatePrice() {
-            this.calculatedPrice =
-                (this.product.price_sale || this.product.price) +
-                parseFloat(this.selectedSize.increases);
+            let price = this.product.price_sale || this.product.price;
+            let increases = parseFloat(this.selectedSize?.increases) || 0;
+
+            this.calculatedPrice = price + increases;
         },
-
         addToCart() {
-            let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-            let existingItem = cart.find(
-                (item) => item.productId === this.product.id
-            );
-
-            if (existingItem) {
-                existingItem.quantity += this.quantity;
-            } else {
-                cart.push({
-                    productId: this.product.id,
-                    name: this.product.name,
-                    price: this.calculatedPrice,
-                    quantity: this.quantity,
-                });
-            }
-
-            sessionStorage.setItem("cart", JSON.stringify(cart));
+            const cartStore = useCartStore();
+            cartStore.addToCart({
+                productId: this.product.id,
+                name: this.product.name,
+                price: this.calculatedPrice,
+                quantity: this.quantity, // Use the quantity from the input
+            });
 
             ElMessage.success("Sản phẩm đã được thêm vào giỏ hàng!");
+            this.$router.push({ path: "/shop-cart" });
         },
     },
 };
