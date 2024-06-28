@@ -261,10 +261,5 @@ import axios from "axios";
 export default {
     name: "Transaction",
     components: { Layout },
-    data() {
-        return {};
-    },
-    created() {},
-    methods: {},
 };
 </script>

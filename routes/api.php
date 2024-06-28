@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoriesController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DiscountController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -31,3 +32,4 @@ Route::prefix('product_categories')->group(function () {
 Route::prefix('carts')->group(function () {
     Route::get('/products_in_cart', [CartController::class, 'getProductDetails']);
 });
+Route::post('/discounts/apply', [DiscountController::class, 'applyDiscount']);

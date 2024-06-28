@@ -199,7 +199,7 @@
                                         ).toFixed(0)
                                     }}%
                                 </span>
-                                <a :href="'/menu/' + product.id">
+                                <a>
                                     <img
                                         class="img-fluid lazy"
                                         :src="product.image"
@@ -207,7 +207,11 @@
                                         style="width: 400px; height: 320px"
                                     />
                                     <div class="add_cart">
-                                        <span class="btn_1">Add to cart</span>
+                                        <span
+                                            class="btn_1"
+                                            @click="addToCart(product)"
+                                            >Add to cart</span
+                                        >
                                     </div>
                                 </a>
                             </figure>
@@ -273,97 +277,38 @@
     </Layout>
 </template>
 <script>
-import Layout from "../layouts/Index.vue";
 import axios from "axios";
+import { ref, computed } from "vue";
+import Layout from "../layouts/Index.vue";
 import Paginate from "vuejs-paginate-next";
-
+import { useCartStore } from "../stores/useCartStore";
 export default {
-    name: "Menu",
     components: {
         Layout,
         Paginate,
     },
-    data() {
-        return {
-            products: [],
-            categories: [],
-            selectedCategories: [],
-            sortOption: "popularity",
-            filteredRating: null,
-            priceRanges: [
-                { min: 0, max: 20000 },
-                { min: 20000, max: 50000 },
-                { min: 50000, max: 150000 },
-            ],
-            filteredPriceRange: null,
-            currentPage: 1,
-            itemsPerPage: 6,
-        };
-    },
-    computed: {
-        sortedProducts() {
-            let sorted = [...this.products];
-            if (this.sortOption === "rating") {
-                sorted.sort((a, b) => {
-                    const ratingA = a.total_number / a.total_rating;
-                    const ratingB = b.total_number / b.total_rating;
-                    return ratingB - ratingA;
-                });
-            } else if (this.sortOption === "date") {
-                sorted.sort(
-                    (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
-                );
-            } else if (this.sortOption === "price") {
-                sorted.sort((a, b) => a.price_sale - b.price_sale);
-            } else if (this.sortOption === "price-desc") {
-                sorted.sort((a, b) => b.price_sale - a.price_sale);
-            }
+    setup() {
+        const products = ref([]);
+        const categories = ref([]);
+        const selectedCategories = ref([]);
+        const priceRanges = [
+            { min: 0, max: 20000 },
+            { min: 20000, max: 50000 },
+            { min: 50000, max: 150000 },
+        ];
+        const filteredPriceRange = ref(null);
+        const sortOption = ref("popularity");
+        const filteredRating = ref(null);
+        const currentPage = ref(1);
+        const itemsPerPage = ref(6);
+        const cartStore = useCartStore();
 
-            if (this.filteredRating !== null) {
-                sorted = sorted.filter(
-                    (product) =>
-                        product.total_number / product.total_rating >=
-                        this.filteredRating
-                );
-            }
-            if (this.filteredPriceRange) {
-                sorted = sorted.filter(
-                    (product) =>
-                        product.price >= this.filteredPriceRange.min &&
-                        product.price <= this.filteredPriceRange.max
-                );
-            }
-
-            return sorted;
-        },
-        paginatedProducts() {
-            const start = (this.currentPage - 1) * this.itemsPerPage;
-            const end = start + this.itemsPerPage;
-            return this.sortedProducts.slice(start, end);
-        },
-        pageCount() {
-            return Math.ceil(this.sortedProducts.length / this.itemsPerPage);
-        },
-        startIndex() {
-            return (this.currentPage - 1) * this.itemsPerPage;
-        },
-        endIndex() {
-            return Math.min(
-                this.startIndex + this.itemsPerPage,
-                this.sortedProducts.length
-            );
-        },
-    },
-    created() {
-        this.fetchProducts();
-    },
-    methods: {
-        fetchProducts() {
+        const fetchProducts = () => {
             axios
                 .get("/api/products")
                 .then((response) => {
-                    this.products = response.data;
-                    this.countProductsByCategory();
+                    products.value = response.data;
+                    countProductsByCategory();
                 })
                 .catch((error) => {
                     console.error(
@@ -371,17 +316,17 @@ export default {
                         error
                     );
                 });
-        },
+        };
 
-        fetchProductsByCategory(categoryIds) {
-            const url = `/api/products/by-category?categories=${this.selectedCategories.join(
+        const fetchProductsByCategory = () => {
+            const url = `/api/products/by-category?categories=${selectedCategories.value.join(
                 ","
             )}`;
             console.log("Fetching products by category with URL:", url);
             axios
                 .get(url)
                 .then((response) => {
-                    this.products = response.data;
+                    products.value = response.data;
                 })
                 .catch((error) => {
                     console.error(
@@ -389,11 +334,12 @@ export default {
                         error
                     );
                 });
-        },
-        countProductsByCategory() {
+        };
+
+        const countProductsByCategory = () => {
             const categoryCounts = {};
 
-            this.products.forEach((product) => {
+            products.value.forEach((product) => {
                 const category = product.category;
                 if (category) {
                     if (categoryCounts[category.id]) {
@@ -407,52 +353,147 @@ export default {
                 }
             });
 
-            this.categories = categoryCounts;
-        },
-        sortProducts() {
-            this.currentPage = 1;
-        },
-        toggleCategorySelection(categoryId) {
-            if (this.selectedCategories.includes(categoryId)) {
-                this.selectedCategories = this.selectedCategories.filter(
+            categories.value = categoryCounts;
+        };
+
+        const sortProducts = () => {
+            currentPage.value = 1;
+        };
+
+        const toggleCategorySelection = (categoryId) => {
+            if (selectedCategories.value.includes(categoryId)) {
+                selectedCategories.value = selectedCategories.value.filter(
                     (id) => id !== categoryId
                 );
             } else {
-                this.selectedCategories.push(categoryId);
+                selectedCategories.value.push(categoryId);
             }
-            this.fetchProductsByCategory(); // Gọi API khi checkbox được chọn
-        },
+            fetchProductsByCategory(); // Call API when checkbox is selected
+        };
 
-        filterByRating(rating) {
-            this.filteredRating = rating;
-        },
+        const filterByRating = (rating) => {
+            filteredRating.value = rating;
+        };
 
-        getRatingCount(rating) {
-            return this.products.filter(
+        const filterByPriceRange = (range) => {
+            if (
+                filteredPriceRange.value &&
+                filteredPriceRange.value.min === range.min &&
+                filteredPriceRange.value.max === range.max
+            ) {
+                filteredPriceRange.value = null; // Uncheck the checkbox
+            } else {
+                filteredPriceRange.value = range;
+            }
+        };
+
+        const getRatingCount = (rating) => {
+            return products.value.filter(
                 (product) =>
                     product.total_number / product.total_rating >= rating
             ).length;
-        },
-        filterByPriceRange(range) {
-            if (
-                this.filteredPriceRange &&
-                this.filteredPriceRange.min === range.min &&
-                this.filteredPriceRange.max === range.max
-            ) {
-                this.filteredPriceRange = null; // Uncheck the checkbox
-            } else {
-                this.filteredPriceRange = range;
-            }
-        },
+        };
 
-        getProductsCountInPriceRange(min, max) {
-            return this.products.filter(
+        const getProductsCountInPriceRange = (min, max) => {
+            return products.value.filter(
                 (product) => product.price >= min && product.price <= max
             ).length;
-        },
-        handlePageClick(pageNumber) {
-            this.currentPage = pageNumber;
-        },
+        };
+
+        const handlePageClick = (pageNumber) => {
+            currentPage.value = pageNumber;
+        };
+
+        const sortedProducts = computed(() => {
+            let sorted = [...products.value];
+            if (sortOption.value === "rating") {
+                sorted.sort((a, b) => {
+                    const ratingA = a.total_number / a.total_rating;
+                    const ratingB = b.total_number / b.total_rating;
+                    return ratingB - ratingA;
+                });
+            } else if (sortOption.value === "date") {
+                sorted.sort(
+                    (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+                );
+            } else if (sortOption.value === "price") {
+                sorted.sort((a, b) => a.price_sale - b.price_sale);
+            } else if (sortOption.value === "price-desc") {
+                sorted.sort((a, b) => b.price_sale - a.price_sale);
+            }
+
+            if (filteredRating.value !== null) {
+                sorted = sorted.filter(
+                    (product) =>
+                        product.total_number / product.total_rating >=
+                        filteredRating.value
+                );
+            }
+            if (filteredPriceRange.value) {
+                sorted = sorted.filter(
+                    (product) =>
+                        product.price >= filteredPriceRange.value.min &&
+                        product.price <= filteredPriceRange.value.max
+                );
+            }
+
+            return sorted;
+        });
+
+        const paginatedProducts = computed(() => {
+            const start = (currentPage.value - 1) * itemsPerPage.value;
+            const end = start + itemsPerPage.value;
+            return sortedProducts.value.slice(start, end);
+        });
+
+        const pageCount = computed(() => {
+            return Math.ceil(sortedProducts.value.length / itemsPerPage.value);
+        });
+
+        const startIndex = computed(() => {
+            return (currentPage.value - 1) * itemsPerPage.value;
+        });
+
+        const endIndex = computed(() => {
+            return Math.min(
+                startIndex.value + itemsPerPage.value,
+                sortedProducts.value.length
+            );
+        });
+        const addToCart = (product) => {
+            console.log("Adding product to cart:", product);
+            cartStore.addToCart(product);
+            console.log("Current cart state:", cartStore.cart);
+        };
+        fetchProducts();
+
+        return {
+            products,
+            categories,
+            selectedCategories,
+            priceRanges,
+            filteredPriceRange,
+            sortOption,
+            filteredRating,
+            currentPage,
+            itemsPerPage,
+            sortedProducts,
+            paginatedProducts,
+            pageCount,
+            startIndex,
+            endIndex,
+            fetchProducts,
+            fetchProductsByCategory,
+            countProductsByCategory,
+            sortProducts,
+            toggleCategorySelection,
+            filterByRating,
+            getRatingCount,
+            filterByPriceRange,
+            getProductsCountInPriceRange,
+            handlePageClick,
+            addToCart,
+        };
     },
 };
 </script>

@@ -330,10 +330,15 @@ import axios from "axios";
 import Vue3StickySidebar from "vue3-sticky-sidebar";
 import Incrementer from "../components/Incrementer.vue";
 import { ElSelect, ElOption, ElMessage } from "element-plus";
-import { useCartStore } from "../stores/cart";
-
+import { useCartStore } from "../stores/useCartStore";
 export default {
     name: "ProductDetail",
+    setup() {
+        const data = useCartStore();
+        return {
+            data,
+        };
+    },
     components: {
         Layout,
         Vue3StickySidebar,

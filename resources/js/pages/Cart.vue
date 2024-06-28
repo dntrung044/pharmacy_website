@@ -4,10 +4,12 @@
             <div
                 class="hero_single inner_pages background-image"
                 data-background="url(img/hero_menu.jpg)"
+                style="background-image: url('img/hero_menu.jpg')"
             >
                 <div
                     class="opacity-mask"
                     data-opacity-mask="rgba(0, 0, 0, 0.6)"
+                    style="background-color: rgba(0, 0, 0, 0.6)"
                 >
                     <div class="container">
                         <div class="row justify-content-center">
@@ -18,102 +20,86 @@
                                 </p>
                             </div>
                         </div>
+                        <!-- /row -->
                     </div>
                 </div>
                 <div class="frame gray"></div>
             </div>
+            <!-- /hero_single -->
+
             <div class="bg_gray">
                 <div class="container margin_60_40">
-                    <div v-if="added" class="alert alert-success">
-                        Product has been added to your cart!
-                    </div>
                     <table class="table table-striped cart-list">
                         <thead>
                             <tr>
                                 <th>Sản phẩm</th>
                                 <th>Giá</th>
                                 <th>Số lượng</th>
-                                <th>Tổng</th>
+                                <th>Tổng phụ</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="product in carts" :key="product.id">
+                            <tr v-for="item in cartStore.cart" :key="item.id">
                                 <td>
                                     <div class="thumb_cart">
                                         <img
-                                            :src="product.image"
+                                            :src="item.image"
                                             class="lazy"
-                                            :alt="product.name"
+                                            alt="Image"
                                         />
                                     </div>
-                                    <span class="item_cart">
-                                        {{ product.quantity }}x {{ item.name }}
-                                    </span>
+                                    <span class="item_cart">{{
+                                        item.name
+                                    }}</span>
                                 </td>
                                 <td>
-                                    <strong
-                                        >{{ item.price.toFixed(2) }} đ</strong
+                                    <strong>
+                                        {{ formatCurrency(item.price) }}</strong
                                     >
                                 </td>
                                 <td>
                                     <div class="numbers-row">
                                         <input
-                                            type="text"
-                                            :value="item.quantity"
-                                            class="qty2"
-                                            @input="
+                                            type="number"
+                                            v-model.number="item.quantity"
+                                            @change="
                                                 updateQuantity(
-                                                    item.productId,
-                                                    parseInt(
-                                                        $event.target.value
-                                                    )
+                                                    item.id,
+                                                    item.quantity
                                                 )
                                             "
+                                            class="qty2"
                                         />
                                         <div
                                             class="inc button_inc"
-                                            @click="
-                                                updateQuantity(
-                                                    item.productId,
-                                                    item.quantity + 1
-                                                )
-                                            "
+                                            @click="incrementQuantity(item.id)"
                                         >
                                             +
                                         </div>
                                         <div
                                             class="dec button_inc"
-                                            @click="
-                                                updateQuantity(
-                                                    item.productId,
-                                                    item.quantity - 1
-                                                )
-                                            "
+                                            @click="decrementQuantity(item.id)"
                                         >
                                             -
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <strong
-                                        >{{
-                                            (
+                                    <strong>
+                                        {{
+                                            formatCurrency(
                                                 item.price * item.quantity
-                                            ).toFixed(2)
-                                        }}
-                                        đ</strong
+                                            )
+                                        }}</strong
                                     >
                                 </td>
                                 <td class="options">
                                     <a
                                         href="#"
-                                        @click.prevent="
-                                            removeFromCart(item.productId)
-                                        "
+                                        @click.prevent="removeFromCart(item.id)"
+                                        ><i class="ti-trash"></i> Xoá</a
                                     >
-                                        <i class="ti-trash"></i> xoá
-                                    </a>
                                 </td>
                             </tr>
                         </tbody>
@@ -121,94 +107,139 @@
                     <div
                         class="row add_top_30 flex-sm-row-reverse cart_actions"
                     >
-                        <div class="col-sm-4 text-right">
-                            <button
-                                type="button"
-                                class="btn_1 outline"
-                                @click="updateCart"
-                            >
-                                Update Cart
-                            </button>
-                        </div>
-                        <div class="col-sm-8">
+                        <div class="col-sm-12">
                             <div class="apply-coupon">
                                 <div class="form-group form-inline">
                                     <input
                                         type="text"
                                         name="coupon-code"
-                                        placeholder="Promo code"
+                                        value=""
+                                        placeholder="Nhập mã gỉam giá"
                                         class="form-control d-inline"
-                                        style="width: 150px"
+                                        style="width: 200px"
+                                        v-model="discountCode"
                                     />
-                                    <button type="button" class="btn_1 outline">
-                                        Apply Coupon
+                                    <button
+                                        type="button"
+                                        class="btn_1 outline"
+                                        @click="applyDiscountCode"
+                                    >
+                                        Áp dụng
                                     </button>
+                                </div>
+                                <div v-if="discountError" class="error">
+                                    {{ discountError }}
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- /cart_actions -->
                 </div>
+                <!-- /container -->
             </div>
+
             <div class="box_cart">
                 <div class="container">
                     <div class="row justify-content-end">
                         <div class="col-xl-4 col-lg-4 col-md-6">
                             <ul>
                                 <li>
-                                    <span>Subtotal</span>
-                                    {{ cartTotal.toFixed(2) }} đ
+                                    <span>Tổng phụ</span>
+                                    {{ formatCurrency(cartStore.cartTotal) }}đ
                                 </li>
-                                <li><span>Delivery fee</span> 7.00 đ</li>
+                                <li v-if="cartStore.discount">
+                                    <span>Mã giảm gía:</span>
+                                    -{{
+                                        cartStore.discount.condition === 1
+                                            ? formatCurrency(
+                                                  cartStore.discount.number
+                                              )
+                                            : `${cartStore.discount.number}%`
+                                    }}
+                                </li>
+                                <li><span>Phí vận chuyển</span> 15.000đ</li>
                                 <li>
-                                    <span>Total</span>
-                                    {{ (cartTotal + 7).toFixed(2) }} đ
+                                    <span>Tổng</span>
+                                    {{
+                                        (cartStore.discount.condition === 1
+                                            ? formatCurrency(
+                                                  cartStore.cartTotal +
+                                                      15000 -
+                                                      cartStore.discount.number
+                                              )
+                                            : formatCurrency(
+                                                  (cartStore.cartTotal *
+                                                      cartStore.discount
+                                                          .number) /
+                                                      100 +
+                                                      15000
+                                              ),
+                                        cartStore.cartTotal + 15000)
+                                    }}
                                 </li>
                             </ul>
-                            <a
-                                href="shop-checkout.html"
+                            <router-link
+                                to="checkout"
                                 class="btn_1 full-width cart"
                             >
-                                Proceed to Checkout
-                            </a>
+                                Thanh toán
+                            </router-link>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- /box_cart -->
         </template>
     </Layout>
 </template>
 
-<script>
+<script setup>
 import Layout from "../layouts/Index.vue";
+import { useCartStore } from "../stores/useCartStore";
+import { ref } from "vue";
 
-export default {
-    name: "Cart",
-    components: {
-        Layout,
-    },
-    data() {
-        return {
-            carts: [],
-        };
-    },
-    created() {
-        this.fetchCarts();
-    },
-    methods: {
-        fetchCarts() {
-            axios
-                .get("/api/carts/products_in_cart")
-                .then((response) => {
-                    this.carts = response.data;
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.error(
-                        "There was an error fetching the carts!",
-                        error
-                    );
-                });
-        },
-    },
+const cartStore = useCartStore();
+const discountCode = ref("");
+const discountError = ref("");
+
+const updateQuantity = (productId, quantity) => {
+    cartStore.updateQuantity(productId, quantity);
+};
+
+const incrementQuantity = (productId) => {
+    const product = cartStore.cart.find((item) => item.id === productId);
+    if (product) {
+        cartStore.updateQuantity(productId, product.quantity + 1);
+    }
+};
+
+const decrementQuantity = (productId) => {
+    const product = cartStore.cart.find((item) => item.id === productId);
+    if (product && product.quantity > 1) {
+        cartStore.updateQuantity(productId, product.quantity - 1);
+    }
+};
+
+const removeFromCart = (productId) => {
+    cartStore.removeFromCart(productId);
+};
+
+const applyDiscountCode = () => {
+    discountError.value = "";
+    cartStore
+        .applyDiscount(discountCode.value)
+        .then(() => {
+            console.log("successfully.");
+        })
+        .catch((error) => {
+            discountError.value = error.response.data.error;
+        });
+};
+cartStore.loadDiscount();
+const formatCurrency = (value) => {
+    return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+    }).format(value);
 };
 </script>

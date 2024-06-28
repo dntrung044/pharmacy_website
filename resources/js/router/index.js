@@ -30,10 +30,9 @@ const routes = [
     },
     {
         name: 'Transaction',
-        path: '/shop-checkout',
+        path: '/checkout',
         component: Transaction,
     },
-
 ];
 
 const router = createRouter({
