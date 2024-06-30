@@ -1,33 +1,7 @@
 <template>
     <Layout>
         <template v-slot:content>
-            <div
-                class="hero_single inner_pages background-image"
-                data-background="url(img/hero_menu.jpg)"
-                style="background-image: url('img/hero_menu.jpg')"
-            >
-                <div
-                    class="opacity-mask"
-                    data-opacity-mask="rgba(0, 0, 0, 0.6)"
-                    style="background-color: rgba(0, 0, 0, 0.6)"
-                >
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-xl-9 col-lg-10 col-md-8">
-                                <h1>Your orders</h1>
-                                <p>
-                                    Order food with home delivery or take away
-                                </p>
-                            </div>
-                        </div>
-                        <!-- /row -->
-                    </div>
-                </div>
-                <div class="frame gray"></div>
-            </div>
-            <!-- /hero_single -->
-
-            <div class="bg_gray">
+            <div class="bg_gray" style="margin-top: 5em">
                 <div class="container margin_60_40">
                     <table class="table table-striped cart-list">
                         <thead>

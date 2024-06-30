@@ -25,6 +25,16 @@ export const useCartStore = defineStore('cart', {
             }
             this.saveCart();
         },
+        addToCart_quantity(product, quantity) {
+            const existingProduct = this.cart.find(item => item.id === product.id);
+            if (existingProduct) {
+                existingProduct.quantity += quantity;
+            } else {
+                state.cart.push({ ...product, quantity });
+            }
+            this.saveCart();
+        },
+
         removeFromCart(productId) {
             this.cart = this.cart.filter(item => item.id !== productId);
             this.saveCart();

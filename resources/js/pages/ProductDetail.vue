@@ -1,27 +1,7 @@
 <template>
     <Layout>
         <template v-slot:content>
-            <div
-                class="hero_single inner_pages background-image"
-                data-background="url(img/hero_menu.jpg)"
-            >
-                <div
-                    class="opacity-mask"
-                    data-opacity-mask="rgba(0, 0, 0, 0.6)"
-                >
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-xl-9 col-lg-10 col-md-8">
-                                <h1>{{ product.name }}</h1>
-                                <p>{{ product.description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="frame white"></div>
-            </div>
-
-            <div class="container margin_60_40">
+            <div class="container margin_60_40" style="margin-top: 7em">
                 <div class="row">
                     <div class="col-lg-6">
                         <p
@@ -332,6 +312,7 @@ import Incrementer from "../components/Incrementer.vue";
 import { ElSelect, ElOption, ElMessage } from "element-plus";
 import { ref, computed, onMounted } from "vue";
 import { useCartStore } from "../stores/useCartStore";
+import { useRouter } from "vue-router";
 
 export default {
     name: "ProductDetail",
@@ -347,8 +328,9 @@ export default {
         const product = ref({});
         const selectedSize = ref({ increases: 0 });
         const calculatedPrice = ref(0);
-        const quantity = ref(2);
-        const data = useCartStore();
+        const quantity = ref(1);
+        const cartStore = useCartStore();
+        const router = useRouter();
 
         const discountPercentage = computed(() => {
             if (!product.value.price || !product.value.price_sale) return 0;
@@ -382,18 +364,11 @@ export default {
             calculatedPrice.value = price + increases;
         };
 
-        const addToCart = () => {
-            data.addToCart({
-                productId: product.value.id,
-                name: product.value.name,
-                price: calculatedPrice.value,
-                quantity: quantity.value,
-            });
-
+        const addToCart = (product) => {
+            cartStore.addToCart_quantity(product, quantity.value);
             ElMessage.success("Sản phẩm đã được thêm vào giỏ hàng!");
-            this.$router.push({ path: "/shop-cart" });
+            router.push({ name: "Cart" });
         };
-
         onMounted(fetchProduct);
 
         return {
@@ -405,7 +380,6 @@ export default {
             fetchProduct,
             updatePrice,
             addToCart,
-            data,
         };
     },
 };

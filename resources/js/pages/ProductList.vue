@@ -1,29 +1,7 @@
 <template>
     <Layout>
         <template v-slot:content>
-            <div
-                class="hero_single inner_pages background-image"
-                data-background="url(img/hero_menu.jpg)"
-            >
-                <div
-                    class="opacity-mask"
-                    data-opacity-mask="rgba(0, 0, 0, 0.6)"
-                >
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-xl-9 col-lg-10 col-md-8">
-                                <h1>Our Shop</h1>
-                                <p>
-                                    Order food with home delivery or take away
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="frame white"></div>
-            </div>
-
-            <div class="filters_full clearfix">
+            <div class="filters_full clearfix" style="margin-top: 5em">
                 <div class="container">
                     <div class="count_results">
                         Hiển thị {{ startIndex + 1 }}–{{ endIndex }} của
@@ -463,9 +441,7 @@ export default {
         });
 
         const addToCart = (product) => {
-            console.log("Adding product to cart:", product);
             cartStore.addToCart(product);
-            console.log("Current cart state:", cartStore.cart);
         };
 
         fetchProducts();

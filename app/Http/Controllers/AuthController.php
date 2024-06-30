@@ -10,6 +10,11 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    public function index()
+    {
+        $users = User::where('status', 'active')->get();
+        return response()->json($users);
+    }
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');

@@ -7,239 +7,110 @@
                         <div class="box_booking_2 style_2">
                             <div class="head">
                                 <div class="title">
-                                    <h3>Personal Details</h3>
+                                    <h3>Thông tin cá nhân</h3>
                                 </div>
                             </div>
                             <!-- /head -->
                             <div class="main">
+                                <!-- Personal information inputs -->
                                 <div class="form-group">
-                                    <label>First and Last Name</label>
+                                    <label>Họ và tên</label>
                                     <input
                                         class="form-control"
+                                        v-model="userInfo.name"
                                         placeholder="First and Last Name"
                                     />
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Email Address</label>
+                                            <label>Email</label>
                                             <input
                                                 class="form-control"
+                                                v-model="userInfo.email"
                                                 placeholder="Email Address"
                                             />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Phone</label>
+                                            <label>Số điện thoại</label>
                                             <input
                                                 class="form-control"
+                                                v-model="userInfo.phone"
                                                 placeholder="Phone"
                                             />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Full Address</label>
+                                    <label>Địa chỉ</label>
                                     <input
                                         class="form-control"
+                                        v-model="userInfo.address"
                                         placeholder="Full Address"
                                     />
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>City</label>
-                                            <input
-                                                class="form-control"
-                                                placeholder="City"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Postal Code</label>
-                                            <input
-                                                class="form-control"
-                                                placeholder="0123"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        <!-- /box_booking -->
-                        <div class="box_booking_2 style_2">
-                            <div class="head">
-                                <div class="title">
-                                    <h3>Payment Method</h3>
-                                </div>
-                            </div>
-                            <!-- /head -->
-                            <div class="main">
-                                <div class="payment_select">
-                                    <label class="container_radio"
-                                        >Credit Card
-                                        <input
-                                            type="radio"
-                                            value=""
-                                            checked
-                                            name="payment_method"
-                                        />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <i class="icon_creditcard"></i>
-                                </div>
-                                <div class="form-group">
-                                    <label>Name on card</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        id="name_card_order"
-                                        name="name_card_order"
-                                        placeholder="First and last name"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label>Card number</label>
-                                    <input
-                                        type="text"
-                                        id="card_number"
-                                        name="card_number"
-                                        class="form-control"
-                                        placeholder="Card number"
-                                    />
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Expiration date</label>
-                                        <div class="row">
-                                            <div class="col-md-6 col-6">
-                                                <div class="form-group">
-                                                    <input
-                                                        type="text"
-                                                        id="expire_month"
-                                                        name="expire_month"
-                                                        class="form-control"
-                                                        placeholder="mm"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-6">
-                                                <div class="form-group">
-                                                    <input
-                                                        type="text"
-                                                        id="expire_year"
-                                                        name="expire_year"
-                                                        class="form-control"
-                                                        placeholder="yyyy"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label>Security code</label>
-                                            <div class="row">
-                                                <div class="col-md-4 col-6">
-                                                    <div class="form-group">
-                                                        <input
-                                                            type="text"
-                                                            id="ccv"
-                                                            name="ccv"
-                                                            class="form-control"
-                                                            placeholder="CCV"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8 col-6">
-                                                    <img
-                                                        src="img/icon_ccv.gif"
-                                                        width="50"
-                                                        height="29"
-                                                        alt="ccv"
-                                                    /><small
-                                                        >Last 3 digits</small
-                                                    >
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--End row -->
-                                <div class="payment_select" id="paypal">
-                                    <label class="container_radio"
-                                        >Pay with Paypal
-                                        <input
-                                            type="radio"
-                                            value=""
-                                            name="payment_method"
-                                        />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="payment_select">
-                                    <label class="container_radio"
-                                        >Pay with Cash
-                                        <input
-                                            type="radio"
-                                            value=""
-                                            name="payment_method"
-                                        />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                    <i class="icon_wallet"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /box_booking -->
                     </div>
                     <!-- /col -->
                     <div class="col-xl-4 col-lg-4" id="sidebar_fixed">
                         <div class="box_booking">
                             <div class="head">
-                                <h3>Order Summary</h3>
+                                <h3>Tóm tắt hoá đơn</h3>
                             </div>
                             <!-- /head -->
                             <div class="main">
                                 <ul class="clearfix">
-                                    <li>
-                                        <a href="#0">1x Enchiladas</a
-                                        ><span>$11</span>
-                                    </li>
-                                    <li>
-                                        <a href="#0">2x Burrito</a
-                                        ><span>$14</span>
-                                    </li>
-                                    <li>
-                                        <a href="#0">1x Chicken</a
-                                        ><span>$18</span>
-                                    </li>
-                                    <li>
-                                        <a href="#0">2x Corona Beer</a
-                                        ><span>$9</span>
-                                    </li>
-                                    <li>
-                                        <a href="#0">2x Cheese Cake</a
-                                        ><span>$11</span>
+                                    <!-- Iterate over cart items and display each item -->
+                                    <li
+                                        v-for="(item, index) in cart"
+                                        :key="index"
+                                    >
+                                        <a href="#0"
+                                            >{{ item.name }} x
+                                            {{ item.quantity }}</a
+                                        ><span>{{
+                                            formatCurrency(
+                                                item.price * item.quantity
+                                            )
+                                        }}</span>
                                     </li>
                                 </ul>
 
+                                <!-- Order summary totals -->
                                 <ul class="clearfix">
-                                    <li>Subtotal<span>$56</span></li>
-                                    <li>Delivery fee<span>$10</span></li>
-                                    <li class="total">Total<span>$66</span></li>
+                                    <li>
+                                        Tổng phụ<span>{{
+                                            formatCurrency(subtotal)
+                                        }}</span>
+                                    </li>
+                                    <li>
+                                        Phí giao hàng<span>{{
+                                            formatCurrency(shippingFee)
+                                        }}</span>
+                                    </li>
+                                    <li>
+                                        Mã giảm giá<span>{{
+                                            formatCurrency(discountAmount)
+                                        }}</span>
+                                    </li>
+                                    <li class="total">
+                                        TỔNG CỘNG<span>{{
+                                            formatCurrency(total)
+                                        }}</span>
+                                    </li>
                                 </ul>
                                 <a
-                                    href="confirm.html"
+                                    href="/checkout"
                                     class="btn_1 full-width mb_5"
-                                    >Order Now</a
+                                    >Đặt hàng ngay</a
                                 >
                                 <div class="text-center">
                                     <small
-                                        >Or Call Us at
-                                        <strong>0432 48432854</strong></small
+                                        >Hoặc gọi cho chúng tôi theo số
+                                        <strong>037530702</strong></small
                                     >
                                 </div>
                             </div>
@@ -254,12 +125,55 @@
     </Layout>
 </template>
 
-<script>
+<script setup>
 import Layout from "../layouts/Index.vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
+import { useCartStore } from "../stores/useCartStore";
 
-export default {
-    name: "Transaction",
-    components: { Layout },
+const userInfo = ref({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+});
+
+const cartStore = useCartStore();
+
+const cart = ref([]);
+const subtotal = ref(0);
+const shippingFee = ref(0);
+const discountAmount = ref(0);
+const total = ref(0);
+
+const formatCurrency = (value) => {
+    return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+    }).format(value);
 };
+
+onMounted(async () => {
+    try {
+        const response = await axios.get("/api/user");
+        const users = response.data.users;
+        console.log("dsa", response.data.users);
+        userInfo.value = {
+            name: users.name,
+            email: users.email,
+            phone: users.phone,
+            address: users.address,
+        };
+
+        // Load cart data and calculate totals
+        cart.value = cartStore.cart;
+        subtotal.value = cartStore.subtotal;
+        shippingFee.value = cartStore.shippingFee;
+        discountAmount.value = cartStore.discountAmount;
+        total.value = cartStore.total;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        // Handle error fetching data
+    }
+});
 </script>
