@@ -4,6 +4,8 @@ import ProductList from '../pages/ProductList.vue'
 import ProductDetail from '../pages/ProductDetail.vue';
 import Cart from '../pages/Cart.vue';
 import Transaction from '../pages/Transaction.vue';
+import Login from '../pages/Login.vue';
+import Register from '../pages/Register.vue';
 
 const routes = [
     {
@@ -25,13 +27,23 @@ const routes = [
     },
     {
         name: 'Cart',
-        path: '/shop-cart',
+        path: '/cart',
         component: Cart,
     },
     {
         name: 'Transaction',
         path: '/checkout',
         component: Transaction,
+    },
+    {
+        name: 'Login',
+        path: '/login',
+        component: Login,
+    },
+    {
+        name: 'Register',
+        path: '/register',
+        component: Register,
     },
 ];
 
