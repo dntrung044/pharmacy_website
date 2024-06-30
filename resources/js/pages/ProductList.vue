@@ -282,6 +282,7 @@ import { ref, computed } from "vue";
 import Layout from "../layouts/Index.vue";
 import Paginate from "vuejs-paginate-next";
 import { useCartStore } from "../stores/useCartStore";
+
 export default {
     components: {
         Layout,
@@ -460,11 +461,13 @@ export default {
                 sortedProducts.value.length
             );
         });
+
         const addToCart = (product) => {
             console.log("Adding product to cart:", product);
             cartStore.addToCart(product);
             console.log("Current cart state:", cartStore.cart);
         };
+
         fetchProducts();
 
         return {

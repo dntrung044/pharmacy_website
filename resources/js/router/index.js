@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import index from '../pages/Index.vue'
+import Home from '../pages/Home.vue'
 import ProductList from '../pages/ProductList.vue'
 import ProductDetail from '../pages/ProductDetail.vue';
 import Cart from '../pages/Cart.vue';
@@ -9,9 +9,9 @@ import Register from '../pages/Register.vue';
 
 const routes = [
     {
-        name: 'index',
+        name: 'Home',
         path: '/',
-        component: index,
+        component: Home,
 
     },
     {

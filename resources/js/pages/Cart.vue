@@ -145,7 +145,7 @@
                             <ul>
                                 <li>
                                     <span>Tổng phụ</span>
-                                    {{ formatCurrency(cartStore.cartTotal) }}đ
+                                    {{ formatCurrency(cartStore.cartTotal) }}
                                 </li>
                                 <li v-if="cartStore.discount">
                                     <span>Mã giảm gía:</span>
@@ -193,53 +193,79 @@
     </Layout>
 </template>
 
-<script setup>
+<script>
 import Layout from "../layouts/Index.vue";
 import { useCartStore } from "../stores/useCartStore";
 import { ref } from "vue";
 
-const cartStore = useCartStore();
-const discountCode = ref("");
-const discountError = ref("");
+export default {
+    name: "Cart",
+    components: {
+        Layout,
+    },
+    setup() {
+        const cartStore = useCartStore();
+        const discountCode = ref("");
+        const discountError = ref("");
 
-const updateQuantity = (productId, quantity) => {
-    cartStore.updateQuantity(productId, quantity);
-};
+        const updateQuantity = (productId, quantity) => {
+            cartStore.updateQuantity(productId, quantity);
+        };
 
-const incrementQuantity = (productId) => {
-    const product = cartStore.cart.find((item) => item.id === productId);
-    if (product) {
-        cartStore.updateQuantity(productId, product.quantity + 1);
-    }
-};
+        const incrementQuantity = (productId) => {
+            const product = cartStore.cart.find(
+                (item) => item.id === productId
+            );
+            if (product) {
+                cartStore.updateQuantity(productId, product.quantity + 1);
+            }
+        };
 
-const decrementQuantity = (productId) => {
-    const product = cartStore.cart.find((item) => item.id === productId);
-    if (product && product.quantity > 1) {
-        cartStore.updateQuantity(productId, product.quantity - 1);
-    }
-};
+        const decrementQuantity = (productId) => {
+            const product = cartStore.cart.find(
+                (item) => item.id === productId
+            );
+            if (product && product.quantity > 1) {
+                cartStore.updateQuantity(productId, product.quantity - 1);
+            }
+        };
 
-const removeFromCart = (productId) => {
-    cartStore.removeFromCart(productId);
-};
+        const removeFromCart = (productId) => {
+            cartStore.removeFromCart(productId);
+        };
 
-const applyDiscountCode = () => {
-    discountError.value = "";
-    cartStore
-        .applyDiscount(discountCode.value)
-        .then(() => {
-            console.log("successfully.");
-        })
-        .catch((error) => {
-            discountError.value = error.response.data.error;
-        });
-};
-cartStore.loadDiscount();
-const formatCurrency = (value) => {
-    return new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND",
-    }).format(value);
+        const applyDiscountCode = () => {
+            discountError.value = "";
+            cartStore
+                .applyDiscount(discountCode.value)
+                .then(() => {
+                    console.log("successfully.");
+                })
+                .catch((error) => {
+                    discountError.value = error.response.data.error;
+                });
+        };
+
+        cartStore.loadDiscount();
+
+        const formatCurrency = (value) => {
+            return new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        };
+
+        return {
+            cartStore,
+            discountCode,
+            discountError,
+            updateQuantity,
+            incrementQuantity,
+            decrementQuantity,
+            removeFromCart,
+            applyDiscountCode,
+            formatCurrency,
+        };
+    },
 };
 </script>

@@ -330,15 +330,11 @@ import axios from "axios";
 import Vue3StickySidebar from "vue3-sticky-sidebar";
 import Incrementer from "../components/Incrementer.vue";
 import { ElSelect, ElOption, ElMessage } from "element-plus";
+import { ref, computed, onMounted } from "vue";
 import { useCartStore } from "../stores/useCartStore";
+
 export default {
     name: "ProductDetail",
-    setup() {
-        const data = useCartStore();
-        return {
-            data,
-        };
-    },
     components: {
         Layout,
         Vue3StickySidebar,
@@ -347,37 +343,29 @@ export default {
         ElOption,
     },
     props: ["id"],
-    data() {
-        return {
-            product: {},
-            selectedSize: {
-                increases: 0,
-            },
-            calculatedPrice: 0,
-            quantity: 2,
-        };
-    },
-    computed: {
-        discountPercentage() {
-            if (!this.product.price || !this.product.price_sale) return 0;
+    setup(props) {
+        const product = ref({});
+        const selectedSize = ref({ increases: 0 });
+        const calculatedPrice = ref(0);
+        const quantity = ref(2);
+        const data = useCartStore();
+
+        const discountPercentage = computed(() => {
+            if (!product.value.price || !product.value.price_sale) return 0;
             return Math.round(
-                ((this.product.price - this.product.price_sale) /
-                    this.product.price) *
+                ((product.value.price - product.value.price_sale) /
+                    product.value.price) *
                     100
             );
-        },
-    },
-    mounted() {
-        this.fetchProduct();
-    },
-    methods: {
-        fetchProduct() {
+        });
+
+        const fetchProduct = () => {
             axios
-                .get(`/api/products/${this.id}`)
+                .get(`/api/products/${props.id}`)
                 .then((response) => {
-                    this.product = response.data.product;
-                    this.selectedSize = this.product.sizes[0];
-                    this.updatePrice();
+                    product.value = response.data.product;
+                    selectedSize.value = product.value.sizes[0];
+                    updatePrice();
                 })
                 .catch((error) => {
                     console.error(
@@ -385,25 +373,40 @@ export default {
                         error
                     );
                 });
-        },
-        updatePrice() {
-            let price = this.product.price_sale || this.product.price;
-            let increases = parseFloat(this.selectedSize?.increases) || 0;
+        };
 
-            this.calculatedPrice = price + increases;
-        },
-        addToCart() {
-            const cartStore = useCartStore();
-            cartStore.addToCart({
-                productId: this.product.id,
-                name: this.product.name,
-                price: this.calculatedPrice,
-                quantity: this.quantity, // Use the quantity from the input
+        const updatePrice = () => {
+            let price = product.value.price_sale || product.value.price;
+            let increases = parseFloat(selectedSize.value?.increases) || 0;
+
+            calculatedPrice.value = price + increases;
+        };
+
+        const addToCart = () => {
+            data.addToCart({
+                productId: product.value.id,
+                name: product.value.name,
+                price: calculatedPrice.value,
+                quantity: quantity.value,
             });
 
             ElMessage.success("Sản phẩm đã được thêm vào giỏ hàng!");
             this.$router.push({ path: "/shop-cart" });
-        },
+        };
+
+        onMounted(fetchProduct);
+
+        return {
+            product,
+            selectedSize,
+            calculatedPrice,
+            quantity,
+            discountPercentage,
+            fetchProduct,
+            updatePrice,
+            addToCart,
+            data,
+        };
     },
 };
 </script>

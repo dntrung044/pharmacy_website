@@ -89,7 +89,7 @@
     </Layout>
 </template>
 
-<script setup>
+<script>
 import { ref } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toastification";
@@ -98,46 +98,75 @@ import "mdb-vue-ui-kit/css/mdb.min.css";
 import { MDBRow, MDBCol, MDBInput, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
 import ErrorMessage from "../components/ErrorMessage.vue";
 
-const name = ref("");
-const email = ref("");
-const phone = ref("");
-const address = ref("");
-const password = ref("");
-const confirmPassword = ref("");
-const agreeTerms = ref(false);
-const errorMessage = ref("");
-const toast = useToast();
+export default {
+    components: {
+        Layout,
+        MDBRow,
+        MDBCol,
+        MDBInput,
+        MDBCheckbox,
+        MDBBtn,
+        ErrorMessage,
+    },
+    setup() {
+        const name = ref("");
+        const email = ref("");
+        const phone = ref("");
+        const address = ref("");
+        const password = ref("");
+        const confirmPassword = ref("");
+        const agreeTerms = ref(false);
+        const errorMessage = ref("");
+        const toast = useToast();
 
-const register = async () => {
-    if (password.value !== confirmPassword.value) {
-        errorMessage.value = "Mật khẩu và xác nhận mật khẩu không khớp!";
-        return;
-    }
-    if (!agreeTerms.value) {
-        errorMessage.value = "Bạn phải đồng ý với điều khoản của chúng tôi!";
-        return;
-    }
+        const register = async () => {
+            if (password.value !== confirmPassword.value) {
+                errorMessage.value =
+                    "Mật khẩu và xác nhận mật khẩu không khớp!";
+                return;
+            }
+            if (!agreeTerms.value) {
+                errorMessage.value =
+                    "Bạn phải đồng ý với điều khoản của chúng tôi!";
+                return;
+            }
 
-    try {
-        const response = await axios.post("/api/register", {
-            name: name.value,
-            email: email.value,
-            phone: phone.value,
-            address: address.value,
-            password: password.value,
-            password_confirmation: confirmPassword.value,
-        });
+            try {
+                const response = await axios.post("/api/register", {
+                    name: name.value,
+                    email: email.value,
+                    phone: phone.value,
+                    address: address.value,
+                    password: password.value,
+                    password_confirmation: confirmPassword.value,
+                });
 
-        if (response.data.success) {
-            toast.success("Đăng ký thành công!");
-            window.location.href = "/login";
-        } else {
-            toast.error("Đăng ký thất bại. Vui lòng kiểm tra lại thông tin.");
-        }
-    } catch (error) {
-        console.error("Registration error:", error);
-        errorMessage.value =
-            "Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau.";
-    }
+                if (response.data.success) {
+                    toast.success("Đăng ký thành công!");
+                    window.location.href = "/login";
+                } else {
+                    toast.error(
+                        "Đăng ký thất bại. Vui lòng kiểm tra lại thông tin."
+                    );
+                }
+            } catch (error) {
+                console.error("Registration error:", error);
+                errorMessage.value =
+                    "Đã xảy ra lỗi trong quá trình đăng ký. Vui lòng thử lại sau.";
+            }
+        };
+
+        return {
+            name,
+            email,
+            phone,
+            address,
+            password,
+            confirmPassword,
+            agreeTerms,
+            errorMessage,
+            register,
+        };
+    },
 };
 </script>

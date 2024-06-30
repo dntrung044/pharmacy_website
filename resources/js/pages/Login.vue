@@ -67,8 +67,7 @@
         </template>
     </Layout>
 </template>
-
-<script setup>
+<script>
 import { ref } from "vue";
 import axios from "axios";
 import { MDBInput, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
@@ -76,31 +75,50 @@ import Layout from "../layouts/Index.vue";
 import ErrorMessage from "../components/ErrorMessage.vue"; // Import the error message component
 import { useToast } from "vue-toastification";
 
-const email = ref("");
-const password = ref("");
-const remember = ref(false);
-const errorMessage = ref(""); // Add error message ref
-const toast = useToast();
+export default {
+    components: {
+        MDBInput,
+        MDBCheckbox,
+        MDBBtn,
+        Layout,
+        ErrorMessage,
+    },
+    setup() {
+        const email = ref("");
+        const password = ref("");
+        const remember = ref(false);
+        const errorMessage = ref(""); // Add error message ref
+        const toast = useToast();
 
-const login = async () => {
-    try {
-        const response = await axios.post("/api/login", {
-            email: email.value,
-            password: password.value,
-            remember: remember.value,
-        });
+        const login = async () => {
+            try {
+                const response = await axios.post("/api/login", {
+                    email: email.value,
+                    password: password.value,
+                    remember: remember.value,
+                });
 
-        if (response.data.success) {
-            toast.success("Đăng nhập thành công!");
-            window.location.href = "/";
-        } else {
-            errorMessage.value =
-                "Vui lòng kiểm tra thông tin đăng nhập của bạn.";
-        }
-    } catch (error) {
-        console.error("Login error:", error);
-        errorMessage.value =
-            "Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại sau.";
-    }
+                if (response.data.success) {
+                    toast.success("Đăng nhập thành công!");
+                    window.location.href = "/";
+                } else {
+                    errorMessage.value =
+                        "Vui lòng kiểm tra thông tin đăng nhập của bạn.";
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                errorMessage.value =
+                    "Đã xảy ra lỗi trong quá trình đăng nhập. Vui lòng thử lại sau.";
+            }
+        };
+
+        return {
+            email,
+            password,
+            remember,
+            errorMessage,
+            login,
+        };
+    },
 };
 </script>
