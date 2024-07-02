@@ -7,10 +7,16 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoriesController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Middleware\EnsureTokenIsValid;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', [AuthController::class, 'getUser']);
+    Route::post('/orders', [TransactionController::class, 'placeOrder']);
+});
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'userLogin']);
 
 Route::get('/products/by-category', [ProductController::class, 'getProductsByCategory']);
 
@@ -59,8 +65,3 @@ Route::prefix('customers')->group(function () {
 Route::prefix('products')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
 });
-
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
-
-Route::get('/user', [AuthController::class, 'index']);

@@ -239,17 +239,21 @@
                         </div>
                     </div>
                 </div>
-
-                <Paginate
-                    v-if="sortedProducts.length > itemsPerPage"
-                    :page-count="pageCount"
-                    :click-handler="handlePageClick"
-                    :container-class="'pagination'"
-                    :page-class="'page-item'"
-                    :page-link-class="'page-link'"
-                    :prev-text="'«'"
-                    :next-text="'»'"
-                ></Paginate>
+                <div class="row">
+                    <Paginate
+                        v-if="sortedProducts.length > itemsPerPage"
+                        :page-count="pageCount"
+                        :click-handler="handlePageClick"
+                        :container-class="'pagination'"
+                        :page-class="'page-item'"
+                        :page-link-class="'page-link'"
+                        :prev-text="'«'"
+                        :next-text="'»'"
+                    ></Paginate>
+                    <router-link :to="{ name: 'Cart' }" class="btn_1 outline"
+                        >Đến giỏ hàng</router-link
+                    >
+                </div>
             </div>
         </template>
     </Layout>

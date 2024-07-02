@@ -34,7 +34,7 @@
                                     </MDBCol>
                                     <MDBCol>
                                         <MDBInput
-                                            type="number"
+                                            type="text"
                                             label="Phone"
                                             id="phone"
                                             v-model="phone"
@@ -62,7 +62,6 @@
                                     v-model="confirmPassword"
                                     wrapperClass="mb-4"
                                 />
-
                                 <!-- Checkbox -->
                                 <MDBCheckbox
                                     label="Đồng ý với điều khoản của chúng tôi!"
@@ -70,7 +69,6 @@
                                     v-model="agreeTerms"
                                     wrapperClass="d-flex justify-content-center mb-4"
                                 />
-
                                 <!-- Submit button -->
                                 <MDBBtn
                                     color="primary"

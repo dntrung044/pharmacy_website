@@ -3,6 +3,7 @@ import { useToast } from "vue-toastification";
 const toast = useToast()
 
 export const useCartStore = defineStore('cart', {
+    id: 'cart',
     state: () => ({
         cart: JSON.parse(localStorage.getItem('cart') || '[]'),
         discount: null,
@@ -90,6 +91,16 @@ export const useCartStore = defineStore('cart', {
             } catch (error) {
                 throw error;
             }
+        },
+        clearCart() {
+            this.cart = [];
+            localStorage.removeItem('cart');
+        },
+        clearDiscount() {
+            this.discount = null;
+            this.discountCode = null;
+            this.discountValue = 0;
+            localStorage.removeItem('discount');
         },
         loadDiscount() {
             const savedDiscount = JSON.parse(localStorage.getItem('discount'));

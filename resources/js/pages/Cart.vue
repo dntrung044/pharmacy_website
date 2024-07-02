@@ -101,9 +101,7 @@
                                         Áp dụng
                                     </button>
                                 </div>
-                                <div v-if="discountError" class="error">
-                                    {{ discountError }}
-                                </div>
+                                <ErrorMessage :message="errorMessage" />
                             </div>
                         </div>
                     </div>
@@ -122,7 +120,11 @@
                                     {{ formatCurrency(cartStore.cartTotal) }}
                                 </li>
                                 <li v-if="cartStore.discount">
-                                    <span>Mã giảm gía:</span>
+                                    <span
+                                        >Mã giảm gía:({{
+                                            cartStore.discount.name
+                                        }})</span
+                                    >
                                     -{{
                                         cartStore.discount.condition === 1
                                             ? formatCurrency(
@@ -132,14 +134,34 @@
                                     }}
                                 </li>
                                 <li><span>Phí vận chuyển</span> 15.000đ</li>
-                                <li>
+                                <li v-if="cartStore.discount.condition === 1">
+                                    <span>Giảm</span> -
+                                    {{
+                                        formatCurrency(
+                                            cartStore.cartTotal -
+                                                cartStore.discount.number
+                                        )
+                                    }}
+                                </li>
+                                <li v-else>
+                                    <span>Giảm</span> -
+                                    {{
+                                        formatCurrency(
+                                            (cartStore.cartTotal *
+                                                cartStore.discount.number) /
+                                                100
+                                        )
+                                    }}
+                                </li>
+                                <li v-if="cartStore.discount">
                                     <span>Tổng</span>
                                     {{
-                                        (cartStore.discount.condition === 1
+                                        cartStore.discount.condition === 1
                                             ? formatCurrency(
-                                                  cartStore.cartTotal +
-                                                      15000 -
-                                                      cartStore.discount.number
+                                                  cartStore.cartTotal -
+                                                      cartStore.discount
+                                                          .number +
+                                                      15000
                                               )
                                             : formatCurrency(
                                                   (cartStore.cartTotal *
@@ -147,8 +169,15 @@
                                                           .number) /
                                                       100 +
                                                       15000
-                                              ),
-                                        cartStore.cartTotal + 15000)
+                                              )
+                                    }}
+                                </li>
+                                <li v-else>
+                                    <span>Tổng</span>
+                                    {{
+                                        formatCurrency(
+                                            cartStore.cartTotal + 15000
+                                        )
                                     }}
                                 </li>
                             </ul>
@@ -171,16 +200,19 @@
 import Layout from "../layouts/Index.vue";
 import { useCartStore } from "../stores/useCartStore";
 import { ref } from "vue";
+import ErrorMessage from "../components/ErrorMessage.vue";
 
 export default {
     name: "Cart",
     components: {
         Layout,
+        ErrorMessage,
     },
     setup() {
         const cartStore = useCartStore();
         const discountCode = ref("");
         const discountError = ref("");
+        const errorMessage = ref("");
 
         const updateQuantity = (productId, quantity) => {
             cartStore.updateQuantity(productId, quantity);
@@ -213,10 +245,10 @@ export default {
             cartStore
                 .applyDiscount(discountCode.value)
                 .then(() => {
-                    console.log("successfully.");
+                    errorMessage.value = "";
                 })
                 .catch((error) => {
-                    discountError.value = error.response.data.error;
+                    errorMessage.value = error.response.data.error;
                 });
         };
 
@@ -239,6 +271,7 @@ export default {
             removeFromCart,
             applyDiscountCode,
             formatCurrency,
+            errorMessage,
         };
     },
 };

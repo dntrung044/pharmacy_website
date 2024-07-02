@@ -67,12 +67,13 @@
         </template>
     </Layout>
 </template>
+
 <script>
 import { ref } from "vue";
 import axios from "axios";
 import { MDBInput, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
 import Layout from "../layouts/Index.vue";
-import ErrorMessage from "../components/ErrorMessage.vue"; // Import the error message component
+import ErrorMessage from "../components/ErrorMessage.vue";
 import { useToast } from "vue-toastification";
 
 export default {
@@ -87,7 +88,7 @@ export default {
         const email = ref("");
         const password = ref("");
         const remember = ref(false);
-        const errorMessage = ref(""); // Add error message ref
+        const errorMessage = ref("");
         const toast = useToast();
 
         const login = async () => {
@@ -98,12 +99,15 @@ export default {
                     remember: remember.value,
                 });
 
-                if (response.data.success) {
+                if (response.data.status) {
                     toast.success("Đăng nhập thành công!");
-                    window.location.href = "/";
+                    localStorage.setItem("authToken", response.data.token);
+                    axios.defaults.headers.common[
+                        "Authorization"
+                    ] = `Bearer ${response.data.token}`;
+                    window.location.href = "/checkout";
                 } else {
-                    errorMessage.value =
-                        "Vui lòng kiểm tra thông tin đăng nhập của bạn.";
+                    errorMessage.value = "Tài khoản hoặc mật khẩu không đúng!";
                 }
             } catch (error) {
                 console.error("Login error:", error);
