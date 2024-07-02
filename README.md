@@ -1,20 +1,20 @@
 # Introduce E-commerce project
-![Cover](docs/images/Cover.png)
+ 
 ## Tools used:
 * API: PHP(Laravel)
 * Frontend: Vue js
 * Database: MySQL
 
 ## Database
-![Database 4](docs/images/Database_4.png)
+![Database 4](docs/images/Database.png)
 
 # Pages
 ## User Page
 * Log in, sign up
 ![Database 4](docs/images/login.png)
-![Database 4](docs/images/register.png)
+![Database 4](docs/images/regester.png)
 ## Home page
-![Database 4](docs/images/Home.png)
+![Database 4](docs/images/home.png)
 ## Menu
 * **Arrange** 
  * Rating
@@ -25,7 +25,7 @@
  * Rating
  * Price 
 * Pagination
-* ![Database 4](docs/images/menus.png)
+* ![Database 4](docs/images/detail.png)
 *Product details.
 ## Cart
 ![Database 4](docs/images/cart.png)
