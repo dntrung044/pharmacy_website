@@ -14,6 +14,7 @@ class Cart extends Model
         'total_price',
         'transport_fee',
         'discount_id',
+        'transaction_id'
     ];
 
     public function product()

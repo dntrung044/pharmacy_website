@@ -237,7 +237,7 @@ export default {
                     toast.success("Đơn hàng của bạn đã được đặt thành công!");
                     cartStore.clearCart();
                     cartStore.clearDiscount();
-                    router.push({ name: "menu" });
+                    router.push({ name: "Menu" });
                 } else {
                     toast.error(
                         response.data.message || "Đã xảy ra lỗi khi đặt hàng."

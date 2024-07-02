@@ -15,7 +15,6 @@ class Transaction extends Model
         'address',
         'user_id',
         'note',
-        'cart_id',
         'status',
     ];
 

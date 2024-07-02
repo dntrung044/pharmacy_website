@@ -28,7 +28,7 @@
                     <a
                         href="#collapseFilters"
                         data-toggle="collapse"
-                        class="btn_filters"
+                        class="btn_filters no-underline"
                     >
                         <i class="icon_adjust-vert"></i><span>Filters</span>
                     </a>
@@ -240,19 +240,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    <Paginate
-                        v-if="sortedProducts.length > itemsPerPage"
-                        :page-count="pageCount"
-                        :click-handler="handlePageClick"
-                        :container-class="'pagination'"
-                        :page-class="'page-item'"
-                        :page-link-class="'page-link'"
-                        :prev-text="'«'"
-                        :next-text="'»'"
-                    ></Paginate>
-                    <router-link :to="{ name: 'Cart' }" class="btn_1 outline"
-                        >Đến giỏ hàng</router-link
-                    >
+                    <div class="col-xl-10 col-lg-10">
+                        <Paginate
+                            v-if="sortedProducts.length > itemsPerPage"
+                            :page-count="pageCount"
+                            :click-handler="handlePageClick"
+                            :container-class="'pagination'"
+                            :page-class="'page-item'"
+                            :page-link-class="'page-link'"
+                            :prev-text="'«'"
+                            :next-text="'»'"
+                        ></Paginate>
+                    </div>
+                    <div class="col-xl-2 col-lg-2">
+                        <router-link
+                            :to="{ name: 'Cart' }"
+                            class="btn_1 outline"
+                            >Đến giỏ hàng</router-link
+                        >
+                    </div>
                 </div>
             </div>
         </template>
@@ -480,3 +486,9 @@ export default {
     },
 };
 </script>
+
+<style scope>
+.no-underline {
+    text-decoration: none;
+}
+</style>
