@@ -6,6 +6,9 @@ import Cart from '../pages/Cart.vue';
 import Transaction from '../pages/Transaction.vue';
 import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
+import Blog from '../pages/Blog.vue';
+import BlogDetail from '../pages/BlogDetail.vue';
+
 
 const routes = [
     {
@@ -21,7 +24,6 @@ const routes = [
     },
     {
         path: '/menu/:id',
-        name: 'product-detail',
         component: ProductDetail,
         props: true
     },
@@ -44,6 +46,17 @@ const routes = [
         name: 'Register',
         path: '/register',
         component: Register,
+    },
+    {
+        name: 'Blog',
+        // path: '/blog',
+        path: '/blog',
+        component: Blog,
+    },
+    {
+        path: '/blog/:id',
+        component: BlogDetail,
+        props: true
     },
 ];
 

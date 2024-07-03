@@ -38,6 +38,8 @@
 
     <!-- SPECIFIC CSS -->
     <link href="{{ asset('css/shop.css') }}" rel="stylesheet">
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
     @vite('resources/css/app.css')
 </head>
 

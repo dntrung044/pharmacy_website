@@ -37,13 +37,27 @@
                 </div>
                 <ul>
                     <li class="submenu">
-                        <router-link :to="{ name: 'Home' }" class="show-submenu"
+                        <router-link
+                            :to="{ name: 'Home' }"
+                            class="show-submenu"
+                            style="text-decoration: none"
                             >Trang chủ</router-link
                         >
                     </li>
                     <li class="submenu">
-                        <router-link :to="{ name: 'Menu' }" class="show-submenu"
+                        <router-link
+                            :to="{ name: 'Menu' }"
+                            class="show-submenu"
+                            style="text-decoration: none"
                             >Thực đơn</router-link
+                        >
+                    </li>
+                    <li class="submenu">
+                        <router-link
+                            :to="{ name: 'Blog' }"
+                            class="show-submenu"
+                            style="text-decoration: none"
+                            >Blog</router-link
                         >
                     </li>
                 </ul>

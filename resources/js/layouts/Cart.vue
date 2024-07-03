@@ -1,60 +1,44 @@
 <template>
-    <ul id="top_menu">
-        <li><a href="#0" class="search-overlay-menu-btn"></a></li>
-        <li>
-            <div class="dropdown dropdown-cart">
-                <a href="/cart" class="cart_bt"
-                    ><strong>{{ cartStore.cartTotal }}</strong></a
+    <div class="dropdown-menu">
+        <ul>
+            <li v-for="item in cartStore.cart" :key="item.id">
+                <figure>
+                    <img
+                        :src="item.image"
+                        width="50"
+                        height="50"
+                        class="lazy"
+                    />
+                </figure>
+                <strong
+                    ><span>{{ item.quantity }}x {{ item.name }}</span
+                    >{{ formatCurrency(item.price) }}</strong
                 >
-                <div class="dropdown-menu">
-                    <ul>
-                        <li v-for="item in cartStore.cart" :key="item.id">
-                            <figure>
-                                <img
-                                    :src="item.image"
-                                    width="50"
-                                    height="50"
-                                    class="lazy"
-                                />
-                            </figure>
-                            <strong
-                                ><span
-                                    >{{ item.quantity }}x {{ item.name }}</span
-                                >{{ formatCurrency(item.price) }}</strong
-                            >
-                            <a
-                                href="#0"
-                                @click.prevent="removeFromCart(item.id)"
-                                class="action"
-                                ><i class="icon_trash_alt"></i
-                            ></a>
-                        </li>
-                    </ul>
-                    <div class="total_drop">
-                        <div class="clearfix add_bottom_15">
-                            <strong
-                                >Tổng:
-                                <span>
-                                    {{
-                                        formatCurrency(cartStore.cartTotal)
-                                    }}</span
-                                ></strong
-                            >
-                        </div>
-                        <router-link
-                            :to="{ name: 'Cart' }"
-                            class="btn_1 outline"
-                            >Xem giỏ hàng</router-link
-                        >
-                        <router-link :to="{ name: 'Transaction' }" class="btn_1"
-                            >Thanh toán</router-link
-                        >
-                    </div>
-                </div>
+                <a
+                    href="#0"
+                    @click.prevent="removeFromCart(item.id)"
+                    class="action"
+                    ><i class="icon_trash_alt"></i
+                ></a>
+            </li>
+        </ul>
+        <div class="total_drop">
+            <div class="clearfix add_bottom_15">
+                <strong
+                    >Tổng:
+                    <span>
+                        {{ formatCurrency(cartStore.cartTotal) }}</span
+                    ></strong
+                >
             </div>
-            <!-- /dropdown-cart-->
-        </li>
-    </ul>
+            <router-link :to="{ name: 'Cart' }" class="btn_1 outline"
+                >Xem giỏ hàng</router-link
+            >
+            <router-link :to="{ name: 'Transaction' }" class="btn_1"
+                >Thanh toán</router-link
+            >
+        </div>
+    </div>
 </template>
 <script>
 import { useCartStore } from "../stores/useCartStore";

@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCategoriesController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\EnsureTokenIsValid;
 use Illuminate\Support\Facades\Auth;
@@ -64,4 +66,13 @@ Route::prefix('customers')->group(function () {
 
 Route::prefix('products')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
+});
+
+Route::prefix('blog')->group(function () {
+    Route::get('/posts', [BlogController::class, 'index']);
+    Route::get('/posts/{id}', [BlogController::class, 'show']);
+    Route::get('/categories', [BlogController::class, 'categories']);
+    Route::get('/latest', [BlogController::class, 'latestPosts']);
+    Route::get('/tags', [BlogController::class, 'tags']);
+    Route::get('/posts/{postId}/comments', [BlogController::class, 'comments']);
 });
