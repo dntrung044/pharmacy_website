@@ -6,7 +6,7 @@
 * Database: MySQL
 
 ## Database
-![Database 4](docs/images/Database.png)
+![Database 4](docs/images/db.png)
 
 # Pages
 ## User Page
@@ -33,3 +33,8 @@
 * Discount code
 ## Payment
 ![Database 4](docs/images/payment.png)
+## Blog
+![Blog](docs/images/blog.png)
+* Post: list(pagination), detail, category(filter), comment(add,load more )
+![Post detail](docs/images/post_detail.png)
+
