@@ -34,8 +34,8 @@
                                     <li>
                                         <a href="#"
                                             ><i class="icon_comment_alt"></i>
-                                            ({{ post.comments.length }})
-                                            Comments</a
+                                            ({{ post.comments.length }}) Bình
+                                            luận</a
                                         >
                                     </li>
                                 </ul>
@@ -66,10 +66,8 @@
 
                                     <div class="comment_right clearfix">
                                         <div class="comment_info">
-                                            <a href="#" class="no-underline">{{
-                                                comment.name
-                                            }}</a
-                                            ><span>|</span
+                                            {{ comment.name }}
+                                            <span>|</span
                                             >{{
                                                 formatDateComment(
                                                     comment.created_at
@@ -83,7 +81,7 @@
                             <button
                                 v-if="hasMoreComments"
                                 @click="loadMoreComments"
-                                class="btn_1 mb-3"
+                                class="btn_1 mb-3 mt-4"
                             >
                                 Thêm bình luận
                             </button>
