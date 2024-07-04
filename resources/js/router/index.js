@@ -49,12 +49,12 @@ const routes = [
     },
     {
         name: 'Blog',
-        // path: '/blog',
         path: '/blog',
         component: Blog,
     },
     {
-        path: '/blog/:id',
+        path: '/blog/posts/:postId',
+        name: 'PostDetails',
         component: BlogDetail,
         props: true
     },

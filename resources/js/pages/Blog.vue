@@ -12,7 +12,9 @@
                             >
                                 <article class="blog">
                                     <figure>
-                                        <a :href="'blog/posts?id=' + post.id">
+                                        <router-link
+                                            :to="'/blog/posts/' + post.id"
+                                        >
                                             <img
                                                 :src="post.image"
                                                 alt="Post Image"
@@ -20,7 +22,7 @@
                                             <div class="preview">
                                                 <span>Xem thêm</span>
                                             </div>
-                                        </a>
+                                        </router-link>
                                     </figure>
                                     <div class="post_info">
                                         <small
@@ -28,12 +30,11 @@
                                             {{ formatDate(post.created_at) }}
                                         </small>
                                         <h2>
-                                            <a
-                                                :href="
-                                                    'blog/post?id=' + post.id
-                                                "
-                                                >{{ post.title }}</a
+                                            <router-link
+                                                :to="'/blog/posts/' + post.id"
                                             >
+                                                {{ post.title }}
+                                            </router-link>
                                         </h2>
                                         <p>{{ post.description }}</p>
                                         <ul>
@@ -86,16 +87,14 @@
                                     :key="latestPost.id"
                                 >
                                     <div class="alignleft">
-                                        <a
-                                            :href="
-                                                'blog/posts?id=' + latestPost.id
-                                            "
+                                        <router-link
+                                            :to="'/blog/posts/' + latestPost.id"
                                         >
                                             <img
                                                 :src="latestPost.image"
                                                 alt="Latest Post Image"
                                             />
-                                        </a>
+                                        </router-link>
                                     </div>
                                     <small
                                         >{{ latestPost.category.name }} -
@@ -104,11 +103,9 @@
                                         }}</small
                                     >
                                     <h3>
-                                        <a
-                                            :href="
-                                                'blog/posts?id=' + latestPost.id
-                                            "
-                                            >{{ latestPost.title }}</a
+                                        <router-link
+                                            :to="'/blog/posts/' + latestPost.id"
+                                            >{{ latestPost.title }}</router-link
                                         >
                                     </h3>
                                 </li>

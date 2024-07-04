@@ -4,240 +4,57 @@
             <div class="container margin_60_40">
                 <div class="row">
                     <div class="col-lg-9">
-                        <div class="singlepost">
+                        <div class="singlepost" v-if="post">
                             <figure>
                                 <img
+                                    :src="post.image"
                                     alt=""
                                     class="img-fluid"
-                                    src="img/blog-single.jpg"
                                 />
                             </figure>
-                            <h1>Cooking best practices</h1>
+                            <h1>{{ post.title }}</h1>
                             <div class="postmeta">
                                 <ul>
                                     <li>
                                         <a href="#"
                                             ><i class="icon_folder-alt"></i>
-                                            Category</a
+                                            {{ post.category.name }}</a
                                         >
                                     </li>
                                     <li>
-                                        <i class="icon_calendar"></i> 23/12/2015
+                                        <i class="icon_calendar"></i>
+                                        {{ formatDate(post.created_at) }}
                                     </li>
                                     <li>
                                         <a href="#"
                                             ><i class="icon_pencil-edit"></i>
-                                            Admin</a
+                                            {{ post.user.name }}</a
                                         >
                                     </li>
                                     <li>
                                         <a href="#"
                                             ><i class="icon_comment_alt"></i>
-                                            (14) Comments</a
+                                            ({{ post.comments.length }})
+                                            Comments</a
                                         >
                                     </li>
                                 </ul>
                             </div>
                             <!-- /post meta -->
-                            <div class="post-content">
-                                <div class="dropcaps">
-                                    <p>
-                                        Aorem Ipsum is simply dummy text of the
-                                        printing and typesetting industry. Lorem
-                                        Ipsum has been the industry's standard
-                                        dummy text ever since the 1500s, when an
-                                        unknown printer took a galley of type
-                                        and scrambled it to make a type specimen
-                                        book. It has survived not only five
-                                        centuries, but also the leap into
-                                        electronic typesetting, remaining
-                                        essentially unchanged. It was
-                                        popularised in the 1960s with the
-                                        release of Letraset sheets containing
-                                        Lorem Ipsum passages, and more recently
-                                        with desktop publishing software like
-                                        Aldus PageMaker including versions of
-                                        Lorem Ipsum.
-                                    </p>
-                                </div>
-
-                                <p>
-                                    Contrary to popular belief, Lorem Ipsum is
-                                    not simply random text. It has roots in a
-                                    piece of classical Latin literature from 45
-                                    BC, making it over 2000 years old. Richard
-                                    McClintock, a Latin professor at
-                                    Hampden-Sydney College in Virginia, looked
-                                    up one of the more obscure Latin words,
-                                    consectetur, from a Lorem Ipsum passage, and
-                                    going through the cites of the word in
-                                    classical literature, discovered the
-                                    undoubtable source. Lorem Ipsum comes from
-                                    sections 1.10.32 and 1.10.33 of "de Finibus
-                                    Bonorum et Malorum" (The Extremes of Good
-                                    and Evil) by Cicero, written in 45 BC. This
-                                    book is a treatise on the theory of ethics,
-                                    very popular during the Renaissance. The
-                                    first line of Lorem Ipsum, "Lorem ipsum
-                                    dolor sit amet..", comes from a line in
-                                    section 1.10.32.
-                                </p>
-                            </div>
+                            <div
+                                class="post-content"
+                                v-html="post.content"
+                            ></div>
                             <!-- /post -->
                         </div>
                         <!-- /single-post -->
-
                         <div id="comments">
-                            <h5>Comments</h5>
+                            <h5>Bình luận</h5>
                             <ul>
-                                <li>
-                                    <div class="avatar">
-                                        <a href="#"
-                                            ><img
-                                                src="img/avatar1.jpg"
-                                                alt=""
-                                            />
-                                        </a>
-                                    </div>
-                                    <div class="comment_right clearfix">
-                                        <div class="comment_info">
-                                            By <a href="#">Anna Smith</a
-                                            ><span>|</span>25/10/2019<span
-                                                >|</span
-                                            ><a href="#">Reply</a>
-                                        </div>
-                                        <p>
-                                            Nam cursus tellus quis magna porta
-                                            adipiscing. Donec et eros leo, non
-                                            pellentesque arcu. Curabitur vitae
-                                            mi enim, at vestibulum magna. Cum
-                                            sociis natoque penatibus et magnis
-                                            dis parturient montes, nascetur
-                                            ridiculus mus. Sed sit amet sem a
-                                            urna rutrumeger fringilla. Nam vel
-                                            enim ipsum, et congue ante.
-                                        </p>
-                                    </div>
-                                    <ul class="replied-to">
-                                        <li>
-                                            <div class="avatar">
-                                                <a href="#"
-                                                    ><img
-                                                        src="img/avatar4.jpg"
-                                                        alt=""
-                                                    />
-                                                </a>
-                                            </div>
-                                            <div class="comment_right clearfix">
-                                                <div class="comment_info">
-                                                    By <a href="#">Anna Smith</a
-                                                    ><span>|</span
-                                                    >25/10/2019<span>|</span
-                                                    ><a href="#">Reply</a>
-                                                </div>
-                                                <p>
-                                                    Nam cursus tellus quis magna
-                                                    porta adipiscing. Donec et
-                                                    eros leo, non pellentesque
-                                                    arcu. Curabitur vitae mi
-                                                    enim, at vestibulum magna.
-                                                    Cum sociis natoque penatibus
-                                                    et magnis dis parturient
-                                                    montes, nascetur ridiculus
-                                                    mus. Sed sit amet sem a urna
-                                                    rutrumeger fringilla. Nam
-                                                    vel enim ipsum, et congue
-                                                    ante.
-                                                </p>
-                                                <p>
-                                                    Aenean iaculis sodales dui,
-                                                    non hendrerit lorem rhoncus
-                                                    ut. Pellentesque ullamcorper
-                                                    venenatis elit idaipiscingi
-                                                    Duis tellus neque, tincidunt
-                                                    eget pulvinar sit amet,
-                                                    rutrum nec urna. Suspendisse
-                                                    pretium laoreet elit vel
-                                                    ultricies. Maecenas
-                                                    ullamcorper ultricies
-                                                    rhoncus. Aliquam erat
-                                                    volutpat.
-                                                </p>
-                                            </div>
-                                            <ul class="replied-to">
-                                                <li>
-                                                    <div class="avatar">
-                                                        <a href="#"
-                                                            ><img
-                                                                src="img/avatar6.jpg"
-                                                                alt=""
-                                                            />
-                                                        </a>
-                                                    </div>
-                                                    <div
-                                                        class="comment_right clearfix"
-                                                    >
-                                                        <div
-                                                            class="comment_info"
-                                                        >
-                                                            By
-                                                            <a href="#"
-                                                                >Anna Smith</a
-                                                            ><span>|</span
-                                                            >25/10/2019<span
-                                                                >|</span
-                                                            ><a href="#"
-                                                                >Reply</a
-                                                            >
-                                                        </div>
-                                                        <p>
-                                                            Nam cursus tellus
-                                                            quis magna porta
-                                                            adipiscing. Donec et
-                                                            eros leo, non
-                                                            pellentesque arcu.
-                                                            Curabitur vitae mi
-                                                            enim, at vestibulum
-                                                            magna. Cum sociis
-                                                            natoque penatibus et
-                                                            magnis dis
-                                                            parturient montes,
-                                                            nascetur ridiculus
-                                                            mus. Sed sit amet
-                                                            sem a urna
-                                                            rutrumeger
-                                                            fringilla. Nam vel
-                                                            enim ipsum, et
-                                                            congue ante.
-                                                        </p>
-                                                        <p>
-                                                            Aenean iaculis
-                                                            sodales dui, non
-                                                            hendrerit lorem
-                                                            rhoncus ut.
-                                                            Pellentesque
-                                                            ullamcorper
-                                                            venenatis elit
-                                                            idaipiscingi Duis
-                                                            tellus neque,
-                                                            tincidunt eget
-                                                            pulvinar sit amet,
-                                                            rutrum nec urna.
-                                                            Suspendisse pretium
-                                                            laoreet elit vel
-                                                            ultricies. Maecenas
-                                                            ullamcorper
-                                                            ultricies rhoncus.
-                                                            Aliquam erat
-                                                            volutpat.
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
+                                <li
+                                    v-for="comment in comments"
+                                    :key="comment.id"
+                                >
                                     <div class="avatar">
                                         <a href="#"
                                             ><img
@@ -249,165 +66,116 @@
 
                                     <div class="comment_right clearfix">
                                         <div class="comment_info">
-                                            By <a href="#">Anna Smith</a
-                                            ><span>|</span>25/10/2019<span
-                                                >|</span
-                                            ><a href="#">Reply</a>
+                                            <a href="#" class="no-underline">{{
+                                                comment.name
+                                            }}</a
+                                            ><span>|</span
+                                            >{{
+                                                formatDateComment(
+                                                    comment.created_at
+                                                )
+                                            }}
                                         </div>
-                                        <p>
-                                            Cursus tellus quis magna porta
-                                            adipiscin
-                                        </p>
+                                        <p>{{ comment.content }}</p>
                                     </div>
                                 </li>
                             </ul>
+                            <button
+                                v-if="hasMoreComments"
+                                @click="loadMoreComments"
+                                class="btn_1 mb-3"
+                            >
+                                Thêm bình luận
+                            </button>
                         </div>
 
                         <hr />
 
-                        <h5>Leave a comment</h5>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-6">
-                                <div class="form-group">
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        id="name2"
-                                        class="form-control"
-                                        placeholder="Name"
-                                    />
+                        <h5>Để lại một bình luận:</h5>
+                        <div v-if="user && user.name">
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group">
+                                        <input
+                                            v-model="user.name"
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Tên"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="form-group">
+                                        <input
+                                            v-model="user.email"
+                                            type="email"
+                                            class="form-control"
+                                            placeholder="Email"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6">
-                                <div class="form-group">
-                                    <input
-                                        type="text"
-                                        name="email"
-                                        id="email2"
-                                        class="form-control"
-                                        placeholder="Email"
-                                    />
-                                </div>
+                            <div class="form-group">
+                                <textarea
+                                    v-model="content"
+                                    class="form-control"
+                                    rows="6"
+                                    placeholder="Nội dung"
+                                ></textarea>
                             </div>
-                            <div class="col-md-4 col-sm-12">
-                                <div class="form-group">
-                                    <input
-                                        type="text"
-                                        name="email"
-                                        id="website3"
-                                        class="form-control"
-                                        placeholder="Website"
-                                    />
-                                </div>
+                            <div class="form-group">
+                                <button
+                                    type="submit"
+                                    id="submit2"
+                                    class="btn_1 mb-3"
+                                    @click="submitComment"
+                                >
+                                    Bình luận
+                                </button>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <textarea
-                                class="form-control"
-                                name="comments"
-                                id="comments2"
-                                rows="6"
-                                placeholder="Comment"
-                            ></textarea>
-                        </div>
-                        <div class="form-group">
-                            <button
-                                type="submit"
-                                id="submit2"
-                                class="btn_1 mb-3"
-                            >
-                                Submit
-                            </button>
                         </div>
                     </div>
                     <!-- /col -->
 
                     <aside class="col-lg-3">
+                        <!-- Latest Posts Widget -->
                         <div class="widget">
                             <div class="widget-title first">
-                                <h4>Latest Post</h4>
+                                <h4>Bài đăng Mới nhất</h4>
                             </div>
                             <ul class="comments-list">
-                                <li>
+                                <li
+                                    v-for="latestPost in latestPosts"
+                                    :key="latestPost.id"
+                                >
                                     <div class="alignleft">
-                                        <a href="#0"
-                                            ><img src="img/blog-5.jpg" alt=""
-                                        /></a>
-                                    </div>
-                                    <small>Category - 11.08.2016</small>
-                                    <h3>
-                                        <a href="#" title=""
-                                            >Verear qualisque ex minimum...</a
+                                        <a
+                                            :href="
+                                                '/blog/posts/' + latestPost.id
+                                            "
                                         >
-                                    </h3>
-                                </li>
-                                <li>
-                                    <div class="alignleft">
-                                        <a href="#0"
-                                            ><img src="img/blog-6.jpg" alt=""
-                                        /></a>
+                                            <img
+                                                :src="latestPost.image"
+                                                alt=""
+                                            />
+                                        </a>
                                     </div>
-                                    <small>Category - 11.08.2016</small>
+                                    <small
+                                        >{{ latestPost.category.name }} -
+                                        {{
+                                            formatDate(latestPost.created_at)
+                                        }}</small
+                                    >
                                     <h3>
-                                        <a href="#" title=""
-                                            >Verear qualisque ex minimum...</a
-                                        >
-                                    </h3>
-                                </li>
-                                <li>
-                                    <div class="alignleft">
-                                        <a href="#0"
-                                            ><img src="img/blog-4.jpg" alt=""
-                                        /></a>
-                                    </div>
-                                    <small>Category - 11.08.2016</small>
-                                    <h3>
-                                        <a href="#" title=""
-                                            >Verear qualisque ex minimum...</a
+                                        <a
+                                            :href="
+                                                '/blog/posts/' + latestPost.id
+                                            "
+                                            >{{ latestPost.title }}</a
                                         >
                                     </h3>
                                 </li>
                             </ul>
-                        </div>
-                        <!-- /widget -->
-                        <div class="widget">
-                            <div class="widget-title">
-                                <h4>Categories</h4>
-                            </div>
-                            <ul class="cats">
-                                <li>
-                                    <a href="#">Food <span>(12)</span></a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        >Places to visit <span>(21)</span></a
-                                    >
-                                </li>
-                                <li>
-                                    <a href="#">New Places <span>(44)</span></a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        >Suggestions and guides
-                                        <span>(31)</span></a
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /widget -->
-                        <div class="widget">
-                            <div class="widget-title">
-                                <h4>Popular Tags</h4>
-                            </div>
-                            <div class="tags">
-                                <a href="#">Food</a>
-                                <a href="#">Bars</a>
-                                <a href="#">Cooktails</a>
-                                <a href="#">Shops</a>
-                                <a href="#">Best Offers</a>
-                                <a href="#">Transports</a>
-                                <a href="#">Restaurants</a>
-                            </div>
                         </div>
                         <!-- /widget -->
                     </aside>
@@ -420,20 +188,157 @@
 </template>
 
 <script>
+import { ref, onMounted } from "vue";
 import Layout from "../layouts/Index.vue";
 import axios from "axios";
-import Vue3StickySidebar from "vue3-sticky-sidebar";
-import Incrementer from "../components/Incrementer.vue";
-import { ElSelect, ElOption, ElMessage } from "element-plus";
-import { ref, computed, onMounted } from "vue";
-import { useCartStore } from "../stores/useCartStore";
-import { useRouter } from "vue-router";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
+import ErrorMessage from "../components/ErrorMessage.vue";
+import { useToast } from "vue-toastification";
 
 export default {
+    name: "PostDetails",
     components: {
         Layout,
+        ErrorMessage,
     },
-    props: ["id"],
-    setup(props) {},
+    props: ["postId"],
+    setup(props) {
+        const post = ref(null);
+        const latestPosts = ref([]);
+        const categories = ref([]);
+        const content = ref("");
+        const errorMessage = ref("");
+        const user = ref({
+            name: "",
+            email: "",
+        });
+        const comments = ref([]);
+        const currentPage = ref(1);
+        const hasMoreComments = ref(true);
+        const toast = useToast();
+
+        const fetchComments = (page = 1) => {
+            axios
+                .get(`/api/blog/comments/${props.postId}?page=${page}`)
+                .then((response) => {
+                    if (response.data.length > 0) {
+                        comments.value =
+                            page === 1
+                                ? response.data
+                                : [...comments.value, ...response.data];
+                    } else {
+                        hasMoreComments.value = false;
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching comments:", error);
+                });
+        };
+
+        const fetchUser = () => {
+            const token = localStorage.getItem("authToken");
+            if (token) {
+                axios.defaults.headers.common[
+                    "Authorization"
+                ] = `Bearer ${token}`;
+                axios
+                    .get("/api/user")
+                    .then((response) => {
+                        user.value = response.data;
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching user:", error);
+                    });
+            } else {
+                errorMessage.value = "Bạn chưa đăng nhập.";
+            }
+        };
+
+        const fetchPostDetails = (id) => {
+            axios
+                .get(`/api/blog/posts/${id}`)
+                .then((response) => {
+                    post.value = response.data.post;
+                    latestPosts.value = response.data.latestPosts;
+                    categories.value = response.data.categories;
+                })
+                .catch((error) => {
+                    console.error("Error fetching post details:", error);
+                });
+        };
+
+        const formatDate = (dateString) => {
+            return format(new Date(dateString), "dd 'tháng' MM 'năm' yyyy", {
+                locale: vi,
+            });
+        };
+
+        const formatDateComment = (dateString) => {
+            return format(new Date(dateString), "dd/MM/yyyy");
+        };
+
+        const submitComment = () => {
+            const { name, email } = user.value;
+            const commentContent = content.value;
+            if (!name || !email || !commentContent) {
+                errorMessage.value =
+                    "Vui lòng nhập đầy đủ thông tin bình luận!";
+                return;
+            }
+            const userId = user.value.id;
+            axios
+                .post("/api/blog/comments", {
+                    content: commentContent,
+                    post_id: props.postId,
+                    user_id: userId,
+                    name,
+                    email,
+                })
+                .then((response) => {
+                    toast.success("Bình luận đã được lưu!");
+                    content.value = "";
+                    fetchComments(1); // Reset bình luận và tải lại từ đầu
+                    currentPage.value = 1;
+                    hasMoreComments.value = true;
+                })
+                .catch((error) => {
+                    console.error("Lỗi khi lưu bình luận:", error);
+                    errorMessage.value = "Lỗi khi lưu bình luận";
+                });
+        };
+
+        const loadMoreComments = () => {
+            currentPage.value++;
+            fetchComments(currentPage.value);
+        };
+
+        onMounted(() => {
+            fetchPostDetails(props.postId);
+            fetchUser();
+            fetchComments();
+        });
+
+        return {
+            post,
+            latestPosts,
+            categories,
+            content,
+            errorMessage,
+            user,
+            comments,
+            hasMoreComments,
+            formatDate,
+            formatDateComment,
+            submitComment,
+            loadMoreComments,
+        };
+    },
 };
 </script>
+
+<style scoped>
+.no-underline {
+    text-decoration: none;
+}
+</style>

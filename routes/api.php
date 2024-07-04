@@ -64,9 +64,6 @@ Route::prefix('customers')->group(function () {
     Route::get('/', [CartController::class, 'index']);
 });
 
-Route::prefix('products')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
-});
 
 Route::prefix('blog')->group(function () {
     Route::get('/posts', [BlogController::class, 'index']);
@@ -74,5 +71,8 @@ Route::prefix('blog')->group(function () {
     Route::get('/categories', [BlogController::class, 'categories']);
     Route::get('/latest', [BlogController::class, 'latestPosts']);
     Route::get('/tags', [BlogController::class, 'tags']);
-    Route::get('/posts/{postId}/comments', [BlogController::class, 'comments']);
+    Route::prefix('comments')->group(function () {
+        Route::post('/', [BlogController::class, 'posComment']);
+        Route::get('/{postId}', [BlogController::class, 'getcomments']);
+    });
 });
