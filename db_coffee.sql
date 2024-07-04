@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 02, 2024 at 10:35 AM
+-- Generation Time: Jul 04, 2024 at 06:31 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -197,7 +197,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2024_07_01_034957_create_personal_access_tokens_table', 13),
 (20, '2024_07_02_020324_create_carts_table', 14),
 (21, '2024_07_02_020324_create_transactions_table', 14),
-(22, '2024_07_02_070612_add_transaction_id_to_carts_table', 15);
+(22, '2024_07_02_070612_add_transaction_id_to_carts_table', 15),
+(23, '2024_07_02_102255_create_tags_table', 16),
+(24, '2024_07_02_102350_create_categories_table', 16),
+(25, '2024_07_02_103300_create_posts_table', 16),
+(26, '2024_07_02_103355_create_comments_table', 16),
+(27, '2024_07_02_105026_create_post_tags_table', 17);
 
 -- --------------------------------------------------------
 
@@ -239,7 +244,8 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (2, 'App\\Models\\User', 8, 'auth', 'd1bbad8227370197e2725ef78bbf1b2f63e2bcf68b26e60bbd09ca244f50441d', '[\"*\"]', NULL, NULL, '2024-07-01 17:52:15', '2024-07-01 17:52:15'),
 (3, 'App\\Models\\User', 8, 'authToken', 'ee1222f813def01a4b66c87b17f4ab0c38b10252e8fb948e283add446b82c65d', '[\"*\"]', '2024-07-01 18:11:43', NULL, '2024-07-01 17:59:05', '2024-07-01 18:11:43'),
 (4, 'App\\Models\\User', 8, 'authToken', '2f4377ccfb4933e8d9e245787ed776152f1d38bc534cf7670a449908b8939fe9', '[\"*\"]', '2024-07-01 18:13:18', NULL, '2024-07-01 18:12:28', '2024-07-01 18:13:18'),
-(5, 'App\\Models\\User', 8, 'authToken', 'dd2d63cae478298fc2cdba19a298ec096d049b1783564b71004952f7af1f2b90', '[\"*\"]', '2024-07-02 01:03:28', NULL, '2024-07-01 18:32:09', '2024-07-02 01:03:28');
+(5, 'App\\Models\\User', 8, 'authToken', 'dd2d63cae478298fc2cdba19a298ec096d049b1783564b71004952f7af1f2b90', '[\"*\"]', '2024-07-03 05:21:22', NULL, '2024-07-01 18:32:09', '2024-07-03 05:21:22'),
+(6, 'App\\Models\\User', 8, 'authToken', '0bf699f1d0b9c1293d952010885b7008a79088edc53f347ef618509c5ee6df49', '[\"*\"]', '2024-07-03 21:25:16', NULL, '2024-07-03 05:22:25', '2024-07-03 21:25:16');
 
 -- --------------------------------------------------------
 
@@ -259,6 +265,111 @@ CREATE TABLE `personal_access_tokenss` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `content` text NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `title`, `description`, `content`, `image`, `category_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'title 1', 'mo ta', 'title 1title 1title 1title 1title 1title 1', 'https://mona.media/wp-content/uploads/2023/06/giao-dien-nguoi-dung.png', 4, 5, '2024-07-02 16:04:13', NULL),
+(2, 'title 2', 'mo ta 2', 'title 1title 1title 1sdsaáfdfadfsa', 'https://mona.media/wp-content/uploads/2023/06/ui-khong-hieu-qua.png', 2, 8, '2024-07-02 16:04:21', NULL),
+(3, 'title 3', 'mo ta 3', 'title 1title 1title 1title 1title 1title 1', 'https://mona.media/wp-content/uploads/2023/06/giao-dien-nguoi-dung.png', 1, 5, '2024-07-04 16:04:24', NULL),
+(4, 'title 4', 'mo ta 4', 'title 1title 1title 1sdsaáfdfadfsa', 'https://mona.media/wp-content/uploads/2023/06/ui-khong-hieu-qua.png', 2, 8, '2024-07-17 16:04:27', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_categories`
+--
+
+CREATE TABLE `post_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `post_categories`
+--
+
+INSERT INTO `post_categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'category 1', NULL, NULL),
+(2, 'category 2', NULL, NULL),
+(3, 'category 4', NULL, NULL),
+(4, 'category 3', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_comments`
+--
+
+CREATE TABLE `post_comments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `content` text NOT NULL,
+  `post_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `post_comments`
+--
+
+INSERT INTO `post_comments` (`id`, `content`, `post_id`, `user_id`, `name`, `email`, `created_at`, `updated_at`) VALUES
+(1, 'hello ', 1, 5, 'tom', 'tom@gmail.com', '2024-07-03 12:31:38', '2024-07-03 12:31:38'),
+(2, 'chaof cau', 1, 8, 'turng', 'email@gmail.com', '2024-07-05 03:18:05', '2024-07-20 03:18:05'),
+(3, 'hehe', 1, 8, 'Đào Nhật Trung', 'trungdao1@gmail.com', '2024-07-03 20:38:38', '2024-07-03 20:38:38'),
+(4, 'hello 4', 1, 8, 'Đào Nhật Trung', 'trungdao@gmail.com', '2024-07-03 20:45:18', '2024-07-03 20:45:18'),
+(5, 'hêhheeheeheheh', 1, 8, 'Đào Nhật Trung', 'trungdao@gmail.com', '2024-07-03 20:56:58', '2024-07-03 20:56:58'),
+(6, 'dsadas', 1, 8, 'Đào Nhật Trung', 'trungdao@gmail.com', '2024-07-03 20:57:35', '2024-07-03 20:57:35'),
+(7, 'sdasdas', 1, 8, 'Đào Nhật Trung', 'trungdao@gmail.com', '2024-07-03 21:08:40', '2024-07-03 21:08:40'),
+(8, 'xin chào admin nhe', 2, 8, 'Đào Nhật Trung', 'trungdao@gmail.com', '2024-07-03 21:19:48', '2024-07-03 21:19:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_tags`
+--
+
+CREATE TABLE `post_tags` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `post_tags`
+--
+
+INSERT INTO `post_tags` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'tag 1', NULL, NULL),
+(2, 'tag 2', NULL, NULL),
+(3, 'tag 3', NULL, NULL),
+(4, 'tag ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -420,7 +531,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ZbI5qoXgmx5Vg0qzOY8FIT7wYNX2y7fP7ZjPg5ac', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiN3NPYXdNeUVmbWh2WGlHT0kyanRJU1R0Q1pYTTNTMW04TVBBT2pjTiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1719907994);
+('hFjVjoSvB4mYbpbvwz8mufWxBfwxsKVsw7rh3cCi', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoid1EzNFphV0VqVnhiTFg0Skl2UEJBTzhtMm9MZVc4b1JicUxLSFM4SyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ibG9nL2ltZy9mYXZpY29uLmljbyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1720054247),
+('KL7p1ZVyfEaG2LuOWkfNdvCg2x789Bgx3vtAtYmN', NULL, '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoid24yYXpQU05IUld3NG9KWlZIalNhRzlTSTlvaWp2V3d0c1loRGNlTCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDg6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ibG9nL3Bvc3RzL2ltZy9hdmF0YXIxLmpwZyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1720067116);
 
 -- --------------------------------------------------------
 
@@ -562,6 +674,34 @@ ALTER TABLE `personal_access_tokenss`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `posts_category_id_foreign` (`category_id`),
+  ADD KEY `posts_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `post_categories`
+--
+ALTER TABLE `post_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `comments_post_id_foreign` (`post_id`),
+  ADD KEY `comments_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `post_tags`
+--
+ALTER TABLE `post_tags`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -650,19 +790,43 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokenss`
 --
 ALTER TABLE `personal_access_tokenss`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `post_categories`
+--
+ALTER TABLE `post_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `post_tags`
+--
+ALTER TABLE `post_tags`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -717,6 +881,20 @@ ALTER TABLE `carts`
   ADD CONSTRAINT `carts_discount_id_foreign` FOREIGN KEY (`discount_id`) REFERENCES `discounts` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `carts_transaction_id_foreign` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `post_categories` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `posts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `post_comments`
+--
+ALTER TABLE `post_comments`
+  ADD CONSTRAINT `comments_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `comments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
