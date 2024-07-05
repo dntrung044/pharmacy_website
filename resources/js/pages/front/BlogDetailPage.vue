@@ -187,11 +187,11 @@
 
 <script>
 import { ref, onMounted } from "vue";
-import Layout from "../layouts/Index.vue";
+import Layout from "./../../layouts/frontend/Index.vue";
 import axios from "axios";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-import ErrorMessage from "../components/ErrorMessage.vue";
+import ErrorMessage from "./../../components/ErrorMessage.vue";
 import { useToast } from "vue-toastification";
 
 export default {

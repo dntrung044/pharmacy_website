@@ -177,7 +177,7 @@
                                         ).toFixed(0)
                                     }}%
                                 </span>
-                                <a>
+                                <a :href="'/menu/' + product.id">
                                     <img
                                         class="img-fluid lazy"
                                         :src="product.image"
@@ -267,9 +267,9 @@
 <script>
 import axios from "axios";
 import { ref, computed } from "vue";
-import Layout from "../layouts/Index.vue";
+import Layout from "./../../layouts/frontend/Index.vue";
 import Paginate from "vuejs-paginate-next";
-import { useCartStore } from "../stores/useCartStore";
+import { useCartStore } from "../../stores/useCartStore";
 
 export default {
     components: {

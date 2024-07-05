@@ -6,14 +6,14 @@
             <div id="logo">
                 <a href="index.html">
                     <img
-                        src="../../img/logo.svg"
+                        src="../../../img/logo.svg"
                         width="140"
                         height="35"
                         alt=""
                         class="logo_normal"
                     />
                     <img
-                        src="../../img/logo_sticky.svg"
+                        src="../../../img/logo_sticky.svg"
                         width="140"
                         height="35"
                         alt=""
@@ -27,9 +27,9 @@
                     <a href="#0" class="open_close">
                         <i class="icon_close"></i><span>Menu</span>
                     </a>
-                    <a href="index.html"
+                    <a href="/"
                         ><img
-                            src="../../img/logo.svg"
+                            src="../../../img/logo.svg"
                             width="140"
                             height="35"
                             alt=""

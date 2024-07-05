@@ -305,13 +305,13 @@
 </template>
 
 <script>
-import Layout from "../layouts/Index.vue";
+import Layout from "./../../layouts/frontend/Index.vue";
 import axios from "axios";
 import Vue3StickySidebar from "vue3-sticky-sidebar";
-import Incrementer from "../components/Incrementer.vue";
+import Incrementer from "../../components/Incrementer.vue";
 import { ElSelect, ElOption, ElMessage } from "element-plus";
 import { ref, computed, onMounted } from "vue";
-import { useCartStore } from "../stores/useCartStore";
+import { useCartStore } from "../../stores/useCartStore";
 import { useRouter } from "vue-router";
 
 export default {

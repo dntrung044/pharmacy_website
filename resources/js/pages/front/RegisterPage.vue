@@ -91,10 +91,10 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useToast } from "vue-toastification";
-import Layout from "../layouts/Index.vue";
+import Layout from "./../../layouts/frontend/Index.vue";
 import "mdb-vue-ui-kit/css/mdb.min.css";
 import { MDBRow, MDBCol, MDBInput, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
-import ErrorMessage from "../components/ErrorMessage.vue";
+import ErrorMessage from "./../../components/ErrorMessage.vue";
 
 export default {
     components: {

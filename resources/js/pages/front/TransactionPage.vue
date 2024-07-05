@@ -146,8 +146,8 @@
 
 <script>
 import { ref, computed, onMounted } from "vue";
-import Layout from "../layouts/Index.vue";
-import { useCartStore } from "../stores/useCartStore";
+import Layout from "./../../layouts/frontend/Index.vue";
+import { useCartStore } from "../../stores/useCartStore";
 import { useToast } from "vue-toastification";
 import axios from "axios";
 import { useRouter } from "vue-router";

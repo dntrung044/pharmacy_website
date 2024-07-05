@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import Layout from "../layouts/Index.vue";
+import Layout from "./../../layouts/frontend/Index.vue";
 import axios from "axios";
 
 export default {

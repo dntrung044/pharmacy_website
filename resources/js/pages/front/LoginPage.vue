@@ -72,8 +72,8 @@
 import { ref } from "vue";
 import axios from "axios";
 import { MDBInput, MDBCheckbox, MDBBtn } from "mdb-vue-ui-kit";
-import Layout from "../layouts/Index.vue";
-import ErrorMessage from "../components/ErrorMessage.vue";
+import Layout from "./../../layouts/frontend/Index.vue";
+import ErrorMessage from "./../../components/ErrorMessage.vue";
 import { useToast } from "vue-toastification";
 
 export default {

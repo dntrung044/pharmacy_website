@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import Layout from "../layouts/Index.vue";
+import Layout from "./../../layouts/frontend/Index.vue";
 import axios from "axios";
 import Paginate from "vuejs-paginate-next";
 import { format } from "date-fns";

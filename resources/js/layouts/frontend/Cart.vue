@@ -41,7 +41,7 @@
     </div>
 </template>
 <script>
-import { useCartStore } from "../stores/useCartStore";
+import { useCartStore } from "../../stores/useCartStore";
 import { ref } from "vue";
 
 export default {

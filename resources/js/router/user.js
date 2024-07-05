@@ -1,12 +1,12 @@
-import Home from '../pages/HomePage.vue'
-import ProductList from '../pages/ProductListPage.vue'
-import ProductDetail from '../pages/ProductDetailPage.vue'
-import Cart from '../pages/CartPage.vue'
-import Transaction from '../pages/TransactionPage.vue'
-import Login from '../pages/LoginPage.vue'
-import Register from '../pages/RegisterPage.vue'
-import Blog from '../pages/BlogPage.vue'
-import BlogDetail from '../pages/BlogDetailPage.vue'
+import Home from '../pages/front/HomePage.vue'
+import ProductList from '../pages/front/ProductListPage.vue'
+import ProductDetail from '../pages/front/ProductDetailPage.vue'
+import Cart from '../pages/front/CartPage.vue'
+import Transaction from '../pages/front/TransactionPage.vue'
+import Login from '../pages/front/LoginPage.vue'
+import Register from '../pages/front/RegisterPage.vue'
+import Blog from '../pages/front/BlogPage.vue'
+import BlogDetail from '../pages/front/BlogDetailPage.vue'
 
 const user = [
     {

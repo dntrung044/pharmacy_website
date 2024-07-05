@@ -224,10 +224,10 @@
 </template>
 
 <script>
-import Layout from "../layouts/Index.vue";
-import { useCartStore } from "../stores/useCartStore";
+import Layout from "./../../layouts/frontend/Index.vue";
+import { useCartStore } from "../../stores/useCartStore";
 import { ref } from "vue";
-import ErrorMessage from "../components/ErrorMessage.vue";
+import ErrorMessage from "./../../components/ErrorMessage.vue";
 
 export default {
     name: "Cart",
