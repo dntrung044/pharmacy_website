@@ -1,0 +1,29 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-BMTRAcdn.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/img/logo.svg": {
+    "file": "assets/logo-Bsxbd_a_.svg",
+    "src": "resources/img/logo.svg"
+  },
+  "resources/img/logo_sticky.svg": {
+    "file": "assets/logo_sticky-KkRbGSnE.svg",
+    "src": "resources/img/logo_sticky.svg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-Ca4oKzoy.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-qBsaW-AX.css",
+      "assets/app-BMTRAcdn.css"
+    ],
+    "assets": [
+      "assets/logo-Bsxbd_a_.svg",
+      "assets/logo_sticky-KkRbGSnE.svg"
+    ]
+  }
+}

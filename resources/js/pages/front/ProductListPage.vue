@@ -449,7 +449,12 @@ export default {
                 sortedProducts.value.length
             );
         });
-
+        const formatCurrency = (value) => {
+            return new Intl.NumberFormat("vi-VN", {
+                style: "currency",
+                currency: "VND",
+            }).format(value);
+        };
         const addToCart = (product) => {
             cartStore.addToCart(product);
         };
@@ -482,6 +487,7 @@ export default {
             getProductsCountInPriceRange,
             handlePageClick,
             addToCart,
+            formatCurrency,
         };
     },
 };

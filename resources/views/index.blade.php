@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Foores - Single Restaurant Version">
-    <meta name="author" content="Ansonika">
+    <meta name="description" content="Restaurant">
+    <meta name="author" content="Trung">
     <title>Harmorny - Coffee and Restaurant</title>
 
     <!-- Favicons-->
@@ -18,12 +18,6 @@
         href="../img/apple-touch-icon-114x114-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
         href="../img/apple-touch-icon-144x144-precomposed.png">
-
-    <!-- GOOGLE WEB FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
 
     <!-- BASE CSS -->
     <link href="{{ asset('css/vendors.min.css') }}" rel="stylesheet">
@@ -40,7 +34,7 @@
     <link href="{{ asset('css/shop.css') }}" rel="stylesheet">
     <!-- SPECIFIC CSS -->
     <link href="{{ asset('css/blog.css') }}" rel="stylesheet">
-    @vite('resources/css/app.css')
+    {{-- @vite('resources/css/app.css') --}}
 </head>
 
 <body>
@@ -60,6 +54,7 @@
     <!-- SPECIFIC SCRIPTS -->
     <script src="{{ asset('js/specific_shop.js') }}"></script>
     <script src="{{ asset('js/sticky_sidebar.min.js') }}"></script>
+    {{-- js --}}
     @vite('resources/js/app.js')
 </body>
 
