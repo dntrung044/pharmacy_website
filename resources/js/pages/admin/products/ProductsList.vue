@@ -106,7 +106,7 @@
             <!-- Filter Form -->
             <div
                 v-if="showFilter"
-                class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0"
+                class="z-10 px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0"
             >
                 <div class="flex items-center justify-between pt-2">
                     <h6 class="text-sm font-medium text-black dark:text-white">
@@ -155,6 +155,7 @@
                         />
                     </div>
                 </div>
+
                 <div
                     id="accordion-flush"
                     data-accordion="collapse"
@@ -816,6 +817,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="flex items-center space-x-3 w-full md:w-auto">
                 <button
                     id="actionsDropdownButton"

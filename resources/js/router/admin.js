@@ -1,21 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from '../layouts/admin/master/Dashboard.vue';
-import Home from '../pages/admin/Home.vue';
+import Home from '../pages/admin/products/Home.vue';
 
 // Product components
 import ProductsList from '../pages/admin/products/ProductsList.vue';
 
 // User components
-import UsersList from '../pages/admin/users/UsersList.vue';
+// import UsersList from '../pages/admin/users/UsersList.vue';
 
-// Transaction components
-import TransactionsList from '../pages/admin/transactions/TransactionsList.vue';
+// // Transaction components
+// import TransactionsList from '../pages/admin/transactions/TransactionsList.vue';
 
-// Coupon components
-import CouponsList from '../pages/admin/coupons/CouponsList.vue';
+// // Coupon components
+// import CouponsList from '../pages/admin/coupons/CouponsList.vue';
 
-// Blog components
-import BlogsList from '../pages/admin/blogs/BlogsList.vue';
+// // Blog components
+// import BlogsList from '../pages/admin/blogs/BlogsList.vue';
 
 const admin = [
     {
@@ -37,31 +37,31 @@ const admin = [
             },
 
             // Users
-            {
-                name: 'users',
-                path: 'users',
-                component: UsersList
-            },
+            // {
+            //     name: 'users',
+            //     path: 'users',
+            //     component: UsersList
+            // },
 
-            // Transactions
-            {
-                name: 'transactions',
-                path: 'transactions',
-                component: TransactionsList
-            },
+            // // Transactions
+            // {
+            //     name: 'transactions',
+            //     path: 'transactions',
+            //     component: TransactionsList
+            // },
 
-            // Coupons
-            {
-                name: 'coupons',
-                path: 'coupons',
-                component: CouponsList
-            },
-            // Blog
-            {
-                name: 'blogs',
-                path: 'blogs',
-                component: BlogsList
-            },
+            // // Coupons
+            // {
+            //     name: 'coupons',
+            //     path: 'coupons',
+            //     component: CouponsList
+            // },
+            // // Blog
+            // {
+            //     name: 'blogs',
+            //     path: 'blogs',
+            //     component: BlogsList
+            // },
         ]
     },
 ];

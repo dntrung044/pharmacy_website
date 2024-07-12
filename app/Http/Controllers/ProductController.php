@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->get();
+        $products = Product::with('category', 'reviews', 'images', 'sizes')->get();
         return response()->json($products);
     }
 
@@ -85,7 +85,7 @@ class ProductController extends Controller
         $categoryIds = $request->query('categories');
         $categoryIdsArray = explode(',', $categoryIds);
 
-        $products = Product::whereIn('category_id', $categoryIdsArray)->get();
+        $products = Product::with('category', 'reviews', 'images', 'sizes')->whereIn('category_id', $categoryIdsArray)->get();
 
         if ($products->isEmpty()) {
             return response()->json(['message' => 'Products not found'], 404);
