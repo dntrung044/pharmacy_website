@@ -9,8 +9,8 @@ class ProductCategoriesController extends Controller
 {
     public function index()
     {
-        $ProductCategorys = ProductCategory::get();
-        return response()->json($ProductCategorys);
+        $categories = ProductCategory::all();
+        return response()->json($categories);
     }
 
     public function show($id)

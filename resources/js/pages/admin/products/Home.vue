@@ -698,6 +698,7 @@
                             <tr
                                 v-for="product in paginatedProducts"
                                 :key="product.id"
+                                :product="product"
                                 class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
                                 <td
@@ -790,6 +791,7 @@
                                     <div class="flex items-center space-x-4">
                                         <button
                                             type="button"
+                                            @click="showEditModal(product)"
                                             data-drawer-target="drawer-update-product"
                                             data-drawer-show="drawer-update-product"
                                             aria-controls="drawer-update-product"
@@ -818,7 +820,7 @@
                                             data-drawer-target="drawer-read-product-advanced"
                                             data-drawer-show="drawer-read-product-advanced"
                                             aria-controls="drawer-read-product-advanced"
-                                            @click="showProductDetails(product)"
+                                            @click="showDetailsModal(product)"
                                             class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                                         >
                                             <svg
@@ -840,6 +842,7 @@
                                         </button>
                                         <button
                                             type="button"
+                                            @click="showDeleteModal(product)"
                                             data-modal-target="delete-modal"
                                             data-modal-toggle="delete-modal"
                                             class="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
@@ -904,9 +907,10 @@
     <!-- Infor Drawer -->
     <InforModal :product="selectedProduct" />
     <!-- Preview Drawer -->
-    <EditModal />
+    <EditModal :product="selectedProduct" />
+
     <!-- Delete Drawer -->
-    <DeleteModal />
+    <DeleteModal :product="selectedProduct" />
 </template>
 
 <script>
@@ -916,6 +920,7 @@ import DeleteModal from "./ProductDelete.vue";
 import EditModal from "./ProductEdit.vue";
 import InforModal from "./ProductInfor.vue";
 import AddModal from "./ProductAdd.vue";
+import { useToast } from "vue-toastification";
 
 import axios from "axios";
 import { ref, computed } from "vue";
@@ -1036,12 +1041,12 @@ export default {
                 (product) => product.price >= min && product.price <= max
             ).length;
         },
+
         handlePageClick(pageNumber) {
             this.currentPage = pageNumber;
         },
-        showProductDetails(product) {
+        showDetailsModal(product) {
             this.selectedProduct = product;
-            console.log("ds", product);
         },
         formatCurrency(value) {
             return new Intl.NumberFormat("vi-VN", {
@@ -1049,9 +1054,15 @@ export default {
                 currency: "VND",
             }).format(value);
         },
+        showEditModal(product) {
+            this.selectedProduct = product;
+        },
+        showDeleteModal(product) {
+            this.selectedProduct = product;
+        },
     },
     computed: {
-        // Pagination
+        //Sort and filter
         sortedProducts() {
             let sorted = [...this.products];
             if (this.sortOption === "rating") {
@@ -1087,6 +1098,7 @@ export default {
 
             return sorted;
         },
+        // Pagination
         paginatedProducts() {
             const start = (this.currentPage - 1) * this.itemsPerPage;
             const end = start + this.itemsPerPage;

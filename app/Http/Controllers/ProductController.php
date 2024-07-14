@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category', 'reviews', 'images', 'sizes')->get();
+        $products = Product::with('category', 'reviews', 'images', 'sizes')->orderBy('id', 'DESC')->get();
         return response()->json($products);
     }
 
@@ -92,5 +93,19 @@ class ProductController extends Controller
         }
 
         return response()->json($products);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $imageId = $request->input('image_id');
+
+        $image = ProductImage::find($imageId);
+
+        if (!$image) {
+            return response()->json(['error' => 'Image not found'], 404);
+        }
+        $image->delete();
+
+        return response()->json(['message' => 'Image deleted successfully'], 200);
     }
 }
