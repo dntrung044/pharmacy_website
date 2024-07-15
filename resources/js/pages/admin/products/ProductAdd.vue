@@ -41,7 +41,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form action="#">
+                <form @submit.prevent="InsertProduct">
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
                             <label
@@ -53,6 +53,7 @@
                                 type="text"
                                 name="name"
                                 id="name"
+                                v-model="product.name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 placeholder="Type product name"
                                 required=""
@@ -64,30 +65,19 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >Category</label
                             ><select
+                                v-model="product.category_id"
                                 id="category"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             >
                                 <option selected="">Select category</option>
-                                <option value="TV">TV/Monitors</option>
-                                <option value="PC">PC</option>
-                                <option value="GA">Gaming/Console</option>
-                                <option value="PH">Phones</option>
+                                <option
+                                    v-for="category in categories"
+                                    :key="category.id"
+                                    :value="category.id"
+                                >
+                                    {{ category.name }}
+                                </option>
                             </select>
-                        </div>
-                        <div>
-                            <label
-                                for="brand"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                >Brand</label
-                            >
-                            <input
-                                type="text"
-                                name="brand"
-                                id="brand"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Product brand"
-                                required=""
-                            />
                         </div>
                         <div>
                             <label
@@ -97,184 +87,83 @@
                             >
                             <input
                                 type="number"
+                                v-model="product.price"
                                 name="price"
                                 id="price"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="$2999"
+                                placeholder="20.0000 đ"
                                 required=""
                             />
                         </div>
-                        <div
-                            class="grid gap-4 sm:col-span-2 md:gap-6 sm:grid-cols-4"
-                        >
-                            <div>
-                                <label
-                                    for="weight"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    >Item weight (kg)</label
-                                >
-                                <input
-                                    type="number"
-                                    name="weight"
-                                    id="weight"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="12"
-                                    required=""
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    for="length"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    >Lenght (cm)</label
-                                >
-                                <input
-                                    type="number"
-                                    name="length"
-                                    id="length"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="105"
-                                    required=""
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    for="breadth"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    >Breadth (cm)</label
-                                >
-                                <input
-                                    type="number"
-                                    name="breadth"
-                                    id="breadth"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="15"
-                                    required=""
-                                />
-                            </div>
-                            <div>
-                                <label
-                                    for="width"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    >Width (cm)</label
-                                >
-                                <input
-                                    type="number"
-                                    name="width"
-                                    id="width"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="23"
-                                    required=""
-                                />
-                            </div>
+                        <div>
+                            <label
+                                for="price_sale"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >Price sale</label
+                            >
+                            <input
+                                type="number"
+                                v-model="product.price_sale"
+                                name="price_sale"
+                                id="price_sale"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="20.0000 đ"
+                                required=""
+                            />
                         </div>
-                        <div class="sm:col-span-2">
+                        <div class="sm:col-span-2 mb-6">
                             <label
                                 for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >Description</label
-                            ><textarea
-                                id="description"
-                                rows="4"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                placeholder="Write product description here"
-                            ></textarea>
+                            >
+
+                            <QuillEditor
+                                v-model:content="product.description"
+                                contentType="html"
+                                theme="snow"
+                            />
                         </div>
                     </div>
-                    <div class="mb-4 space-y-4 sm:flex sm:space-y-0">
-                        <div class="flex items-center mr-4">
-                            <input
-                                id="inline-checkbox"
-                                type="checkbox"
-                                value=""
-                                name="sellingType"
-                                class="w-4 h-4 bg-gray-100 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label
-                                for="inline-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >In-store only</label
-                            >
-                        </div>
-                        <div class="flex items-center mr-4">
-                            <input
-                                id="inline-2-checkbox"
-                                type="checkbox"
-                                value=""
-                                name="sellingType"
-                                class="w-4 h-4 bg-gray-100 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label
-                                for="inline-2-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >Online selling only</label
-                            >
-                        </div>
-                        <div class="flex items-center mr-4">
-                            <input
-                                checked=""
-                                id="inline-checked-checkbox"
-                                type="checkbox"
-                                value=""
-                                name="sellingType"
-                                class="w-4 h-4 bg-gray-100 rounded border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            />
-                            <label
-                                for="inline-checked-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >Both in-store and online</label
-                            >
-                        </div>
-                    </div>
+
                     <div class="mb-4">
                         <span
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >Product Images</span
                         >
-                        <div class="flex justify-center items-center w-full">
-                            <label
-                                for="dropzone-file"
-                                class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                        <div class="card">
+                            <Toast />
+                            <FileUpload
+                                name="images[]"
+                                id="product.images"
+                                ref="fileUpload"
+                                url="/api/upload"
+                                :multiple="true"
+                                accept="image/*"
+                                :maxFileSize="3000000"
+                                @input="handleFiles"
                             >
-                                <div
-                                    class="flex flex-col justify-center items-center pt-5 pb-6"
-                                >
-                                    <svg
-                                        aria-hidden="true"
-                                        class="mb-3 w-10 h-10 text-gray-400"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewbox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
+                                <template #empty>
+                                    <span
+                                        >SVG, PNG, JPG or GIF (MAX.
+                                        800x400px).</span
                                     >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            stroke-width="2"
-                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                                        />
-                                    </svg>
-                                    <p
-                                        class="mb-2 text-sm text-gray-500 dark:text-gray-400"
-                                    >
-                                        <span class="font-semibold"
-                                            >Click to upload</span
-                                        >
-                                        or drag and drop
-                                    </p>
-                                    <p
-                                        class="text-xs text-gray-500 dark:text-gray-400"
-                                    >
-                                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                                    </p>
-                                </div>
-                                <input
-                                    id="dropzone-file"
-                                    type="file"
-                                    class="hidden"
-                                />
-                            </label>
+                                </template>
+                            </FileUpload>
                         </div>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <input
+                            id="status"
+                            v-model="product.status"
+                            type="checkbox"
+                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <label
+                            for="status"
+                            class="ml-2 text-sm text-gray-500 dark:text-gray-300"
+                            >Display</label
+                        >
                     </div>
                     <div
                         class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4"
@@ -284,23 +173,6 @@
                             class="w-full sm:w-auto justify-center text-white inline-flex bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                         >
                             Add product
-                        </button>
-                        <button
-                            class="w-full sm:w-auto text-white justify-center inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                        >
-                            <svg
-                                class="mr-1 -ml-1 w-5 h-5"
-                                fill="currentColor"
-                                viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                            Schedule
                         </button>
                         <button
                             data-modal-toggle="createProductModal"
@@ -327,3 +199,86 @@
         </div>
     </div>
 </template>
+<script>
+import axios from "axios";
+import { ref } from "vue";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import FileUpload from "primevue/fileupload";
+import { useToast } from "primevue/usetoast";
+import Toast from "primevue/toast";
+
+export default {
+    components: {
+        FileUpload,
+        QuillEditor,
+        Toast,
+    },
+    data() {
+        return {
+            categories: [],
+            product: {
+                name: "",
+                description: "",
+                category_id: "",
+                price: 0,
+                price_sale: 0,
+                status: false,
+                images: [],
+            },
+        };
+    },
+    mounted() {
+        this.fetchCategories();
+    },
+    methods: {
+        fetchCategories() {
+            axios
+                .get("/api/product_categories")
+                .then((response) => {
+                    this.categories = response.data;
+                })
+                .catch((error) => {
+                    console.error("Error fetching categories", error);
+                });
+        },
+        handleFiles(event) {
+            this.product.images = Array.from(event.target.files);
+        },
+        async InsertProduct() {
+            const formData = new FormData();
+            formData.append("name", this.product.name);
+            formData.append("description", this.product.description);
+            formData.append("category_id", this.product.category_id);
+            formData.append("price", this.product.price);
+            formData.append("price_sale", this.product.price_sale);
+            formData.append("status", this.product.status);
+
+            this.product.images.forEach((file) => {
+                formData.append("images[]", file);
+            });
+
+            try {
+                const response = await axios.post("/api/products", formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+                this.$toast.success("Product created successfully");
+                this.product = {
+                    name: "",
+                    description: "",
+                    category_id: "",
+                    price: 0,
+                    price_sale: 0,
+                    status: false,
+                    images: [],
+                };
+            } catch (error) {
+                console.error("Error adding product:", error);
+                this.$toast.error("Failed to create product");
+            }
+        },
+    },
+};
+</script>

@@ -5,7 +5,8 @@ module.exports = {
     "./storage/framework/views/*.php",
     "./resources/views/**/*.blade.php",
     "./resources/js/**/**/*.{js,jsx,vue}",
-    "./node_modules/flowbite/**/*.js",
+    'node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}',
+    'node_modules/flowbite/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
     extend: {
@@ -17,4 +18,7 @@ module.exports = {
   plugins: [
     require('flowbite/plugin'),
   ],
+  optimizeDeps: {
+    exclude: ['js-big-decimal']
+  },
 } 

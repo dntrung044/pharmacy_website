@@ -32,18 +32,33 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'content' => 'required|string',
-            'category_id' => 'required|exists:product_categories,id',
-            'price' => 'nullable|integer',
-            'price_sale' => 'nullable|integer',
-            'active' => 'required|integer',
-            'thumb' => 'required|string|max:255',
-            'total_number' => 'required|integer',
-            'total_rating' => 'required|integer',
+            'category_id' => 'required',
+            'price' => 'required|numeric',
+            'price_sale' => 'nullable|numeric',
+            'images' => 'array',
+            'images.*' => 'image|max:3000',
         ]);
+        // Create the product
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'price' => $request->price,
+            'price_sale' => $request->price_sale,
+            'status' => $request->status,
+        ]);
+        // Store the images
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('products', 'public');
+                ProductImage::create([
+                    'product_id' => $product->id,
+                    'url' => $path,
+                ]);
+            }
+        }
 
-        $product = Product::create($request->all());
-        return response()->json($product, 201);
+        return response()->json(['message' => 'Product created successfully']);
     }
 
     public function update(Request $request, $id)
@@ -52,19 +67,6 @@ class ProductController extends Controller
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
         }
-
-        $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string',
-            'content' => 'sometimes|required|string',
-            'category_id' => 'sometimes|required|exists:product_categories,id',
-            'price' => 'nullable|integer',
-            'price_sale' => 'nullable|integer',
-            'active' => 'sometimes|required|integer',
-            'thumb' => 'sometimes|required|string|max:255',
-            'total_number' => 'sometimes|required|integer',
-            'total_rating' => 'sometimes|required|integer',
-        ]);
 
         $product->update($request->all());
         return response()->json($product);

@@ -1,4 +1,3 @@
-import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from '../layouts/admin/master/Dashboard.vue';
 import Home from '../pages/admin/products/Home.vue';
 

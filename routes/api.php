@@ -23,12 +23,12 @@ Route::post('/login', [AuthController::class, 'userLogin']);
 
 #Product
 Route::prefix('products')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
     Route::get('/{id}', [ProductController::class, 'show']);
-    Route::post('/', [ProductController::class, 'store']);
     Route::put('/{id}', [ProductController::class, 'update']);
-    Route::delete('/delete/{id}', [ProductController::class, 'destroy']);
 });
+Route::get('/products', [ProductController::class, 'index']);
+Route::post('/products', [ProductController::class, 'store']);
+Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
 Route::get('/products/by-category', [ProductController::class, 'getProductsByCategory']);
 //admin product images
 Route::delete('delete_image_products', [ProductController::class, 'deleteImage']);
