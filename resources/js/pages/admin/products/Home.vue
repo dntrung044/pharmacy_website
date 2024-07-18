@@ -1,9 +1,9 @@
 <template>
     <!-- Start block -->
-    <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+    <section class="bg-gray-50 p-3 sm:p-5 antialiased">
         <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div
-                class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden"
+                class="bg-white relative shadow-md sm:rounded-lg overflow-hidden"
             >
                 <div
                     class="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4 p-4"
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div
-                    class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700"
+                    class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t"
                 >
                     <div class="w-full md:w-1/2">
                         <form class="flex items-center">
@@ -30,7 +30,7 @@
                                 >
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                        class="w-5 h-5 text-gray-500"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@
                                     id="simple-search"
                                     placeholder="Search for products"
                                     required=""
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
                                 />
                             </div>
                         </form>
@@ -58,7 +58,7 @@
                         <button
                             id="filterDropdownButton"
                             data-dropdown-toggle="filterDropdown"
-                            class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                            class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
                             type="button"
                         >
                             <svg
@@ -91,18 +91,18 @@
                         </button>
                         <div
                             id="filterDropdown"
-                            class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0"
+                            class="z-10 hidden px-3 pt-1 bg-white rounded-lg shadow w-80 right-0"
                         >
                             <div class="flex items-center justify-between pt-2">
                                 <h6
-                                    class="text-sm font-medium text-black dark:text-white"
+                                    class="text-sm font-medium text-black"
                                 >
                                     Bộ lọc
                                 </h6>
                                 <div class="flex items-center space-x-3">
                                     <a
                                         href="#"
-                                        class="flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline"
+                                        class="flex items-center text-sm font-medium text-primary-600 hover:underline"
                                         >Xoá hết</a
                                     >
                                 </div>
@@ -110,14 +110,14 @@
                             <div
                                 id="accordion-flush"
                                 data-accordion="collapse"
-                                data-active-classes="text-black dark:text-white"
-                                data-inactive-classes="text-gray-500 dark:text-gray-400"
+                                data-active-classes="text-black"
+                                data-inactive-classes="text-gray-500"
                             >
                                 <!-- Category -->
                                 <h2 id="category-heading">
                                     <button
                                         type="button"
-                                        class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                        class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 hover:bg-gray-50"
                                         data-accordion-target="#category-body"
                                         aria-expanded="false"
                                         aria-controls="category-body"
@@ -145,7 +145,7 @@
                                     aria-labelledby="category-heading"
                                 >
                                     <div
-                                        class="py-2 font-light border-b border-gray-200 dark:border-gray-600"
+                                        class="py-2 font-light border-b border-gray-200"
                                     >
                                         <ul class="space-y-2">
                                             <li
@@ -163,11 +163,11 @@
                                                             id
                                                         )
                                                     "
-                                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2"
                                                 />
                                                 <label
                                                     for="apple"
-                                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+                                                    class="ml-2 text-sm font-medium text-gray-900"
                                                     >{{ category.name }} ({{
                                                         category.count
                                                     }})</label
@@ -175,7 +175,7 @@
                                             </li>
                                             <a
                                                 href="#"
-                                                class="flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline"
+                                                class="flex items-center text-sm font-medium text-primary-600 hover:underline"
                                                 >Xem tất cả</a
                                             >
                                         </ul>
@@ -185,7 +185,7 @@
                                 <h2 id="price-heading">
                                     <button
                                         type="button"
-                                        class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                        class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 hover:bg-gray-50"
                                         data-accordion-target="#price-body"
                                         aria-expanded="false"
                                         aria-controls="price-body"
@@ -213,11 +213,11 @@
                                     aria-labelledby="price-heading"
                                 >
                                     <div
-                                        class="flex items-center py-2 space-x-3 font-light border-b border-gray-200 dark:border-gray-600"
+                                        class="flex items-center py-2 space-x-3 font-light border-b border-gray-200"
                                     >
                                         <select
                                             id="price-from"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         >
                                             <option disabled="" selected="">
                                                 Từ
@@ -227,7 +227,7 @@
                                             <option>$5000</option></select
                                         ><select
                                             id="price-to"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                                         >
                                             <option disabled="" selected="">
                                                 To
@@ -242,7 +242,7 @@
                                 <h2 id="rating-heading">
                                     <button
                                         type="button"
-                                        class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                                        class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 hover:bg-gray-50"
                                         data-accordion-target="#rating-body"
                                         aria-expanded="false"
                                         aria-controls="rating-body"
@@ -270,7 +270,7 @@
                                     aria-labelledby="rating-heading"
                                 >
                                     <div
-                                        class="py-2 space-y-2 font-light border-b border-gray-200 dark:border-gray-600"
+                                        class="py-2 space-y-2 font-light border-b border-gray-200"
                                     >
                                         <div class="flex items-center">
                                             <input
@@ -278,7 +278,7 @@
                                                 type="radio"
                                                 value=""
                                                 name="rating"
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                             />
                                             <label
                                                 for="five-stars"
@@ -352,7 +352,7 @@
                                                 type="radio"
                                                 value=""
                                                 name="rating"
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                             />
                                             <label
                                                 for="four-stars"
@@ -408,7 +408,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -427,7 +427,7 @@
                                                 value=""
                                                 name="rating"
                                                 checked=""
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                             />
                                             <label
                                                 for="three-stars"
@@ -471,7 +471,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -483,7 +483,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -501,7 +501,7 @@
                                                 type="radio"
                                                 value=""
                                                 name="rating"
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                             />
                                             <label
                                                 for="two-stars"
@@ -533,7 +533,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -545,7 +545,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -557,7 +557,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -575,7 +575,7 @@
                                                 type="radio"
                                                 value=""
                                                 name="rating"
-                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                                class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                             />
                                             <label
                                                 for="one-star"
@@ -595,7 +595,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -607,7 +607,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -619,7 +619,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -631,7 +631,7 @@
                                                 </svg>
                                                 <svg
                                                     aria-hidden="true"
-                                                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                                    class="w-5 h-5 text-gray-300"
                                                     fill="currentColor"
                                                     viewbox="0 0 20 20"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -655,7 +655,7 @@
                                 id="createProductButton"
                                 data-modal-target="createProductModal"
                                 data-modal-toggle="createProductModal"
-                                class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                                class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
                             >
                                 <svg
                                     class="h-3.5 w-3.5 mr-1.5 -ml-1"
@@ -679,10 +679,10 @@
                 <!-- List -->
                 <div class="overflow-x-auto">
                     <table
-                        class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+                        class="w-full text-sm text-left text-gray-500"
                     >
                         <thead
-                            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                            class="text-xs text-gray-700 uppercase bg-gray-50"
                         >
                             <tr>
                                 <th scope="col" class="p-4">Tên</th>
@@ -699,28 +699,28 @@
                                 v-for="product in paginatedProducts"
                                 :key="product.id"
                                 :product="product"
-                                class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                class="border-b hover:bg-gray-100"
                             >
                                 <td
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"
                                 >
                                     <div class="flex items-center mr-3">
-                                        <img
+                                        <!-- <img
                                             :src="product.image"
                                             alt="Product Image"
                                             class="h-8 w-auto mr-3"
-                                        />
+                                        /> -->
                                         {{ product.name }}
                                     </div>
                                 </td>
                                 <td>
                                     <span
-                                        class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300"
+                                        class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded"
                                         >{{ product.category.name }}</span
                                     >
                                 </td>
                                 <td
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"
                                 >
                                     <div class="flex items-center">
                                         <svg
@@ -735,7 +735,7 @@
                                                         product.total_rating /
                                                             product.total_number
                                                     ),
-                                                'text-gray-300 dark:text-gray-500':
+                                                'text-gray-300':
                                                     n >
                                                     Math.round(
                                                         product.total_rating /
@@ -751,7 +751,7 @@
                                             />
                                         </svg>
                                         <span
-                                            class="text-gray-500 dark:text-gray-400 ml-1"
+                                            class="text-gray-500 ml-1"
                                         >
                                             ({{
                                                 Math.round(
@@ -763,12 +763,12 @@
                                     </div>
                                 </td>
                                 <td
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"
                                 >
                                     {{ product.total_number }}
                                 </td>
                                 <td
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"
                                 >
                                     {{
                                         formatCurrency(
@@ -777,7 +777,7 @@
                                     }}
                                 </td>
                                 <td
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"
                                 >
                                     {{
                                         new Date(
@@ -786,7 +786,7 @@
                                     }}
                                 </td>
                                 <td
-                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                    class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap"
                                 >
                                     <div class="flex items-center space-x-4">
                                         <button
@@ -795,7 +795,7 @@
                                             data-drawer-target="drawer-update-product"
                                             data-drawer-show="drawer-update-product"
                                             aria-controls="drawer-update-product"
-                                            class="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                            class="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300"
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -821,7 +821,7 @@
                                             data-drawer-show="drawer-read-product-advanced"
                                             aria-controls="drawer-read-product-advanced"
                                             @click="showDetailsModal(product)"
-                                            class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                            class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -845,7 +845,7 @@
                                             @click="showDeleteModal(product)"
                                             data-modal-target="delete-modal"
                                             data-modal-toggle="delete-modal"
-                                            class="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                                            class="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center"
                                         >
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
@@ -874,16 +874,16 @@
                     aria-label="Table navigation"
                 >
                     <span
-                        class="text-sm font-normal text-gray-500 dark:text-gray-400"
+                        class="text-sm font-normal text-gray-500"
                     >
                         Đang hiển thị
                         <span
-                            class="font-semibold text-gray-900 dark:text-white"
+                            class="font-semibold text-gray-900"
                             >{{ startIndex + 1 }}-{{ endIndex }}</span
                         >
                         của
                         <span
-                            class="font-semibold text-gray-900 dark:text-white"
+                            class="font-semibold text-gray-900"
                         >
                             {{ sortedProducts.length }} kết quả.</span
                         >
@@ -908,7 +908,6 @@
     <InforModal :product="selectedProduct" />
     <!-- Preview Drawer -->
     <EditModal :product="selectedProduct" />
-
     <!-- Delete Drawer -->
     <DeleteModal :product="selectedProduct" />
 </template>

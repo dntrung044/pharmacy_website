@@ -11,7 +11,7 @@
     </div>
 
     <div
-        class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700"
+        class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t"
     >
         <div class="w-full md:w-1/4">
             <form class="flex items-center">
@@ -22,7 +22,7 @@
                     >
                         <svg
                             aria-hidden="true"
-                            class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                            class="w-5 h-5 text-gray-500"
                             fill="currentColor"
                             viewbox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +39,7 @@
                         id="simple-search"
                         placeholder="Search for products"
                         required=""
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2"
                     />
                 </div>
             </form>
@@ -51,7 +51,7 @@
                 type="button"
                 id="createProductButton"
                 data-modal-toggle="createProductModal"
-                class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                class="flex items-center justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 focus:outline-none"
             >
                 <svg
                     class="h-3.5 w-3.5 mr-1.5 -ml-1"
@@ -72,7 +72,7 @@
             <button
                 @click="toggleFilter"
                 data-dropdown-toggle="filterDropdown"
-                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
                 type="button"
             >
                 <svg
@@ -106,21 +106,21 @@
             <!-- Filter Form -->
             <div
                 v-if="showFilter"
-                class="z-10 px-3 pt-1 bg-white rounded-lg shadow w-80 dark:bg-gray-700 right-0"
+                class="z-10 px-3 pt-1 bg-white rounded-lg shadow w-80 right-0"
             >
                 <div class="flex items-center justify-between pt-2">
-                    <h6 class="text-sm font-medium text-black dark:text-white">
+                    <h6 class="text-sm font-medium text-black">
                         Filters
                     </h6>
                     <div class="flex items-center space-x-3">
                         <a
                             href="#"
-                            class="flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline"
+                            class="flex items-center text-sm font-medium text-primary-600 hover:underline"
                             >Save view</a
                         >
                         <a
                             href="#"
-                            class="flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline"
+                            class="flex items-center text-sm font-medium text-primary-600 hover:underline"
                             >Clear all</a
                         >
                     </div>
@@ -134,7 +134,7 @@
                             class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none"
                         >
                             <svg
-                                class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                                class="w-4 h-4 text-gray-500"
                                 aria-hidden="true"
                                 fill="currentColor"
                                 viewbox="0 0 20 20"
@@ -150,7 +150,7 @@
                         <input
                             type="text"
                             id="input-group-search"
-                            class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-primary-500 focus:border-primary-500"
                             placeholder="Search keywords..."
                         />
                     </div>
@@ -159,14 +159,14 @@
                 <div
                     id="accordion-flush"
                     data-accordion="collapse"
-                    data-active-classes="text-black dark:text-white"
-                    data-inactive-classes="text-gray-500 dark:text-gray-400"
+                    data-active-classes="text-black"
+                    data-inactive-classes="text-gray-500"
                 >
                     <!-- Category -->
                     <h2 id="category-heading">
                         <button
                             type="button"
-                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 hover:bg-gray-50"
                             data-accordion-target="#category-body"
                             aria-expanded="true"
                             aria-controls="category-body"
@@ -194,7 +194,7 @@
                         aria-labelledby="category-heading"
                     >
                         <div
-                            class="py-2 font-light border-b border-gray-200 dark:border-gray-600"
+                            class="py-2 font-light border-b border-gray-200"
                         >
                             <ul class="space-y-2">
                                 <li class="flex items-center">
@@ -202,11 +202,11 @@
                                         id="apple"
                                         type="checkbox"
                                         value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2"
                                     />
                                     <label
                                         for="apple"
-                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+                                        class="ml-2 text-sm font-medium text-gray-900"
                                         >Apple (56)</label
                                     >
                                 </li>
@@ -216,17 +216,17 @@
                                         id="razor"
                                         type="checkbox"
                                         value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2"
                                     />
                                     <label
                                         for="razor"
-                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
+                                        class="ml-2 text-sm font-medium text-gray-900"
                                         >Razor (49)</label
                                     >
                                 </li>
                                 <a
                                     href="#"
-                                    class="flex items-center text-sm font-medium text-primary-600 dark:text-primary-500 hover:underline"
+                                    class="flex items-center text-sm font-medium text-primary-600 hover:underline"
                                     >View all</a
                                 >
                             </ul>
@@ -236,7 +236,7 @@
                     <h2 id="price-heading">
                         <button
                             type="button"
-                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 hover:bg-gray-50"
                             data-accordion-target="#price-body"
                             aria-expanded="true"
                             aria-controls="price-body"
@@ -264,11 +264,11 @@
                         aria-labelledby="price-heading"
                     >
                         <div
-                            class="flex items-center py-2 space-x-3 font-light border-b border-gray-200 dark:border-gray-600"
+                            class="flex items-center py-2 space-x-3 font-light border-b border-gray-200"
                         >
                             <select
                                 id="price-from"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                             >
                                 <option disabled="" selected="">From</option>
                                 <option>$500</option>
@@ -276,7 +276,7 @@
                                 <option>$5000</option></select
                             ><select
                                 id="price-to"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                             >
                                 <option disabled="" selected="">To</option>
                                 <option>$500</option>
@@ -289,7 +289,7 @@
                     <h2 id="worldwide-shipping-heading">
                         <button
                             type="button"
-                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 hover:bg-gray-50"
                             data-accordion-target="#worldwide-shipping-body"
                             aria-expanded="true"
                             aria-controls="worldwide-shipping-body"
@@ -317,7 +317,7 @@
                         aria-labelledby="worldwide-shipping-heading"
                     >
                         <div
-                            class="py-2 space-y-2 font-light border-b border-gray-200 dark:border-gray-600"
+                            class="py-2 space-y-2 font-light border-b border-gray-200"
                         >
                             <label
                                 class="relative flex items-center cursor-pointer"
@@ -330,10 +330,10 @@
                                     checked=""
                                 />
                                 <div
-                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"
+                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"
                                 ></div>
                                 <span
-                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    class="ml-3 text-sm font-medium text-gray-900"
                                     >North America</span
                                 >
                             </label>
@@ -347,10 +347,10 @@
                                     name="shipping"
                                 />
                                 <div
-                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"
+                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"
                                 ></div>
                                 <span
-                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    class="ml-3 text-sm font-medium text-gray-900"
                                     >South America</span
                                 >
                             </label>
@@ -364,10 +364,10 @@
                                     name="shipping"
                                 />
                                 <div
-                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"
+                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"
                                 ></div>
                                 <span
-                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    class="ml-3 text-sm font-medium text-gray-900"
                                     >Asia</span
                                 >
                             </label>
@@ -382,10 +382,10 @@
                                     checked=""
                                 />
                                 <div
-                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"
+                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"
                                 ></div>
                                 <span
-                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    class="ml-3 text-sm font-medium text-gray-900"
                                     >Australia</span
                                 >
                             </label>
@@ -399,10 +399,10 @@
                                     name="shipping"
                                 />
                                 <div
-                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"
+                                    class="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600"
                                 ></div>
                                 <span
-                                    class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    class="ml-3 text-sm font-medium text-gray-900"
                                     >Europe</span
                                 >
                             </label>
@@ -412,7 +412,7 @@
                     <h2 id="rating-heading">
                         <button
                             type="button"
-                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 hover:bg-gray-50"
                             data-accordion-target="#rating-body"
                             aria-expanded="true"
                             aria-controls="rating-body"
@@ -440,7 +440,7 @@
                         aria-labelledby="rating-heading"
                     >
                         <div
-                            class="py-2 space-y-2 font-light border-b border-gray-200 dark:border-gray-600"
+                            class="py-2 space-y-2 font-light border-b border-gray-200"
                         >
                             <div class="flex items-center">
                                 <input
@@ -448,7 +448,7 @@
                                     type="radio"
                                     value=""
                                     name="rating"
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                 />
                                 <label
                                     for="five-stars"
@@ -522,7 +522,7 @@
                                     type="radio"
                                     value=""
                                     name="rating"
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                 />
                                 <label
                                     for="four-stars"
@@ -578,7 +578,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -597,7 +597,7 @@
                                     value=""
                                     name="rating"
                                     checked=""
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                 />
                                 <label
                                     for="three-stars"
@@ -641,7 +641,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -653,7 +653,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -671,7 +671,7 @@
                                     type="radio"
                                     value=""
                                     name="rating"
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                 />
                                 <label
                                     for="two-stars"
@@ -703,7 +703,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -715,7 +715,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -727,7 +727,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -745,7 +745,7 @@
                                     type="radio"
                                     value=""
                                     name="rating"
-                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 focus:ring-2"
                                 />
                                 <label
                                     for="one-star"
@@ -765,7 +765,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -777,7 +777,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -789,7 +789,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -801,7 +801,7 @@
                                     </svg>
                                     <svg
                                         aria-hidden="true"
-                                        class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                                        class="w-5 h-5 text-gray-300"
                                         fill="currentColor"
                                         viewbox="0 0 20 20"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -822,7 +822,7 @@
                 <button
                     id="actionsDropdownButton"
                     data-dropdown-toggle="actionsDropdown"
-                    class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
                     type="button"
                 >
                     Actions
@@ -842,16 +842,16 @@
                 </button>
                 <div
                     id="actionsDropdown"
-                    class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+                    class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow"
                 >
                     <ul
-                        class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                        class="py-1 text-sm text-gray-700"
                         aria-labelledby="actionsDropdownButton"
                     >
                         <li>
                             <a
                                 href="#"
-                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                class="block py-2 px-4 hover:bg-gray-100"
                                 >Mass Edit</a
                             >
                         </li>
@@ -859,7 +859,7 @@
                     <div class="py-1">
                         <a
                             href="#"
-                            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
                             >Delete all</a
                         >
                     </div>
@@ -872,13 +872,13 @@
         class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
         aria-label="Table navigation"
     >
-        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+        <span class="text-sm font-normal text-gray-500">
             Đang hiển thị
-            <span class="font-semibold text-gray-900 dark:text-white"
+            <span class="font-semibold text-gray-900"
                 >{{ startIndex + 1 }}-{{ endIndex }}</span
             >
             của
-            <span class="font-semibold text-gray-900 dark:text-white">
+            <span class="font-semibold text-gray-900">
                 {{ sortedProducts.length }} kết quả.</span
             >
         </span>

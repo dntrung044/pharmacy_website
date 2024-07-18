@@ -2,7 +2,7 @@
     <form
         action="#"
         id="drawer-update-product"
-        class="fixed top-0 left-0 z-40 w-full h-screen max-w-3xl p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800"
+        class="fixed top-0 left-0 z-40 w-full h-screen max-w-3xl p-4 overflow-y-auto transition-transform -translate-x-full bg-white"
         tabindex="-1"
         aria-labelledby="drawer-update-product-label"
         aria-hidden="true"
@@ -10,7 +10,7 @@
         <div v-if="product">
             <h5
                 id="drawer-label"
-                class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400"
+                class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase"
             >
                 SẢN PHẨM MỚI
             </h5>
@@ -18,7 +18,7 @@
                 type="button"
                 data-drawer-dismiss="drawer-update-product"
                 aria-controls="drawer-update-product"
-                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center"
             >
                 <svg
                     aria-hidden="true"
@@ -40,7 +40,7 @@
                     <div>
                         <label
                             for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-gray-900"
                             >Tên sản phẩm</label
                         >
                         <input
@@ -48,35 +48,35 @@
                             id="name"
                             v-model="product.name"
                             placeholder="Nhập tên sản phẩm"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                         />
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label
                                 for="price_sale"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="block mb-2 text-sm font-medium text-gray-900"
                                 >Price sale
                             </label>
                             <input
                                 type="number"
                                 id="price_sale"
                                 v-model="product.price_sale"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="giá giảm"
                             />
                         </div>
                         <div>
                             <label
                                 for="price"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="block mb-2 text-sm font-medium text-gray-900"
                                 >Price
                             </label>
                             <input
                                 type="number"
                                 id="price"
                                 v-model="product.price"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                                 placeholder="giá"
                             />
                         </div>
@@ -85,24 +85,24 @@
                     <div>
                         <label
                             for="description"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-gray-900"
                             >Description</label
                         >
                         <div
-                            class="w-full border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600"
+                            class="w-full border border-gray-200 rounded-lg bg-gray-50"
                         >
                             <div
-                                class="flex items-center justify-between px-3 py-2 border-b dark:border-gray-600"
+                                class="flex items-center justify-between px-3 py-2 border-b"
                             >
                                 <div
-                                    class="flex flex-wrap items-center divide-gray-200 sm:divide-x dark:divide-gray-600"
+                                    class="flex flex-wrap items-center divide-gray-200 sm:divide-x"
                                 >
                                     <div
                                         class="flex items-center space-x-1 sm:pr-4"
                                     >
                                         <button
                                             type="button"
-                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100"
                                         >
                                             <svg
                                                 aria-hidden="true"
@@ -123,7 +123,7 @@
                                         </button>
                                         <button
                                             type="button"
-                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100"
                                         >
                                             <svg
                                                 aria-hidden="true"
@@ -144,7 +144,7 @@
                                         </button>
                                         <button
                                             type="button"
-                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100"
                                         >
                                             <svg
                                                 aria-hidden="true"
@@ -165,7 +165,7 @@
                                         </button>
                                         <button
                                             type="button"
-                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100"
                                         >
                                             <svg
                                                 aria-hidden="true"
@@ -186,7 +186,7 @@
                                         </button>
                                         <button
                                             type="button"
-                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100"
                                         >
                                             <svg
                                                 aria-hidden="true"
@@ -211,7 +211,7 @@
                                     >
                                         <button
                                             type="button"
-                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100"
                                         >
                                             <svg
                                                 aria-hidden="true"
@@ -232,7 +232,7 @@
                                         </button>
                                         <button
                                             type="button"
-                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                            class="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100"
                                         >
                                             <svg
                                                 aria-hidden="true"
@@ -256,7 +256,7 @@
                                 <button
                                     type="button"
                                     data-tooltip-target="tooltip-fullscreen"
-                                    class="p-2 text-gray-500 rounded cursor-pointer sm:ml-auto hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                                    class="p-2 text-gray-500 rounded cursor-pointer sm:ml-auto hover:text-gray-900 hover:bg-gray-100"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -276,7 +276,7 @@
                                 <div
                                     id="tooltip-fullscreen"
                                     role="tooltip"
-                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip"
                                     data-popper-reference-hidden=""
                                     data-popper-escaped=""
                                     data-popper-placement="bottom"
@@ -295,13 +295,13 @@
                                 </div>
                             </div>
                             <div
-                                class="px-4 py-3 bg-white rounded-b-lg dark:bg-gray-800"
+                                class="px-4 py-3 bg-white rounded-b-lg"
                             >
                                 <textarea
                                     id="description"
                                     v-model="product.description"
                                     rows="8"
-                                    class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
+                                    class="block w-full px-0 text-sm text-gray-800 bg-white border-0 focus:ring-0"
                                     placeholder="Write product description here"
                                     required=""
                                 >
@@ -311,14 +311,14 @@
                     </div>
                     <div class="mb-4">
                         <span
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-gray-900"
                             >Product Images</span
                         >
                         <div class="grid grid-cols-3 gap-4 mb-4">
                             <div
                                 v-for="image in product.images"
                                 :key="image.id"
-                                class="relative p-2 bg-gray-100 rounded-lg sm:w-36 sm:h-36 dark:bg-gray-700"
+                                class="relative p-2 bg-gray-100 rounded-lg sm:w-36 sm:h-36"
                             >
                                 <img
                                     :src="image.url"
@@ -328,7 +328,7 @@
                                 <button
                                     type="button"
                                     @click="deleteImage(image.id)"
-                                    class="absolute text-red-600 dark:text-red-500 hover:text-red-500 dark:hover:text-red-400 bottom-1 left-1"
+                                    class="absolute text-red-600 hover:text-red-500 bottom-1 left-1"
                                 >
                                     <svg
                                         aria-hidden="true"
@@ -350,7 +350,7 @@
                         <div class="flex items-center justify-center w-full">
                             <label
                                 for="dropzone-file"
-                                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
                             >
                                 <div
                                     class="flex flex-col items-center justify-center pt-5 pb-6"
@@ -371,7 +371,7 @@
                                         />
                                     </svg>
                                     <p
-                                        class="mb-2 text-sm text-gray-500 dark:text-gray-400"
+                                        class="mb-2 text-sm text-gray-500"
                                     >
                                         <span class="font-semibold"
                                             >Click to upload</span
@@ -379,7 +379,7 @@
                                         or drag and drop
                                     </p>
                                     <p
-                                        class="text-xs text-gray-500 dark:text-gray-400"
+                                        class="text-xs text-gray-500"
                                     >
                                         SVG, PNG, JPG or GIF (MAX. 800x400px)
                                     </p>
@@ -397,11 +397,11 @@
                             id="product-active"
                             type="checkbox"
                             value=""
-                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2"
                         />
                         <label
                             for="product-active"
-                            class="ml-2 text-sm text-gray-500 dark:text-gray-300"
+                            class="ml-2 text-sm text-gray-500"
                             >Hiển thị</label
                         >
                     </div>
@@ -410,12 +410,12 @@
                     <div>
                         <label
                             for="category"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-gray-900"
                             >Category</label
                         ><select
                             id="category"
                             v-model="product.category_id"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                         >
                             <option
                                 v-for="category in categories"
@@ -432,13 +432,13 @@
                 <button
                     @click.prevent="updateProduct"
                     type="submit"
-                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
                     Update product s
                 </button>
                 <button
                     type="button"
-                    class="text-red-600 inline-flex justify-center items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                    class="text-red-600 inline-flex justify-center items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
                     <svg
                         aria-hidden="true"

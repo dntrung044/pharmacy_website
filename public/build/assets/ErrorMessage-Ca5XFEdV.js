@@ -1,0 +1,1 @@
+import{_ as s}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{o as r,f as a,t,g as o}from"./app-Bm5g5IQi.js";const c={key:0,class:"error-message"},m={__name:"ErrorMessage",props:{message:{type:String,required:!1,default:""}},setup(e){return(n,_)=>e.message?(r(),a("div",c,t(e.message),1)):o("",!0)}},p=s(m,[["__scopeId","data-v-6f5143ea"]]);export{p as E};
