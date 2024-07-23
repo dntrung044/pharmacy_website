@@ -2,12 +2,17 @@
 import { reactive, computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 import { useLayoutStore } from "@/Stores/layout.js";
-import menu from "@/menu.js";
+import menuData from "@/menu.js";
 import AsideMenuLayer from "@/Components/AsideMenuLayer.vue";
 import OverlayLayer from "@/Components/OverlayLayer.vue";
 
-let menus = reactive({});
-menus = computed(() => usePage().props.navigation.menus);
+// let menu = reactive({});
+// menu = computed(() => usePage().props.navigation.menu);
+const menu = computed(() => {
+    const pageProps = usePage().props;
+    const pageMenu = (pageProps.navigation && pageProps.navigation.menu) || [];
+    return [...menuData, ...pageMenu];
+});
 
 const layoutStore = useLayoutStore();
 </script>

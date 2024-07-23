@@ -11,15 +11,8 @@ use BalajiDharma\LaravelMenu\Models\MenuItem;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
-class MenuItemController extends Controller
+class ProductCategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('can:menu.item list', ['only' => ['index', 'show']]);
-        $this->middleware('can:menu.item create', ['only' => ['create', 'store']]);
-        $this->middleware('can:menu.item edit', ['only' => ['edit', 'update']]);
-        $this->middleware('can:menu.item delete', ['only' => ['destroy']]);
-    }
 
     /**
      * Display a listing of the resource.

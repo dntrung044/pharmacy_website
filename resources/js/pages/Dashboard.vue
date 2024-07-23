@@ -80,7 +80,7 @@ const transactionBarItems = computed(() => mainStore.history);
                     prefix="$"
                     label="Sales"
                 />
-                <CardBoxWidgetx
+                <CardBoxWidget
                     trend="Overflow"
                     trend-type="alert"
                     color="text-red-500"

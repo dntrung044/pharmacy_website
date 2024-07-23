@@ -1,31 +1,34 @@
 import {
-  mdiAccountCircle,
-  mdiMonitor,
-  mdiGithub,
-  mdiAccountKey,
-  mdiAccountEye,
   mdiAccountGroup,
-  mdiPalette
+  mdiInformationOutline,
+  mdiSilverware,
+  mdiCart,
+  mdiPost,
 } from '@mdi/js'
 
 export default [
   {
-    route: 'dashboard',
-    icon: mdiMonitor,
-    label: 'Dashboard'
+    route: 'admin/about-us',
+    icon: mdiInformationOutline,
+    label: 'About Us'
   },
   {
-    route: 'permission.index',
-    icon: mdiAccountKey,
-    label: 'Permissions'
+    route: 'admin/products',
+    icon: mdiSilverware,
+    label: 'Product'
   },
   {
-    route: 'role.index',
-    icon: mdiAccountEye,
-    label: 'Roles'
+    route: 'admin/blog',
+    icon: mdiPost,
+    label: 'Blog'
   },
   {
-    route: 'user.index',
+    route: 'admin/transactions',
+    icon: mdiCart,
+    label: 'Transactions'
+  },
+  {
+    route: 'admin/profile',
     icon: mdiAccountGroup,
     label: 'Users'
   },

@@ -8,6 +8,9 @@ module.exports = {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
         './resources/js/**/*.js',
+        "./index.html",
+        "./src/**/*.{vue,js,ts,jsx,tsx}",
+        "./node_modules/flowbite/**/*.js",
     ],
     darkMode: 'class', // or 'media' or 'class'
     theme: {
@@ -48,6 +51,7 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/forms'),
+        require('flowbite/plugin'),
         plugin(function ({ matchUtilities, theme }) {
             matchUtilities(
                 {

@@ -1,8 +1,6 @@
 <template>
     <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-        <h2 class="mb-4 text-xl font-bold text-gray-900">
-            Add a new product
-        </h2>
+        <h2 class="mb-4 text-xl font-bold text-gray-900">Add a new product</h2>
         <!-- Modal body -->
         <form @submit.prevent="InsertProduct">
             <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -27,7 +25,8 @@
                         for="category"
                         class="block mb-2 text-sm font-medium text-gray-900"
                         >Category</label
-                    ><select
+                    >
+                    <select
                         v-model="product.category_id"
                         id="category"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
@@ -90,8 +89,7 @@
             </div>
 
             <div class="mb-4">
-                <span
-                    class="block mb-2 text-sm font-medium text-gray-900"
+                <span class="block mb-2 text-sm font-medium text-gray-900"
                     >Product Images</span
                 >
                 <div class="card">
@@ -119,9 +117,7 @@
                     type="checkbox"
                     class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2"
                 />
-                <label
-                    for="status"
-                    class="ml-2 text-sm text-gray-500"
+                <label for="status" class="ml-2 text-sm text-gray-500"
                     >Display</label
                 >
             </div>

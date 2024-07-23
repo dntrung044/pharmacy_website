@@ -31,7 +31,8 @@ import NavBarSearch from "@/Components/NavBarSearch.vue";
 
 const mainStore = useMainStore();
 
-const userName = computed(() => usePage().props.auth.user.name);
+// const userName = computed(() => usePage().props.auth.user.name);
+const userName = computed(() => usePage().props.auth?.user?.name || "Guest");
 
 const styleStore = useStyleStore();
 

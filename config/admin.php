@@ -22,7 +22,7 @@ return [
     |
     */
     'paginate' => [
-        'per_page' => 10,
+        'per_page' => 5,
         'each_side' => 2,
     ],
 ];

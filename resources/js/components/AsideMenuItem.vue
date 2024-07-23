@@ -18,7 +18,7 @@ const props = defineProps({
 const { url, component } = usePage();
 
 const itemHref = computed(() =>
-    props.item && props.item.link ? props.item.link : ""
+    props.item && props.item.route ? props.item.route : ""
 );
 
 const emit = defineEmits(["menu-click", "dropdown-active"]);
@@ -87,7 +87,7 @@ const activeInactiveStyle = computed(() => {
             <span
                 class="grow text-ellipsis line-clamp-1"
                 :class="activeInactiveStyle"
-                >{{ item.name }}</span
+                >{{ item.label }}</span
             >
             <BaseIcon
                 v-if="hasDropdown"
