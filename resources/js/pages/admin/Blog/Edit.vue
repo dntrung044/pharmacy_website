@@ -1,4 +1,5 @@
 <script setup>
+import { ref, onMounted } from "vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import { mdiMenu, mdiArrowLeftBoldOutline } from "@mdi/js";
 import LayoutAuthenticated from "@/Layouts/AuthenticatedLayout.vue";
@@ -11,10 +12,37 @@ import BaseButton from "@/Components/BaseButton.vue";
 import BaseButtons from "@/Components/BaseButtons.vue";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import { ref, onMounted } from "vue";
-import SelectMultipleimages from "@/Components/SelectMultipleimages.vue";
+import FileUpload from "primevue/fileupload";
+import { useToast } from "primevue/usetoast";
+import Toast from "primevue/toast";
 
+// Khai báo các biến và hàm
 const categories = ref([]);
+const product = ref({
+    name: "",
+    description: "",
+    category_id: "",
+    price: 0,
+    price_sale: 0,
+    status: false,
+    images: [],
+});
+
+// Khai báo hàm toast
+const toast = useToast();
+
+const props = defineProps({
+    product: {
+        type: Object,
+        default: () => ({}),
+    },
+});
+
+const form = useForm({
+    _method: "put",
+    name: props.product.name,
+    description: props.product.description,
+});
 const fetchCategories = () => {
     axios
         .get("/api/product_categories")
@@ -25,24 +53,50 @@ const fetchCategories = () => {
             console.error("Error fetching categories", error);
         });
 };
-
-const form = useForm({
-    name: "",
-    description: "",
-    category_id: "",
-    price: 0,
-    price_sale: 0,
-    images: [],
-    status: "inactive",
-});
-
-const handleFiles = (images) => {
-    form.images = images.map((img) => img.file);
+const handleFiles = (event) => {
+    product.value.images = Array.from(event.files);
 };
-const handleSubmit = () => {
-    // Convert status to 'active' or 'inactive' based on the checkbox
-    form.status = form.status ? "active" : "inactive";
-    form.post(route("admin.products.store"));
+const InsertProduct = async () => {
+    const formData = new FormData();
+    formData.append("name", form.value.name);
+    formData.append("description", form.value.description);
+    formData.append("category_id", form.value.category_id);
+    formData.append("price", form.value.price);
+    formData.append("price_sale", form.value.price_sale);
+    formData.append("status", form.value.status);
+
+    form.value.images.forEach((file) => {
+        formData.append("images[]", file);
+    });
+
+    try {
+        await axios.post("/api/products", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Product created successfully",
+        });
+        product.value = {
+            name: "",
+            description: "",
+            category_id: "",
+            price: 0,
+            price_sale: 0,
+            status: false,
+            images: [],
+        };
+    } catch (error) {
+        console.error("Error adding product:", error);
+        toast.add({
+            severity: "error",
+            summary: "Error",
+            detail: "Failed to create product",
+        });
+    }
 };
 
 onMounted(fetchCategories);
@@ -50,29 +104,27 @@ onMounted(fetchCategories);
 
 <template>
     <LayoutAuthenticated>
-        <Head title="Create product" />
+        <Head title="Update product" />
         <SectionMain>
             <SectionTitleLineWithButton
                 :icon="mdiMenu"
-                title="Add product"
+                title="Update product"
                 main
             >
-                <Link
-                    :href="route('admin.products.index')"
-                    class="btn btn-white rounded-full small"
-                >
-                    <BaseButton
-                        :icon="mdiArrowLeftBoldOutline"
-                        label="Back"
-                        color="white"
-                        rounded-full
-                        small
-                    />
-                </Link>
+                <BaseButton
+                    :route-name="route('admin.products.index')"
+                    :icon="mdiArrowLeftBoldOutline"
+                    label="Back"
+                    color="white"
+                    rounded-full
+                    small
+                />
             </SectionTitleLineWithButton>
             <CardBox
                 form
-                @submit.prevent="form.post(route('admin.products.store'))"
+                @submit.prevent="
+                    form.post(route('admin.products.update', props.products.id))
+                "
             >
                 <FormField
                     label="Name"
@@ -93,11 +145,12 @@ onMounted(fetchCategories);
                     </FormControl>
                 </FormField>
                 <FormField
-                    label="Category"
-                    :class="{ 'text-red-400': form.errors.category_id }"
+                    label="Name"
+                    :class="{ 'text-red-400': form.errors.name }"
                 >
                     <select
                         v-model="form.category_id"
+                        id="category"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                     >
                         <option selected="">Select category</option>
@@ -121,60 +174,31 @@ onMounted(fetchCategories);
                         :error="form.errors.description"
                     />
                 </FormField>
-                <FormField
-                    label="Price"
-                    :class="{ 'text-red-400': form.errors.price }"
-                >
-                    <FormControl
-                        v-model="form.price"
-                        type="text"
-                        placeholder="Enter price"
-                        :error="form.errors.price"
+
+                <FormField label="Display">
+                    <Toast />
+                    <FileUpload
+                        name="images[]"
+                        id="product.images"
+                        ref="fileUpload"
+                        url="/api/upload"
+                        :multiple="true"
+                        accept="image/*"
+                        :maxFileSize="3000000"
+                        @input="handleFiles"
                     >
-                        <div
-                            class="text-red-400 text-sm"
-                            v-if="form.errors.price"
-                        >
-                            {{ form.errors.price }}
-                        </div>
-                    </FormControl>
+                    </FileUpload>
                 </FormField>
-                <FormField
-                    label="Price sale"
-                    :class="{ 'text-red-400': form.errors.price_sale }"
-                >
-                    <FormControl
-                        v-model="form.price_sale"
-                        type="text"
-                        placeholder="Enter price sale"
-                        :error="form.errors.price_sale"
-                    >
-                        <div
-                            class="text-red-400 text-sm"
-                            v-if="form.errors.price_sale"
-                        >
-                            {{ form.errors.price_sale }}
-                        </div>
-                    </FormControl>
-                </FormField>
-                <FormField
-                    label="Images"
-                    :class="{ 'text-red-400': form.errors.images }"
-                >
-                    <SelectMultipleimages
-                        v-model:images="form.images"
-                        @update:modelValue="handleFiles"
-                    />
-                </FormField>
+
                 <FormField label="Display">
                     <input
-                        v-model="form.status"
+                        id="status"
+                        v-model="product.status"
                         type="checkbox"
-                        :true-value="'active'"
-                        :false-value="'inactive'"
-                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500"
+                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2"
                     />
                 </FormField>
+
                 <template #footer>
                     <BaseButtons>
                         <BaseButton

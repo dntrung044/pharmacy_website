@@ -17,7 +17,9 @@ class Product extends Model
         'name', 'description', 'category_id', 'price', 'price_sale',
         'status', 'total_number', 'total_rating',
     ];
-
+    protected $casts = [
+        'status' => 'string',
+    ];
     public function category()
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');

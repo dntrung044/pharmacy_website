@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ProductController extends Controller
@@ -63,13 +65,39 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required',
+            'price' => 'required|numeric',
+            'price_sale' => 'nullable|numeric',
+            'status' => 'required|in:active,inactive', // Validate status
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', //
         ]);
 
+        // Create the product
+        $product = Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'price' => $request->price,
+            'price_sale' => $request->price_sale,
+            'status' => $request->status,
+        ]);
+
+        // Store the images 
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('public/products');
+                $product->images()->create([
+                    'product_id' => $product->id,
+                    'url' => Storage::url($path),
+                    'name' => $image->getClientOriginalName(),
+                ]);
+            }
+        }
         return redirect()->route('admin.products.index')
-            ->with('message', 'Product created successfully.');
+            ->with('success', 'Product created successfully.');
     }
 
     /**

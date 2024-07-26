@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -27,39 +28,40 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required',
-            'price' => 'required|numeric',
-            'price_sale' => 'nullable|numeric',
-            'images' => 'array',
-            'images.*' => 'image|max:3000',
-        ]);
-        // Create the product
-        $product = Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
-            'price' => $request->price,
-            'price_sale' => $request->price_sale,
-            'status' => $request->status,
-        ]);
-        // Store the images
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $path = $image->store('products', 'public');
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'url' => $path,
-                ]);
-            }
-        }
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'category_id' => 'required',
+    //         'price' => 'required|numeric',
+    //         'price_sale' => 'nullable|numeric',
+    //         'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for images
+    //     ]);
+    //     // Create the product
+    //     $product = Product::create([
+    //         'name' => $request->name,
+    //         'description' => $request->description,
+    //         'category_id' => $request->category_id,
+    //         'price' => $request->price,
+    //         'price_sale' => $request->price_sale,
+    //         'status' => $request->status,
+    //     ]);
+    //     // Store the images 
+    //     if ($request->hasFile('images')) {
+    //         foreach ($request->file('images') as $image) {
+    //             $path = $image->store('public/products');
+    //             $product->images()->create([
+    //                 'product_id' => $product->id,
+    //                 'url' => Storage::url($path),
+    //                 'name' => $image->getClientOriginalName(),
+    //             ]);
+    //         }
+    //     }
 
-        return response()->json(['message' => 'Product created successfully']);
-    }
+
+    //     return response()->json(['message' => 'Product created successfully']);
+    // }
 
     public function update(Request $request, $id)
     {

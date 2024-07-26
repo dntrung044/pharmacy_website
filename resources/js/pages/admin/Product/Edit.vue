@@ -12,9 +12,6 @@ import BaseButton from "@/Components/BaseButton.vue";
 import BaseButtons from "@/Components/BaseButtons.vue";
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import FileUpload from "primevue/fileupload";
-import { useToast } from "primevue/usetoast";
-import Toast from "primevue/toast";
 
 // Khai báo các biến và hàm
 const categories = ref([]);
@@ -27,9 +24,6 @@ const product = ref({
     status: false,
     images: [],
 });
-
-// Khai báo hàm toast
-const toast = useToast();
 
 const props = defineProps({
     product: {
@@ -145,7 +139,7 @@ onMounted(fetchCategories);
                     </FormControl>
                 </FormField>
                 <FormField
-                    label="Name"
+                    label="Category"
                     :class="{ 'text-red-400': form.errors.name }"
                 >
                     <select
@@ -175,19 +169,17 @@ onMounted(fetchCategories);
                     />
                 </FormField>
 
-                <FormField label="Display">
-                    <Toast />
-                    <FileUpload
-                        name="images[]"
-                        id="product.images"
-                        ref="fileUpload"
-                        url="/api/upload"
-                        :multiple="true"
-                        accept="image/*"
-                        :maxFileSize="3000000"
-                        @input="handleFiles"
-                    >
-                    </FileUpload>
+                <FormField label="Images">
+                    <file-pond
+                        name="test"
+                        ref="pond"
+                        class-name="my-pond"
+                        label-idle="Drop files here..."
+                        allow-multiple="true"
+                        accepted-file-types="image/jpeg, image/png"
+                        v-bind:files="myFiles"
+                        v-on:init="handleFilePondInit"
+                    />
                 </FormField>
 
                 <FormField label="Display">
