@@ -66,14 +66,14 @@ function destroy(id) {
                     small
                 />
             </SectionTitleLineWithButton>
-            <!-- <NotificationBar
+            <NotificationBar
                 :key="Date.now()"
-                v-if="$page.props.flash.message"
+                v-if="$page.props.flash && $page.props.flash.message"
                 color="success"
                 :icon="mdiAlertBoxOutline"
             >
                 {{ $page.props.flash.message }}
-            </NotificationBar> -->
+            </NotificationBar>
             <CardBox class="mb-6" has-table>
                 <form @submit.prevent="form.get(route('admin.products.index'))">
                     <div class="py-2 flex">
@@ -156,7 +156,8 @@ function destroy(id) {
                                                     n >
                                                     Math.round(
                                                         product.total_rating /
-                                                            product.total_number
+                                                            product.total_number ||
+                                                            0
                                                     ),
                                             }"
                                             fill="currentColor"
@@ -172,7 +173,7 @@ function destroy(id) {
                                                 Math.round(
                                                     product.total_rating /
                                                         product.total_number
-                                                )
+                                                ) || 0
                                             }})
                                         </span>
                                     </div>

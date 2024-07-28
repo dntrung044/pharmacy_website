@@ -39,11 +39,6 @@ const form = useForm({
 const handleFiles = (images) => {
     form.images = images.map((img) => img.file);
 };
-const handleSubmit = () => {
-    // Convert status to 'active' or 'inactive' based on the checkbox
-    form.status = form.status ? "active" : "inactive";
-    form.post(route("admin.products.store"));
-};
 
 onMounted(fetchCategories);
 </script>

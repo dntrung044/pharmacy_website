@@ -39,7 +39,7 @@ const props = defineProps({
 })
 
 
-const form = useForm({
+const form = useForm({ 
   _method: 'put',
   name: props.item.name,
   uri: props.item.uri,

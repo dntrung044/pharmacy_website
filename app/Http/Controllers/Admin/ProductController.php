@@ -97,7 +97,7 @@ class ProductController extends Controller
             }
         }
         return redirect()->route('admin.products.index')
-            ->with('success', 'Product created successfully.');
+            ->with('message', 'Product created successfully.');
     }
 
     /**
@@ -107,6 +107,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $product->load('category', 'reviews', 'images', 'sizes');
+
         return Inertia::render('Admin/Product/Edit', [
             'product' => $product,
         ]);
@@ -117,13 +119,52 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
+
     public function update(Request $request, Product $product)
     {
-        $product->update($request->all());
+        // Update product details
+        $product->update($request->only('name', 'description', 'category_id', 'price', 'price_sale', 'status'));
 
-        return redirect()->route('admin.products.index')
-            ->with('message', 'Product updated successfully.');
+        // Handle removed images
+        if ($request->has('removed_images')) {
+            foreach ($request->input('removed_images') as $imageId) {
+                $image = $product->images()->find($imageId);
+                if ($image) {
+                    Storage::delete(str_replace('/storage', 'public', $image->url));
+                    $image->delete();
+                }
+            }
+        }
+
+        // Handle new images
+        if ($request->has('images')) {
+            foreach ($request->file('images') as $image) {
+                if ($image->isValid()) {
+                    $path = $image->store('public/products');
+                    $product->images()->create([
+                        'product_id' => $product->id,
+                        'url' => Storage::url($path),
+                        'name' => $image->getClientOriginalName(),
+                    ]);
+                }
+            }
+        }
+
+        // Add ids of existing images to be retained
+        if ($request->has('existing_images')) {
+            $existingImageIds = array_map('intval', $request->input('existing_images'));
+            $imagesToDelete = $product->images()->whereNotIn('id', $existingImageIds)->get();
+
+            foreach ($imagesToDelete as $image) {
+                Storage::delete(str_replace('/storage', 'public', $image->url));
+                $image->delete();
+            }
+        }
+
+        return redirect()->route('admin.products.index')->with('message', 'Product updated successfully.');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

@@ -42,11 +42,9 @@ const emit = defineEmits(["update:modelValue"]);
 
 const selectedImages = ref(props.modelValue || []);
 
-// Ensure selectedImages is updated only with new images
 const onImageChange = (event) => {
     const files = event.target.files;
     const newImages = [];
-
     for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const reader = new FileReader();
@@ -55,7 +53,6 @@ const onImageChange = (event) => {
                 file: file,
                 url: e.target.result,
             });
-
             // Only update selectedImages and emit when all files are read
             if (newImages.length === files.length) {
                 selectedImages.value = [...selectedImages.value, ...newImages];
@@ -66,11 +63,11 @@ const onImageChange = (event) => {
     }
 };
 
+// Remove an image from the preview list
 const removeImage = (index) => {
     selectedImages.value.splice(index, 1);
     emit("update:modelValue", selectedImages.value);
 };
-
 // Watch for prop changes and update local state
 watch(
     () => props.modelValue,
@@ -79,3 +76,28 @@ watch(
     }
 );
 </script>
+
+<style scoped>
+.file-input {
+    margin-bottom: 20px;
+}
+
+.image-preview-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.image-preview {
+    width: 100px;
+    height: 100px;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+</style>
