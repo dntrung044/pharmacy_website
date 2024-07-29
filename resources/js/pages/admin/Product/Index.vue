@@ -1,4 +1,5 @@
 <script setup>
+import { ref, defineProps, defineEmits } from "vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import {
     mdiMenu,
@@ -17,6 +18,7 @@ import BaseButtons from "@/Components/BaseButtons.vue";
 import NotificationBar from "@/Components/NotificationBar.vue";
 import Pagination from "@/Components/Admin/Pagination.vue";
 import Sort from "@/Components/Admin/Sort.vue";
+import DeleteModal from "@/Components/Admin/DeleteModal.vue";
 
 const props = defineProps({
     products: {
@@ -24,10 +26,6 @@ const props = defineProps({
         default: () => ({}),
     },
     filters: {
-        type: Object,
-        default: () => ({}),
-    },
-    can: {
         type: Object,
         default: () => ({}),
     },
@@ -45,11 +43,23 @@ const form = useForm({
 
 const formDelete = useForm({});
 
-function destroy(id) {
-    if (confirm("Are you sure you want to delete?")) {
+const isDeleteModalVisible = ref(false);
+const productIdToDelete = ref(null);
+
+const openDeleteModal = (id) => {
+    productIdToDelete.value = id;
+    isDeleteModalVisible.value = true;
+};
+const closeDeleteModal = () => {
+    isDeleteModalVisible.value = false;
+    productIdToDelete.value = null;
+};
+const confirmDelete = (id) => {
+    if (id) {
         formDelete.delete(route("admin.products.destroy", id));
+        closeDeleteModal();
     }
-}
+};
 </script>
 
 <template>
@@ -211,17 +221,6 @@ function destroy(id) {
                                         <BaseButton
                                             :route-name="
                                                 route(
-                                                    'admin.product_categories.index',
-                                                    product.id
-                                                )
-                                            "
-                                            color="warning"
-                                            :icon="mdiCogOutline"
-                                            small
-                                        />
-                                        <BaseButton
-                                            :route-name="
-                                                route(
                                                     'admin.products.edit',
                                                     product.id
                                                 )
@@ -234,7 +233,14 @@ function destroy(id) {
                                             color="danger"
                                             :icon="mdiTrashCan"
                                             small
-                                            @click="destroy(product.id)"
+                                            @click="openDeleteModal(product.id)"
+                                        />
+                                        <!-- Delete Modal Component -->
+                                        <DeleteModal
+                                            :isVisible="isDeleteModalVisible"
+                                            :productId="productIdToDelete"
+                                            @close="closeDeleteModal"
+                                            @delete="confirmDelete"
                                         />
                                     </BaseButtons>
                                 </td>

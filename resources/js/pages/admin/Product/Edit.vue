@@ -160,7 +160,7 @@ const form = useForm({
     price: props.product.price,
     price_sale: props.product.price_sale,
     status: props.product.status,
-    images: props.product.images.map((image) => ({ ...image, isNew: false })),
+    images: props.product.images.map((image) => ({ ...image })),
     removedImages: [], // Initialize as an empty array
 });
 
@@ -195,16 +195,7 @@ const handleSubmit = () => {
 
     // Add new images
     form.images.forEach((image, index) => {
-        if (image.isNew) {
-            formData.append(`images[${index}]`, image.file);
-        }
-    });
-
-    // Add ids of existing images to be retained
-    form.images.forEach((image, index) => {
-        if (!image.isNew) {
-            formData.append(`existing_images[${index}]`, image.id);
-        }
+        formData.append(`images[${index}]`, image.file);
     });
 
     // Add ids of removed images

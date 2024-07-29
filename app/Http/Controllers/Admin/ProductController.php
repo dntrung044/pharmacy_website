@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -122,22 +123,20 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+        // Validate the request data
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:product_categories,id',
+            'price' => 'required|numeric',
+            'price_sale' => 'nullable|numeric',
+            'status' => 'required|string|in:active,inactive',
+        ]);
         // Update product details
         $product->update($request->only('name', 'description', 'category_id', 'price', 'price_sale', 'status'));
 
-        // Handle removed images
-        if ($request->has('removed_images')) {
-            foreach ($request->input('removed_images') as $imageId) {
-                $image = $product->images()->find($imageId);
-                if ($image) {
-                    Storage::delete(str_replace('/storage', 'public', $image->url));
-                    $image->delete();
-                }
-            }
-        }
-
-        // Handle new images
-        if ($request->has('images')) {
+        // Handle new images 
+        if ($request->has('images') && is_array($request->file('images')) && count($request->file('images')) > 0) {
             foreach ($request->file('images') as $image) {
                 if ($image->isValid()) {
                     $path = $image->store('public/products');
@@ -150,21 +149,20 @@ class ProductController extends Controller
             }
         }
 
-        // Add ids of existing images to be retained
-        if ($request->has('existing_images')) {
-            $existingImageIds = array_map('intval', $request->input('existing_images'));
-            $imagesToDelete = $product->images()->whereNotIn('id', $existingImageIds)->get();
-
-            foreach ($imagesToDelete as $image) {
-                Storage::delete(str_replace('/storage', 'public', $image->url));
-                $image->delete();
+        // Handle removed images 
+        if ($request->has('removed_images') && is_array($request->removed_images) && count($request->removed_images) > 0) {
+            foreach ($request->removed_images as $imageId) {
+                $image = $product->images()->find($imageId);
+                if ($image) {
+                    Storage::delete(str_replace('/storage', 'public', $image->url));
+                    $image->delete();
+                }
             }
         }
 
-        return redirect()->route('admin.products.index')->with('message', 'Product updated successfully.');
+        return redirect()->route('admin.products.index')
+            ->with('message', 'Product updated successfully.');
     }
-
-
 
     /**
      * Remove the specified resource from storage.
@@ -173,6 +171,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // Delete product images from storage
+        foreach ($product->images as $image) {
+            Storage::delete('public/products/' . $image->image_path);
+        }
+        // Delete the product
         $product->delete();
 
         return redirect()->route('admin.products.index')
