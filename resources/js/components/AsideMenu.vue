@@ -6,8 +6,6 @@ import menuData from "@/menu.js";
 import AsideMenuLayer from "@/Components/AsideMenuLayer.vue";
 import OverlayLayer from "@/Components/OverlayLayer.vue";
 
-// let menu = reactive({});
-// menu = computed(() => usePage().props.navigation.menu);
 const menu = computed(() => {
     const pageProps = usePage().props;
     const pageMenu = (pageProps.navigation && pageProps.navigation.menu) || [];

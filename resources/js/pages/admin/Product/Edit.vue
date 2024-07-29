@@ -161,7 +161,7 @@ const form = useForm({
     price_sale: props.product.price_sale,
     status: props.product.status,
     images: props.product.images.map((image) => ({ ...image })),
-    removedImages: [], // Initialize as an empty array
+    removedImages: [],
 });
 
 const fetchCategories = () => {
@@ -177,13 +177,11 @@ const fetchCategories = () => {
 };
 
 const updateRemovedImages = (removedImages) => {
-    console.log("Removed Images:", removedImages);
     form.removedImages = removedImages;
 };
 
 const handleSubmit = () => {
     const formData = new FormData();
-
     // Add product details
     formData.append("_method", "put");
     formData.append("name", form.name);
@@ -192,17 +190,14 @@ const handleSubmit = () => {
     formData.append("price", form.price);
     formData.append("price_sale", form.price_sale);
     formData.append("status", form.status);
-
     // Add new images
     form.images.forEach((image, index) => {
         formData.append(`images[${index}]`, image.file);
     });
-
-    // Add ids of removed images
+    // Removed images
     form.removedImages.forEach((imageId, index) => {
         formData.append(`removed_images[${index}]`, imageId);
     });
-
     axios
         .post(route("admin.products.update", props.product.id), formData, {
             headers: {
@@ -210,11 +205,9 @@ const handleSubmit = () => {
             },
         })
         .then(() => {
-            // Handle success
             window.location.href = route("admin.products.index");
         })
         .catch((error) => {
-            // Handle error
             console.error(error);
         });
 };

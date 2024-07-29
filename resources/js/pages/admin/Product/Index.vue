@@ -1,10 +1,9 @@
 <script setup>
-import { ref, defineProps, defineEmits } from "vue";
+import { ref, defineProps } from "vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import {
     mdiMenu,
     mdiPlus,
-    mdiCogOutline,
     mdiSquareEditOutline,
     mdiTrashCan,
     mdiAlertBoxOutline,
@@ -225,7 +224,7 @@ const confirmDelete = (id) => {
                                                     product.id
                                                 )
                                             "
-                                            color="info"
+                                            color="warning"
                                             :icon="mdiSquareEditOutline"
                                             small
                                         />

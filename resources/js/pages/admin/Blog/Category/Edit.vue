@@ -1,209 +1,245 @@
+<template>
+    <LayoutAuthenticated>
+        <Head title="Update product" />
+        <SectionMain>
+            <SectionTitleLineWithButton
+                :icon="mdiMenu"
+                title="Update product"
+                main
+            >
+                <BaseButton
+                    :route-name="route('admin.products.index')"
+                    :icon="mdiArrowLeftBoldOutline"
+                    label="Back"
+                    color="white"
+                    rounded-full
+                    small
+                />
+            </SectionTitleLineWithButton>
+            <CardBox form @submit.prevent="handleSubmit">
+                <FormField
+                    label="Name"
+                    :class="{ 'text-red-400': form.errors.name }"
+                >
+                    <FormControl
+                        v-model="form.name"
+                        type="text"
+                        placeholder="Enter Name"
+                        :error="form.errors.name"
+                    >
+                        <div
+                            class="text-red-400 text-sm"
+                            v-if="form.errors.name"
+                        >
+                            {{ form.errors.name }}
+                        </div>
+                    </FormControl>
+                </FormField>
+                <FormField
+                    label="Category"
+                    :class="{ 'text-red-400': form.errors.category_id }"
+                >
+                    <select
+                        v-model="form.category_id"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                    >
+                        <option
+                            v-for="category in categories"
+                            :key="category.id"
+                            :value="category.id"
+                        >
+                            {{ category.name }}
+                        </option>
+                    </select>
+                </FormField>
+                <FormField
+                    label="Description"
+                    :class="{ 'text-red-400': form.errors.description }"
+                >
+                    <QuillEditor
+                        v-model:content="form.description"
+                        contentType="html"
+                        theme="snow"
+                        :error="form.errors.description"
+                    />
+                </FormField>
+                <FormField
+                    label="Price"
+                    :class="{ 'text-red-400': form.errors.price }"
+                >
+                    <FormControl
+                        v-model="form.price"
+                        type="number"
+                        placeholder="Enter Price"
+                        :error="form.errors.price"
+                    >
+                        <div
+                            class="text-red-400 text-sm"
+                            v-if="form.errors.price"
+                        >
+                            {{ form.errors.price }}
+                        </div>
+                    </FormControl>
+                    <FormControl
+                        v-model="form.price_sale"
+                        type="number"
+                        placeholder="Enter Price Sale"
+                        :error="form.errors.price_sale"
+                    >
+                        <div
+                            class="text-red-400 text-sm"
+                            v-if="form.errors.price_sale"
+                        >
+                            {{ form.errors.price_sale }}
+                        </div>
+                    </FormControl>
+                </FormField>
+                <FormField label="Product Images">
+                    <UpdateMultipleimages
+                        v-model:images="form.images"
+                        :initialImages="form.images"
+                        @remove:images="updateRemovedImages"
+                    />
+                </FormField>
+                <FormField label="Display">
+                    <input
+                        v-model="form.status"
+                        type="checkbox"
+                        :true-value="'active'"
+                        :false-value="'inactive'"
+                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2"
+                    />
+                </FormField>
+
+                <template #footer>
+                    <BaseButtons>
+                        <BaseButton
+                            type="submit"
+                            color="info"
+                            label="Submit"
+                            :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing"
+                        />
+                    </BaseButtons>
+                </template>
+            </CardBox>
+        </SectionMain>
+    </LayoutAuthenticated>
+</template>
+
 <script setup>
-import { Head, Link, useForm } from "@inertiajs/vue3"
-import {
-  mdiMenu,
-  mdiArrowLeftBoldOutline
-} from "@mdi/js"
-import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
-import SectionMain from "@/Components/SectionMain.vue"
-import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue"
-import CardBox from "@/Components/CardBox.vue"
-import FormField from '@/Components/FormField.vue'
-import FormControl from '@/Components/FormControl.vue'
-import FormCheckRadioGroup from '@/Components/FormCheckRadioGroup.vue'
-import BaseButton from '@/Components/BaseButton.vue'
-import BaseButtons from '@/Components/BaseButtons.vue'
-import BaseDivider from '@/Components/BaseDivider.vue'
+import { ref, onMounted } from "vue";
+import { Head, useForm } from "@inertiajs/vue3";
+import { mdiMenu, mdiArrowLeftBoldOutline } from "@mdi/js";
+import LayoutAuthenticated from "@/Layouts/AuthenticatedLayout.vue";
+import SectionMain from "@/Components/SectionMain.vue";
+import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
+import CardBox from "@/Components/CardBox.vue";
+import FormField from "@/Components/FormField.vue";
+import FormControl from "@/Components/FormControl.vue";
+import BaseButton from "@/Components/BaseButton.vue";
+import BaseButtons from "@/Components/BaseButtons.vue";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import UpdateMultipleimages from "@/Components/UpdateMultipleimages.vue";
+
+const categories = ref([]);
 
 const props = defineProps({
-  menu: {
-    type: Object,
-    default: () => ({}),
-  },
-  item: {
-    type: Object,
-    default: () => ({}),
-  },
-  itemOptions: {
-    type: Object,
-    default: () => ({}),
-  },
-  roles: {
-    type: Object,
-    default: () => ({}),
-  },
-  itemHasRoles: {
-    type: Object,
-    default: () => ({}),
-  },
-})
-
+    product: {
+        type: Object,
+        default: () => ({}),
+    },
+});
 
 const form = useForm({
-  _method: 'put',
-  name: props.item.name,
-  uri: props.item.uri,
-  description: props.item.description,
-  enabled: props.item.enabled,
-  parent_id: props.item.parent_id,
-  weight: props.item.weight,
-  icon: props.item.icon,
-  roles: props.itemHasRoles
-})
+    _method: "put",
+    name: props.product.name,
+    description: props.product.description,
+    category_id: props.product.category_id,
+    price: props.product.price,
+    price_sale: props.product.price_sale,
+    status: props.product.status,
+    images: props.product.images.map((image) => ({ ...image })),
+    removedImages: [], // Initialize as an empty array
+});
+
+const fetchCategories = () => {
+    axios
+        .get("/api/product_categories")
+        .then((response) => {
+            categories.value = response.data;
+            form.category_id = props.product.category_id;
+        })
+        .catch((error) => {
+            console.error("Error fetching categories", error);
+        });
+};
+
+const updateRemovedImages = (removedImages) => {
+    console.log("Removed Images:", removedImages);
+    form.removedImages = removedImages;
+};
+
+const handleSubmit = () => {
+    const formData = new FormData();
+
+    // Add product details
+    formData.append("_method", "put");
+    formData.append("name", form.name);
+    formData.append("description", form.description);
+    formData.append("category_id", form.category_id);
+    formData.append("price", form.price);
+    formData.append("price_sale", form.price_sale);
+    formData.append("status", form.status);
+
+    // Add new images
+    form.images.forEach((image, index) => {
+        formData.append(`images[${index}]`, image.file);
+    });
+
+    // Add ids of removed images
+    form.removedImages.forEach((imageId, index) => {
+        formData.append(`removed_images[${index}]`, imageId);
+    });
+
+    axios
+        .post(route("admin.products.update", props.product.id), formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+        .then(() => {
+            // Handle success
+            window.location.href = route("admin.products.index");
+        })
+        .catch((error) => {
+            // Handle error
+            console.error(error);
+        });
+};
+
+onMounted(fetchCategories);
 </script>
 
-<template>
-  <LayoutAuthenticated>
-    <Head title="Update menu item" />
-    <SectionMain>
-      <SectionTitleLineWithButton
-        :icon="mdiMenu"
-        title="Update menu item"
-        main
-      >
-        <BaseButton
-          :route-name="route('admin.menu.item.index', menu.id)"
-          :icon="mdiArrowLeftBoldOutline"
-          label="Back"
-          color="white"
-          rounded-full
-          small
-        />
-      </SectionTitleLineWithButton>
-      <CardBox
-        form
-        @submit.prevent="form.post(route('admin.menu.item.update', {menu: props.menu.id, item:props.item.id}))"
-      >
-        <FormField
-          label="Name"
-          :class="{ 'text-red-400': form.errors.name }"
-        >
-          <FormControl
-            v-model="form.name"
-            type="text"
-            placeholder="Enter Name"
-            :error="form.errors.name"
-          >
-            <div class="text-red-400 text-sm" v-if="form.errors.name">
-              {{ form.errors.name }}
-            </div>
-          </FormControl>
-        </FormField>
-        <FormField
-          label="Link"
-          :class="{ 'text-red-400': form.errors.uri }"
-        >
-          <FormControl
-            v-model="form.uri"
-            type="text"
-            placeholder="Enter Link"
-            :error="form.errors.name"
-          >
-            <div class="item-list">
-                You can also enter an internal path such as <em class="placeholder">/home</em> or an external URL such as <em class="placeholder">http://example.com</em>. 
-                Add prefix <em class="placeholder">&lt;admin&gt;</em> to link for admin page. Enter <em class="placeholder">&lt;nolink&gt;</em> to display link text only.
-            </div>
-            <div class="text-red-400 text-sm" v-if="form.errors.uri">
-              {{ form.errors.uri }}
-            </div>
-          </FormControl>
-        </FormField>
-        <FormField
-          label="Description"
-          :class="{ 'text-red-400': form.errors.description }"
-        >
-          <FormControl
-            v-model="form.description"
-            type="text"
-            placeholder="Enter Description"
-            :error="form.errors.description"
-          >
-            <div class="text-red-400 text-sm" v-if="form.errors.description">
-              {{ form.errors.description }}
-            </div>
-          </FormControl>
-        </FormField>
-        <FormCheckRadioGroup
-          v-model="form.enabled"
-          name="enabled"
-          :options="{ enabled: 'Enabled' }"
-        />
-        <FormField
-          label="Parent Item"
-          :class="{ 'text-red-400': form.errors.parent_id }"
-        >
-          <FormControl
-            v-model="form.parent_id"
-            type="select"
-            placeholder="--ROOT--"
-            :error="form.errors.parent_id"
-            :options="itemOptions"
-          >
-            <div class="text-red-400 text-sm" v-if="form.errors.parent_id">
-              {{ form.errors.parent_id }}
-            </div>
-            <div>
-                The maximum depth for a link and all its children is fixed. Some menu links may not be available as parents if selecting them would exceed this limit.
-            </div>
-          </FormControl>
-        </FormField>
-        <FormField
-          label="Weight"
-          :class="{ 'text-red-400': form.errors.weight }"
-        >
-          <FormControl
-            v-model="form.weight"
-            type="text"
-            placeholder="Enter Weight"
-            :error="form.errors.weight"
-          >
-            <div class="text-red-400 text-sm" v-if="form.errors.weight">
-              {{ form.errors.weight }}
-            </div>
-          </FormControl>
-        </FormField>
-        <FormField
-          label="Icon"
-          :class="{ 'text-red-400': form.errors.icon }"
-        >
-          <FormControl
-            v-model="form.icon"
-            type="text"
-            placeholder="Enter Icon Path"
-            :error="form.errors.icon"
-          >
-            <div class="text-red-400 text-sm" v-if="form.errors.icon">
-              {{ form.errors.icon }}
-            </div>
-          </FormControl>
-        </FormField>
-        
-        <BaseDivider />
+<style scoped>
+.file-input {
+    margin-bottom: 20px;
+}
 
-        <FormField
-          label="Roles"
-          wrap-body
-        >
-          <FormCheckRadioGroup
-            v-model="form.roles"
-            name="roles"
-            is-column
-            :options="props.roles"
-          />
-        </FormField>
+.image-preview-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
 
-        <template #footer>
-          <BaseButtons>
-            <BaseButton
-              type="submit"
-              color="info"
-              label="Submit"
-              :class="{ 'opacity-25': form.processing }"
-              :disabled="form.processing"
-            />
-          </BaseButtons>
-        </template>
-      </CardBox>
-    </SectionMain>
-  </LayoutAuthenticated>
-</template>
+.image {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-left: 0.25rem;
+}
+</style>

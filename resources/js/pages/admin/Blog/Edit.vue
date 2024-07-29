@@ -1,118 +1,14 @@
-<script setup>
-import { ref, onMounted } from "vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
-import { mdiMenu, mdiArrowLeftBoldOutline } from "@mdi/js";
-import LayoutAuthenticated from "@/Layouts/AuthenticatedLayout.vue";
-import SectionMain from "@/Components/SectionMain.vue";
-import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
-import CardBox from "@/Components/CardBox.vue";
-import FormField from "@/Components/FormField.vue";
-import FormControl from "@/Components/FormControl.vue";
-import BaseButton from "@/Components/BaseButton.vue";
-import BaseButtons from "@/Components/BaseButtons.vue";
-import { QuillEditor } from "@vueup/vue-quill";
-import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import FileUpload from "primevue/fileupload";
-import { useToast } from "primevue/usetoast";
-import Toast from "primevue/toast";
-
-// Khai báo các biến và hàm
-const categories = ref([]);
-const product = ref({
-    name: "",
-    description: "",
-    category_id: "",
-    price: 0,
-    price_sale: 0,
-    status: false,
-    images: [],
-});
-
-// Khai báo hàm toast
-const toast = useToast();
-
-const props = defineProps({
-    product: {
-        type: Object,
-        default: () => ({}),
-    },
-});
-
-const form = useForm({
-    _method: "put",
-    name: props.product.name,
-    description: props.product.description,
-});
-const fetchCategories = () => {
-    axios
-        .get("/api/product_categories")
-        .then((response) => {
-            categories.value = response.data;
-        })
-        .catch((error) => {
-            console.error("Error fetching categories", error);
-        });
-};
-const handleFiles = (event) => {
-    product.value.images = Array.from(event.files);
-};
-const InsertProduct = async () => {
-    const formData = new FormData();
-    formData.append("name", form.value.name);
-    formData.append("description", form.value.description);
-    formData.append("category_id", form.value.category_id);
-    formData.append("price", form.value.price);
-    formData.append("price_sale", form.value.price_sale);
-    formData.append("status", form.value.status);
-
-    form.value.images.forEach((file) => {
-        formData.append("images[]", file);
-    });
-
-    try {
-        await axios.post("/api/products", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        });
-        toast.add({
-            severity: "success",
-            summary: "Success",
-            detail: "Product created successfully",
-        });
-        product.value = {
-            name: "",
-            description: "",
-            category_id: "",
-            price: 0,
-            price_sale: 0,
-            status: false,
-            images: [],
-        };
-    } catch (error) {
-        console.error("Error adding product:", error);
-        toast.add({
-            severity: "error",
-            summary: "Error",
-            detail: "Failed to create product",
-        });
-    }
-};
-
-onMounted(fetchCategories);
-</script>
-
 <template>
     <LayoutAuthenticated>
-        <Head title="Update product" />
+        <Head title="Update Post" />
         <SectionMain>
             <SectionTitleLineWithButton
                 :icon="mdiMenu"
-                title="Update product"
+                title="Update Post"
                 main
             >
                 <BaseButton
-                    :route-name="route('admin.products.index')"
+                    :route-name="route('admin.blog.index')"
                     :icon="mdiArrowLeftBoldOutline"
                     label="Back"
                     color="white"
@@ -123,37 +19,35 @@ onMounted(fetchCategories);
             <CardBox
                 form
                 @submit.prevent="
-                    form.post(route('admin.products.update', props.products.id))
+                    form.post(route('admin.blog.update', props.post.id))
                 "
             >
                 <FormField
-                    label="Name"
-                    :class="{ 'text-red-400': form.errors.name }"
+                    label="Title"
+                    :class="{ 'text-red-400': form.errors.title }"
                 >
                     <FormControl
-                        v-model="form.name"
+                        v-model="form.title"
                         type="text"
-                        placeholder="Enter Name"
-                        :error="form.errors.name"
+                        placeholder="Enter Title"
+                        :error="form.errors.title"
                     >
                         <div
                             class="text-red-400 text-sm"
-                            v-if="form.errors.name"
+                            v-if="form.errors.title"
                         >
-                            {{ form.errors.name }}
+                            {{ form.errors.title }}
                         </div>
                     </FormControl>
                 </FormField>
                 <FormField
-                    label="Name"
-                    :class="{ 'text-red-400': form.errors.name }"
+                    label="Category"
+                    :class="{ 'text-red-400': form.errors.category_id }"
                 >
                     <select
                         v-model="form.category_id"
-                        id="category"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                     >
-                        <option selected="">Select category</option>
                         <option
                             v-for="category in categories"
                             :key="category.id"
@@ -167,34 +61,56 @@ onMounted(fetchCategories);
                     label="Description"
                     :class="{ 'text-red-400': form.errors.description }"
                 >
+                    <FormControl
+                        v-model="form.description"
+                        type="textarea"
+                        placeholder="Enter Description"
+                        :error="form.errors.description"
+                    >
+                        <div
+                            class="text-red-400 text-sm"
+                            v-if="form.errors.description"
+                        >
+                            {{ form.errors.description }}
+                        </div>
+                    </FormControl>
+                </FormField>
+                <FormField
+                    label="Content"
+                    :class="{ 'text-red-400': form.errors.content }"
+                >
                     <QuillEditor
-                        v-model:content="form.description"
+                        v-model:content="form.content"
                         contentType="html"
                         theme="snow"
-                        :error="form.errors.description"
+                        :error="form.errors.content"
                     />
                 </FormField>
 
-                <FormField label="Display">
-                    <Toast />
-                    <FileUpload
-                        name="images[]"
-                        id="product.images"
-                        ref="fileUpload"
-                        url="/api/upload"
-                        :multiple="true"
-                        accept="image/*"
-                        :maxFileSize="3000000"
-                        @input="handleFiles"
-                    >
-                    </FileUpload>
+                <FormField
+                    label="Images"
+                    :class="{ 'text-red-400': form.errors.image }"
+                >
+                    <FormControl type="file" @change="handleFileChange">
+                        <img
+                            v-if="form.image"
+                            :src="form.image"
+                            class="w-80 h-60 object-cover rounded-lg ml-1 mt-3"
+                        />
+                        <div
+                            class="text-red-400 text-sm"
+                            v-if="form.errors.image"
+                        >
+                            {{ form.errors.image }}
+                        </div>
+                    </FormControl>
                 </FormField>
-
                 <FormField label="Display">
                     <input
-                        id="status"
-                        v-model="product.status"
+                        v-model="form.status"
                         type="checkbox"
+                        :true-value="'active'"
+                        :false-value="'inactive'"
                         class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 focus:ring-2"
                     />
                 </FormField>
@@ -214,3 +130,61 @@ onMounted(fetchCategories);
         </SectionMain>
     </LayoutAuthenticated>
 </template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import { Head, useForm } from "@inertiajs/vue3";
+import { mdiMenu, mdiArrowLeftBoldOutline } from "@mdi/js";
+import LayoutAuthenticated from "@/Layouts/AuthenticatedLayout.vue";
+import SectionMain from "@/Components/SectionMain.vue";
+import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
+import CardBox from "@/Components/CardBox.vue";
+import FormField from "@/Components/FormField.vue";
+import FormControl from "@/Components/FormControl.vue";
+import BaseButton from "@/Components/BaseButton.vue";
+import BaseButtons from "@/Components/BaseButtons.vue";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+
+const categories = ref([]);
+const fetchCategories = () => {
+    axios
+        .get("/api/blog/categories")
+        .then((response) => {
+            categories.value = response.data;
+        })
+        .catch((error) => {
+            console.error("Error fetching categories", error);
+        });
+};
+
+const props = defineProps({
+    post: {
+        type: Object,
+        default: () => ({}),
+    },
+});
+
+const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        form.imageFile = file;
+        form.image = URL.createObjectURL(file);
+    } else {
+        form.imageFile = null;
+    }
+};
+
+const form = useForm({
+    _method: "put",
+    title: props.post.title,
+    description: props.post.description,
+    content: props.post.content,
+    category_id: props.post.category_id,
+    status: props.post.status,
+    image: props.post.image,
+    imageFile: null,
+});
+
+onMounted(fetchCategories);
+</script>
