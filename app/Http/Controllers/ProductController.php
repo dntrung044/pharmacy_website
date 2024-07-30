@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->get();
+        $products = Product::with('category', 'reviews', 'images', 'sizes')->orderBy('id', 'DESC')->get();
         return response()->json($products);
     }
 
@@ -26,24 +28,40 @@ class ProductController extends Controller
         ]);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'content' => 'required|string',
-            'category_id' => 'required|exists:product_categories,id',
-            'price' => 'nullable|integer',
-            'price_sale' => 'nullable|integer',
-            'active' => 'required|integer',
-            'thumb' => 'required|string|max:255',
-            'total_number' => 'required|integer',
-            'total_rating' => 'required|integer',
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'category_id' => 'required',
+    //         'price' => 'required|numeric',
+    //         'price_sale' => 'nullable|numeric',
+    //         'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validation for images
+    //     ]);
+    //     // Create the product
+    //     $product = Product::create([
+    //         'name' => $request->name,
+    //         'description' => $request->description,
+    //         'category_id' => $request->category_id,
+    //         'price' => $request->price,
+    //         'price_sale' => $request->price_sale,
+    //         'status' => $request->status,
+    //     ]);
+    //     // Store the images 
+    //     if ($request->hasFile('images')) {
+    //         foreach ($request->file('images') as $image) {
+    //             $path = $image->store('public/products');
+    //             $product->images()->create([
+    //                 'product_id' => $product->id,
+    //                 'url' => Storage::url($path),
+    //                 'name' => $image->getClientOriginalName(),
+    //             ]);
+    //         }
+    //     }
 
-        $product = Product::create($request->all());
-        return response()->json($product, 201);
-    }
+
+    //     return response()->json(['message' => 'Product created successfully']);
+    // }
 
     public function update(Request $request, $id)
     {
@@ -51,19 +69,6 @@ class ProductController extends Controller
         if (!$product) {
             return response()->json(['message' => 'Product not found'], 404);
         }
-
-        $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string',
-            'content' => 'sometimes|required|string',
-            'category_id' => 'sometimes|required|exists:product_categories,id',
-            'price' => 'nullable|integer',
-            'price_sale' => 'nullable|integer',
-            'active' => 'sometimes|required|integer',
-            'thumb' => 'sometimes|required|string|max:255',
-            'total_number' => 'sometimes|required|integer',
-            'total_rating' => 'sometimes|required|integer',
-        ]);
 
         $product->update($request->all());
         return response()->json($product);
@@ -85,12 +90,26 @@ class ProductController extends Controller
         $categoryIds = $request->query('categories');
         $categoryIdsArray = explode(',', $categoryIds);
 
-        $products = Product::whereIn('category_id', $categoryIdsArray)->get();
+        $products = Product::with('category', 'reviews', 'images', 'sizes')->whereIn('category_id', $categoryIdsArray)->get();
 
         if ($products->isEmpty()) {
             return response()->json(['message' => 'Products not found'], 404);
         }
 
         return response()->json($products);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $imageId = $request->input('image_id');
+
+        $image = ProductImage::find($imageId);
+
+        if (!$image) {
+            return response()->json(['error' => 'Image not found'], 404);
+        }
+        $image->delete();
+
+        return response()->json(['message' => 'Image deleted successfully'], 200);
     }
 }

@@ -1,22 +1,28 @@
 import './bootstrap';
-import { createApp } from 'vue';
-import App from './App.vue';
-import router from './router/main.js';
-import ElementPlus from 'element-plus';
-import 'element-plus/dist/index.css';
-import { createPinia } from 'pinia';
-import Toast from "vue-toastification";
-import "vue-toastification/dist/index.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import '../css/app.css';
 
+import { createPinia } from 'pinia'
+import { createApp, h } from 'vue';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
-const pinia = createPinia();
-const app = createApp(App);
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const pinia = createPinia()
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: (name) =>
+        resolvePageComponent(`./Pages/${name}.vue`,
+            import.meta.glob('./Pages/**/*.vue')),
+    setup({ el, App, props, plugin }) {
+        return createApp({ render: () => h(App, props) })
+            .use(plugin)
+            .use(pinia)
+            .use(ZiggyVue)
 
-app.use(router);
-app.use(ElementPlus);
-app.use(pinia);
-app.use(Toast);
-
-app.mount('#app');
+            .mount(el);
+    },
+    progress: {
+        color: '#4B5563',
+    },
+});
