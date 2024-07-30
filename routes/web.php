@@ -7,6 +7,9 @@ use Inertia\Inertia;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
+Route::get('/Shop', [HomeController::class, 'index'])->name('frontend.shop');
+Route::get('/Blog', [HomeController::class, 'index'])->name('frontend.blog');
+Route::get('/About', [HomeController::class, 'index'])->name('frontend.about');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

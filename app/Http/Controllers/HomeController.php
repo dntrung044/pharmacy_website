@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discount;
+use App\Models\HomePageContent;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -11,9 +15,14 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $homePageContent = HomePageContent::first();
         return Inertia::render('FrontEnd/HomePage', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
+            'homePageContent' => $homePageContent,
+            'categories' => ProductCategory::all(),
+            'productBestSellers' => Product::with("category")->paginate(4),
+            'discounts' => Discount::all(),
+            // 'canLogin' => Route::has('login'),
+            // 'canRegister' => Route::has('register'),
         ]);
     }
 }
