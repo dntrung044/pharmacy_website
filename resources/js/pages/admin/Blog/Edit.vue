@@ -1,5 +1,5 @@
 <template>
-    <LayoutAuthenticated>
+    <AuthenticatedLayout>
         <Head title="Update Post" />
         <SectionMain>
             <SectionTitleLineWithButton
@@ -128,14 +128,14 @@
                 </template>
             </CardBox>
         </SectionMain>
-    </LayoutAuthenticated>
+    </AuthenticatedLayout>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import { Head, useForm } from "@inertiajs/vue3";
 import { mdiMenu, mdiArrowLeftBoldOutline } from "@mdi/js";
-import LayoutAuthenticated from "@/Layouts/AuthenticatedLayout.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import SectionMain from "@/Components/SectionMain.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
 import CardBox from "@/Components/CardBox.vue";

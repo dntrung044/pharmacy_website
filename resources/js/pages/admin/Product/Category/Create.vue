@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import { mdiMenu, mdiArrowLeftBoldOutline } from "@mdi/js";
-import LayoutAuthenticated from "@/Layouts/AuthenticatedLayout.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import SectionMain from "@/Components/SectionMain.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
 import CardBox from "@/Components/CardBox.vue";
@@ -44,7 +44,7 @@ onMounted(fetchCategories);
 </script>
 
 <template>
-    <LayoutAuthenticated>
+    <AuthenticatedLayout>
         <Head title="Create product" />
         <SectionMain>
             <SectionTitleLineWithButton
@@ -183,5 +183,5 @@ onMounted(fetchCategories);
                 </template>
             </CardBox>
         </SectionMain>
-    </LayoutAuthenticated>
+    </AuthenticatedLayout>
 </template>

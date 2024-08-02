@@ -25,4 +25,11 @@ class HomeController extends Controller
             // 'canRegister' => Route::has('register'),
         ]);
     }
+    public function shop()
+    {
+        $products = Product::with('category', 'reviews', 'images', 'sizes')->orderBy('id', 'DESC')->get();
+        return Inertia::render('FrontEnd/ProductListPage', [
+            'products' => $products,
+        ]);
+    }
 }

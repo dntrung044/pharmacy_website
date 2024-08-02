@@ -59,7 +59,7 @@
                             </div>
                             <!-- /col -->
                             <div class="pagination-container">
-                                <Paginate
+                                <!-- <Paginate
                                     v-model="currentPage"
                                     :page-count="pageCount"
                                     :click-handler="handlePageClick"
@@ -68,7 +68,7 @@
                                     :page-link-class="'page-link'"
                                     :prev-text="'&laquo;'"
                                     :next-text="'&raquo;'"
-                                ></Paginate>
+                                ></Paginate> -->
                             </div>
                         </div>
                         <!-- /row -->
@@ -150,14 +150,12 @@
 <script>
 import Layout from "./../../layouts/frontend/Index.vue";
 import axios from "axios";
-import Paginate from "vuejs-paginate-next";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 export default {
     name: "Blog",
     components: {
         Layout,
-        Paginate,
     },
     data() {
         return {

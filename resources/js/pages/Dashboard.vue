@@ -22,7 +22,7 @@ import NotificationBar from "@/Components/NotificationBar.vue";
 import BaseButton from "@/Components/BaseButton.vue";
 import CardBoxTransaction from "@/Components/CardBoxTransaction.vue";
 import CardBoxClient from "@/Components/CardBoxClient.vue";
-import LayoutAuthenticated from "@/Layouts/AuthenticatedLayout.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
 import SectionBannerStarOnGitHub from "@/Components/SectionBannerStarOnGitHub.vue";
 const chartData = ref(null);
@@ -43,7 +43,7 @@ const transactionBarItems = computed(() => mainStore.history);
 </script>
 
 <template>
-    <LayoutAuthenticated>
+    <AuthenticatedLayout>
         <Head title="Dashboard" />
         <SectionMain>
             <SectionTitleLineWithButton
@@ -152,5 +152,5 @@ const transactionBarItems = computed(() => mainStore.history);
                 <TableSampleClients />
             </CardBox>
         </SectionMain>
-    </LayoutAuthenticated>
+    </AuthenticatedLayout>
 </template>
