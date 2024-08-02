@@ -29,7 +29,7 @@ Route::prefix('products')->group(function () {
 Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::delete('/products/delete/{id}', [ProductController::class, 'destroy']);
-Route::get('/products/by-category', [ProductController::class, 'getProductsByCategory']);
+Route::get('/by-category', [ProductController::class, 'getProductsByCategory']);
 //admin product images
 Route::delete('delete_image_products', [ProductController::class, 'deleteImage']);
 
