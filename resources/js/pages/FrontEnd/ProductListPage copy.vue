@@ -214,7 +214,7 @@
             </div>
             <div class="row">
                 <div class="col-xl-10 col-lg-10">
-                    <Paginate
+                    <!-- <Paginate
                         v-if="sortedProducts.length > itemsPerPage"
                         :page-count="pageCount"
                         :click-handler="handlePageClick"
@@ -223,7 +223,7 @@
                         :page-link-class="'page-link'"
                         :prev-text="'«'"
                         :next-text="'»'"
-                    ></Paginate>
+                    ></Paginate> -->
                 </div>
                 <div class="col-xl-2 col-lg-2">
                     <Link :href="route('frontend.cart')" class="btn_1 outline">
@@ -238,7 +238,7 @@
 import axios from "axios";
 import { ref, computed, onMounted } from "vue";
 import GuestLayout from "../../Layouts/GuestLayout.vue";
-import Paginate from "vuejs-paginate-next";
+// import Paginate from "vuejs-paginate-next";
 import { useCartStore } from "../../Stores/useCartStore";
 
 const products = ref([]);

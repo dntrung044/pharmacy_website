@@ -41,7 +41,7 @@
         "pinia": "^2.1.7",
         "sticky-sidebar": "^3.3.1",
         "theia-sticky-sidebar": "^1.7.0",
-        "vue": "^3.4.29",
+        "vue": "^3.4.29", 
         "vue-custom-select-box": "^0.0.3",
         "vue-easy-lightbox": "^1.19.0",
         "vue-filepond": "^7.0.4",

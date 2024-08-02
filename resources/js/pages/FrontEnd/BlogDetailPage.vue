@@ -1,197 +1,172 @@
 <template>
-    <Layout>
-        <template v-slot:content>
-            <div class="container margin_60_40">
-                <div class="row">
-                    <div class="col-lg-9">
-                        <div class="singlepost" v-if="post">
-                            <figure>
-                                <img
-                                    :src="post.image"
-                                    alt=""
-                                    class="img-fluid"
-                                />
-                            </figure>
-                            <h1>{{ post.title }}</h1>
-                            <div class="postmeta">
-                                <ul>
-                                    <li>
-                                        <a href="#"
-                                            ><i class="icon_folder-alt"></i>
-                                            {{ post.category.name }}</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <i class="icon_calendar"></i>
-                                        {{ formatDate(post.created_at) }}
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            ><i class="icon_pencil-edit"></i>
-                                            {{ post.user.name }}</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            ><i class="icon_comment_alt"></i>
-                                            ({{ post.comments.length }}) Bình
-                                            luận</a
-                                        >
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /post meta -->
-                            <div
-                                class="post-content"
-                                v-html="post.content"
-                            ></div>
-                            <!-- /post -->
-                        </div>
-                        <!-- /single-post -->
-                        <div id="comments">
-                            <h5>Bình luận</h5>
+    <GuestLayout>
+        <div class="container margin_60_40">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="singlepost" v-if="post">
+                        <figure>
+                            <img :src="post.image" alt="" class="img-fluid" />
+                        </figure>
+                        <h1>{{ post.title }}</h1>
+                        <div class="postmeta">
                             <ul>
-                                <li
-                                    v-for="comment in comments"
-                                    :key="comment.id"
-                                >
-                                    <div class="avatar">
-                                        <a href="#"
-                                            ><img
-                                                src="img/avatar1.jpg"
-                                                alt=""
-                                            />
-                                        </a>
-                                    </div>
-
-                                    <div class="comment_right clearfix">
-                                        <div class="comment_info">
-                                            {{ comment.name }}
-                                            <span>|</span
-                                            >{{
-                                                formatDateComment(
-                                                    comment.created_at
-                                                )
-                                            }}
-                                        </div>
-                                        <p>{{ comment.content }}</p>
-                                    </div>
+                                <li>
+                                    <a href="#"
+                                        ><i class="icon_folder-alt"></i>
+                                        {{ post.category.name }}</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="icon_calendar"></i>
+                                    {{ formatDate(post.created_at) }}
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        ><i class="icon_pencil-edit"></i>
+                                        {{ post.user.name }}</a
+                                    >
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        ><i class="icon_comment_alt"></i> ({{
+                                            post.comments.length
+                                        }}) Bình luận</a
+                                    >
                                 </li>
                             </ul>
+                        </div>
+                        <!-- /post meta -->
+                        <div class="post-content" v-html="post.content"></div>
+                        <!-- /post -->
+                    </div>
+                    <!-- /single-post -->
+                    <div id="comments">
+                        <h5>Bình luận</h5>
+                        <ul>
+                            <li v-for="comment in comments" :key="comment.id">
+                                <div class="avatar">
+                                    <a href="#"
+                                        ><img src="img/avatar1.jpg" alt="" />
+                                    </a>
+                                </div>
+
+                                <div class="comment_right clearfix">
+                                    <div class="comment_info">
+                                        {{ comment.name }}
+                                        <span>|</span
+                                        >{{
+                                            formatDateComment(
+                                                comment.created_at
+                                            )
+                                        }}
+                                    </div>
+                                    <p>{{ comment.content }}</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <button
+                            v-if="hasMoreComments"
+                            @click="loadMoreComments"
+                            class="btn_1 mb-3 mt-4"
+                        >
+                            Thêm bình luận
+                        </button>
+                    </div>
+
+                    <hr />
+
+                    <h5>Để lại một bình luận:</h5>
+                    <div v-if="user && user.name">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input
+                                        v-model="user.name"
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Tên"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input
+                                        v-model="user.email"
+                                        type="email"
+                                        class="form-control"
+                                        placeholder="Email"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea
+                                v-model="content"
+                                class="form-control"
+                                rows="6"
+                                placeholder="Nội dung"
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
                             <button
-                                v-if="hasMoreComments"
-                                @click="loadMoreComments"
-                                class="btn_1 mb-3 mt-4"
+                                type="submit"
+                                id="submit2"
+                                class="btn_1 mb-3"
+                                @click="submitComment"
                             >
-                                Thêm bình luận
+                                Bình luận
                             </button>
                         </div>
-
-                        <hr />
-
-                        <h5>Để lại một bình luận:</h5>
-                        <div v-if="user && user.name">
-                            <div class="row">
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="form-group">
-                                        <input
-                                            v-model="user.name"
-                                            type="text"
-                                            class="form-control"
-                                            placeholder="Tên"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-6">
-                                    <div class="form-group">
-                                        <input
-                                            v-model="user.email"
-                                            type="email"
-                                            class="form-control"
-                                            placeholder="Email"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <textarea
-                                    v-model="content"
-                                    class="form-control"
-                                    rows="6"
-                                    placeholder="Nội dung"
-                                ></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button
-                                    type="submit"
-                                    id="submit2"
-                                    class="btn_1 mb-3"
-                                    @click="submitComment"
-                                >
-                                    Bình luận
-                                </button>
-                            </div>
-                        </div>
                     </div>
-                    <!-- /col -->
-
-                    <aside class="col-lg-3">
-                        <!-- Latest Posts Widget -->
-                        <div class="widget">
-                            <div class="widget-title first">
-                                <h4>Bài đăng Mới nhất</h4>
-                            </div>
-                            <ul class="comments-list">
-                                <li
-                                    v-for="latestPost in latestPosts"
-                                    :key="latestPost.id"
-                                >
-                                    <div class="alignleft">
-                                        <a
-                                            :href="
-                                                '/blog/posts/' + latestPost.id
-                                            "
-                                        >
-                                            <img
-                                                :src="latestPost.image"
-                                                alt=""
-                                            />
-                                        </a>
-                                    </div>
-                                    <small
-                                        >{{ latestPost.category.name }} -
-                                        {{
-                                            formatDate(latestPost.created_at)
-                                        }}</small
-                                    >
-                                    <h3>
-                                        <a
-                                            :href="
-                                                '/blog/posts/' + latestPost.id
-                                            "
-                                            >{{ latestPost.title }}</a
-                                        >
-                                    </h3>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /widget -->
-                    </aside>
-                    <!-- /aside -->
                 </div>
-                <!-- /row -->
+                <!-- /col -->
+
+                <aside class="col-lg-3">
+                    <!-- Latest Posts Widget -->
+                    <div class="widget">
+                        <div class="widget-title first">
+                            <h4>Bài đăng Mới nhất</h4>
+                        </div>
+                        <ul class="comments-list">
+                            <li
+                                v-for="latestPost in latestPosts"
+                                :key="latestPost.id"
+                            >
+                                <div class="alignleft">
+                                    <a :href="'/blog/posts/' + latestPost.id">
+                                        <img :src="latestPost.image" alt="" />
+                                    </a>
+                                </div>
+                                <small
+                                    >{{ latestPost.category.name }} -
+                                    {{
+                                        formatDate(latestPost.created_at)
+                                    }}</small
+                                >
+                                <h3>
+                                    <a :href="'/blog/posts/' + latestPost.id">{{
+                                        latestPost.title
+                                    }}</a>
+                                </h3>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /widget -->
+                </aside>
+                <!-- /aside -->
             </div>
-        </template>
-    </Layout>
+            <!-- /row -->
+        </div>
+    </GuestLayout>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import Layout from "./../../layouts/frontend/Index.vue";
+import GuestLayout from "../../Layouts/GuestLayout.vue";
 import axios from "axios";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
-import ErrorMessage from "./../../components/ErrorMessage.vue";
+import ErrorMessage from "./../../Components/ErrorMessage.vue";
 import { useToast } from "vue-toastification";
 
 export default {

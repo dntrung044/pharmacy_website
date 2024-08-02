@@ -133,60 +133,20 @@
                         <Title
                             class="text-4xl font-bold tracking-tight text-gray-900"
                         />
-
                         <div class="flex items-center">
-                            <Menu
-                                as="div"
-                                class="relative inline-block text-left"
+                            <select
+                                v-model="sortOption"
+                                @change="sortProducts"
+                                class="relative inline-block text-left form-select w-full mt-1 rounded-md border-gray-300 shadow-sm"
                             >
-                                <div>
-                                    <MenuButton
-                                        class="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
-                                    >
-                                        Sort
-                                        <ChevronDownIcon
-                                            class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                            aria-hidden="true"
-                                        />
-                                    </MenuButton>
-                                </div>
-
-                                <transition
-                                    enter-active-class="transition ease-out duration-100"
-                                    enter-from-class="transform opacity-0 scale-95"
-                                    enter-to-class="transform opacity-100 scale-100"
-                                    leave-active-class="transition ease-in duration-75"
-                                    leave-from-class="transform opacity-100 scale-100"
-                                    leave-to-class="transform opacity-0 scale-95"
+                                <option
+                                    v-for="option in sortOptions"
+                                    :key="option.value"
+                                    :value="option.value"
                                 >
-                                    <MenuItems
-                                        class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                    >
-                                        <div class="py-1">
-                                            <MenuItem
-                                                v-for="option in sortOptions"
-                                                v-slot="{ active }"
-                                                v-model="sortOption"
-                                                @change="sortProducts"
-                                            >
-                                                <a
-                                                    :value="option.value"
-                                                    :class="[
-                                                        option.current
-                                                            ? 'font-medium text-gray-900'
-                                                            : 'text-gray-500',
-                                                        active
-                                                            ? 'bg-gray-100'
-                                                            : '',
-                                                        'block px-4 py-2 text-sm',
-                                                    ]"
-                                                    >{{ option.name }}</a
-                                                >
-                                            </MenuItem>
-                                        </div>
-                                    </MenuItems>
-                                </transition>
-                            </Menu>
+                                    {{ option.name }}
+                                </option>
+                            </select>
 
                             <button
                                 type="button"
@@ -471,19 +431,21 @@
                                     >
                                         <div class="p-6">
                                             <div
-                                                class="bg-gray-100 w-10 h-10 flex items-center justify-center rounded-full cursor-pointer absolute top-4 right-4"
+                                                class="bg-gray-100 w-15 h-15 flex items-center justify-center rounded-full cursor-pointer absolute top-4 right-4 p-2"
                                             >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    width="16px"
-                                                    class="fill-gray-800 inline-block"
-                                                    viewBox="0 0 64 64"
+                                                <span
+                                                    class="text-[#a56e15] mx-1"
+                                                    v-if="product.price_sale"
                                                 >
-                                                    <path
-                                                        d="M45.5 4A18.53 18.53 0 0 0 32 9.86 18.5 18.5 0 0 0 0 22.5C0 40.92 29.71 59 31 59.71a2 2 0 0 0 2.06 0C34.29 59 64 40.92 64 22.5A18.52 18.52 0 0 0 45.5 4ZM32 55.64C26.83 52.34 4 36.92 4 22.5a14.5 14.5 0 0 1 26.36-8.33 2 2 0 0 0 3.27 0A14.5 14.5 0 0 1 60 22.5c0 14.41-22.83 29.83-28 33.14Z"
-                                                        data-original="#000000"
-                                                    ></path>
-                                                </svg>
+                                                    -{{
+                                                        (
+                                                            ((product.price -
+                                                                product.price_sale) /
+                                                                product.price) *
+                                                            100
+                                                        ).toFixed(0)
+                                                    }}%
+                                                </span>
                                             </div>
 
                                             <div
@@ -508,9 +470,29 @@
                                             <!-- rating -->
                                             <div
                                                 class="flex justify-center space-x-1 mt-3"
+                                                v-if="
+                                                    product.total_rating &&
+                                                    product.total_number
+                                                "
                                             >
                                                 <svg
-                                                    class="w-4 fill-[#facc15]"
+                                                    v-for="n in 5"
+                                                    :key="n"
+                                                    :class="{
+                                                        'fill-yellow-300':
+                                                            n <=
+                                                            Math.round(
+                                                                product.total_number /
+                                                                    product.total_rating
+                                                            ),
+                                                        'fill-[#CED5D8]':
+                                                            n >
+                                                            Math.round(
+                                                                product.total_number /
+                                                                    product.total_rating
+                                                            ),
+                                                    }"
+                                                    class="w-4"
                                                     viewBox="0 0 14 13"
                                                     fill="none"
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -519,8 +501,15 @@
                                                         d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
                                                     />
                                                 </svg>
-
+                                                <h5
+                                                    class="text-gray-400 ml-2 font-bold"
+                                                >
+                                                    <!-- (2) -->
+                                                </h5>
+                                            </div>
+                                            <div v-else>
                                                 <svg
+                                                    v-for="n in 5"
                                                     class="w-4 fill-[#CED5D8]"
                                                     viewBox="0 0 14 13"
                                                     fill="none"
@@ -530,12 +519,6 @@
                                                         d="M7 0L9.4687 3.60213L13.6574 4.83688L10.9944 8.29787L11.1145 12.6631L7 11.2L2.8855 12.6631L3.00556 8.29787L0.342604 4.83688L4.5313 3.60213L7 0Z"
                                                     />
                                                 </svg>
-
-                                                <h5
-                                                    class="text-gray-400 ml-2 font-bold"
-                                                >
-                                                    (1,889)
-                                                </h5>
                                             </div>
 
                                             <!-- price -->
@@ -543,21 +526,26 @@
                                                 class="text-lg text-gray-800 font-bold"
                                             >
                                                 {{
-                                                    product.price_sale ||
-                                                    product.price
+                                                    formatCurrency(
+                                                        product.price_sale ||
+                                                            product.price
+                                                    )
                                                 }}đ
                                                 <strike
                                                     class="text-gray-400 ml-2 font-medium"
                                                     v-if="product.price_sale"
                                                     >{{
-                                                        product.price
-                                                    }}đ</strike
+                                                        formatCurrency(
+                                                            product.price
+                                                        )
+                                                    }}</strike
                                                 >
                                             </h4>
                                             <!--  add to cart -->
                                             <button
+                                                @click="addToCart(product)"
                                                 type="button"
-                                                class="w-full flex items-center justify-center gap-3 mt-4 px-6 py-3 bg-yellow-400 text-base text-gray-800 font-semibold rounded-xl"
+                                                class="w-full flex items-center justify-center gap-3 mt-4 px-6 py-3 bg-[#a56e15] text-base text-gray-800 font-semibold rounded-xl hover:bg-[#e4a82e]"
                                             >
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -576,16 +564,20 @@
                                     </div>
                                 </div>
                                 <!-- Paginate -->
-                                <Paginate
-                                    v-if="sortedProducts.length > itemsPerPage"
-                                    :page-count="pageCount"
-                                    :click-handler="handlePageClick"
-                                    :container-class="'pagination'"
-                                    :page-class="'page-item'"
-                                    :page-link-class="'page-link'"
-                                    :prev-text="'«'"
-                                    :next-text="'»'"
-                                ></Paginate>
+                                <div class="mt-4 flex justify-end">
+                                    <Paginate
+                                        v-if="
+                                            sortedProducts.length > itemsPerPage
+                                        "
+                                        :page-count="pageCount"
+                                        :click-handler="handlePageClick"
+                                        :container-class="'pagination'"
+                                        :page-class="'page-item'"
+                                        :page-link-class="'page-link'"
+                                        :prev-text="'«'"
+                                        :next-text="'»'"
+                                    ></Paginate>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -607,16 +599,11 @@ import {
     Disclosure,
     DisclosureButton,
     DisclosurePanel,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuItems,
     TransitionChild,
     TransitionRoot,
 } from "@headlessui/vue";
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 import {
-    ChevronDownIcon,
     FunnelIcon,
     MinusIcon,
     PlusIcon,
@@ -629,20 +616,6 @@ const sortOptions = [
     { name: "Newest", value: "date", current: false },
     { name: "Price: Low to High", value: "price", current: false },
     { name: "Price: High to Low", value: "desc", current: false },
-];
-const filters = [
-    {
-        id: "size",
-        name: "Size",
-        options: [
-            { value: "2l", label: "2L", checked: false },
-            { value: "6l", label: "6L", checked: false },
-            { value: "12l", label: "12L", checked: false },
-            { value: "18l", label: "18L", checked: false },
-            { value: "20l", label: "20L", checked: false },
-            { value: "40l", label: "40L", checked: true },
-        ],
-    },
 ];
 
 const mobileFiltersOpen = ref(false);
@@ -736,7 +709,7 @@ const filterByPriceRange = (range) => {
         filteredPriceRange.value.min === range.min &&
         filteredPriceRange.value.max === range.max
     ) {
-        filteredPriceRange.value = null; // Uncheck the checkbox
+        filteredPriceRange.value = null;
     } else {
         filteredPriceRange.value = range;
     }
@@ -770,7 +743,7 @@ const sortedProducts = computed(() => {
         sorted.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
     } else if (sortOption.value === "price") {
         sorted.sort((a, b) => a.price_sale - b.price_sale);
-    } else if (sortOption.value === "price-desc") {
+    } else if (sortOption.value === "desc") {
         sorted.sort((a, b) => b.price_sale - a.price_sale);
     }
 
@@ -823,11 +796,11 @@ const formatCurrency = (value) => {
 const addToCart = (product) => {
     cartStore.addToCart(product);
 };
-
 onMounted(fetchProducts);
 </script>
 
 <style scope>
+@import "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css";
 .no-underline {
     text-decoration: none;
 }

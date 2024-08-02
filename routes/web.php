@@ -7,7 +7,8 @@ use Inertia\Inertia;
 
 
 Route::get('/', [HomeController::class, 'index'])->name('frontend.home');
-Route::get('/shop', [HomeController::class, 'shop'])->name('frontend.shop');
+Route::get('/product-list', [HomeController::class, 'shop'])->name('frontend.shop');
+Route::get('/product-detail', [HomeController::class, 'shop'])->name('frontend.shop');
 Route::get('/blog', [HomeController::class, 'blog'])->name('frontend.blog');
 Route::get('/about', [HomeController::class, 'about'])->name('frontend.about');
 Route::get('/cart', [HomeController::class, 'cart'])->name('frontend.cart');
